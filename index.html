@@ -678,31 +678,75 @@ table.gqt tr:last-child td{border-bottom:none}
 
 /* ══ GLOBAL READABILITY & CONTRAST FIXES ══ */
 
-/* Boost all sub-12px text globally */
+/* === ON-DARK: make ALL text on dark backgrounds clearly readable === */
+
+/* Eyebrow labels on dark - must be visible */
+.ey.inv{color:rgba(227,0,27,.85)!important}
+.ey.inv::before{background:rgba(227,0,27,.7)!important}
+
+/* Section subtitle on dark */
+.s-lead.inv{color:rgba(255,255,255,.82)!important;font-size:18px}
+.s-lead.inv b{color:#fff!important}
+
+/* Hero subtitle */
+.hero-sub{color:rgba(255,255,255,.82)}
+
+/* Hero kicker */
+.hero-kicker{font-size:12px;color:rgba(255,255,255,.65)}
+
+/* Hero numbers labels */
+.hn-l{color:rgba(255,255,255,.80);font-size:14px}
+.hn-s{font-size:12px;color:rgba(255,255,255,.60)}
+
+/* Promise/Solution items */
+.pi-num{font-size:13px;color:rgba(227,0,27,.85)}
+.pi-title{color:#fff!important}
+.pi-desc{color:rgba(255,255,255,.82)!important;font-size:16px}
+.pi-desc b{color:#fff!important}
+
+/* Flow section */
+.fs h3{font-size:15px!important;color:#fff!important}
+.fs p{font-size:14px!important;color:rgba(255,255,255,.78)!important}
+.fs-tag{font-size:11px;color:rgba(227,0,27,.85);background:rgba(227,0,27,.12);border-color:rgba(227,0,27,.30)}
+.fs-num{color:rgba(255,255,255,.85);font-size:15px}
+
+/* Business model */
+.mf-lbl{color:#fff!important}
+.mf-sub{color:rgba(255,255,255,.78)!important}
+.mf-val{font-size:22px}
+.mb-t{color:#fff!important}
+.mb-s{color:rgba(255,255,255,.78)!important;font-size:13px}
+.formula-txt{color:#fff!important;font-size:19px}
+.formula-label{font-size:11px;color:rgba(227,0,27,.80)}
+
+/* CTA section */
+.cta-sub{color:rgba(255,255,255,.82)!important;font-size:18px}
+.cta-sub b{color:#fff!important}
+.cta-kicker{font-size:12px;color:rgba(227,0,27,.80)}
+.cta-note{font-size:12px;color:rgba(255,255,255,.60)}
+.close-pt strong{color:#fff!important}
+.close-pt span{font-size:13px;color:rgba(255,255,255,.78)!important}
+
+/* Footer */
+footer small{font-size:11px;color:rgba(255,255,255,.55)}
+.f-a{font-size:13px;color:rgba(255,255,255,.60)}
+
+/* Hero aside panel */
+.ha-tag{font-size:10px}
+.ha-label{font-size:10px;color:rgba(227,0,27,.80)}
+.ha-card p{color:rgba(255,255,255,.78);font-size:13px}
+.haf-s{font-size:12px;color:rgba(255,255,255,.72)}
+
+/* === ON-LIGHT: boost faint labels === */
 .n-tag{font-size:11px}
-.hero-kicker{font-size:11px;color:rgba(255,255,255,.55)}
-.ha-tag,.ha-label{font-size:10px}
-.hn-s{font-size:11px;color:rgba(255,255,255,.55)}
-.ey,.ey.inv{font-size:11px}
-.pc-n{font-size:10px}
-.pi-num{font-size:12px;color:rgba(227,0,27,.7)}
-.fs-tag{font-size:10px}
-.fs p{font-size:13px;color:rgba(255,255,255,.65)}
-.formula-label{font-size:10px}
-.cc-badge{font-size:10px}
-.mb-hd{font-size:10px}
+.pc-n{font-size:11px;color:var(--p2)}
+.pc-body{font-size:14px}
+.cc-badge{font-size:11px}
+.mb-hd{font-size:11px}
 .rd-pill small{font-size:10px}
 .mb-meta span{font-size:12px}
-.cta-kicker{font-size:11px}
-.cta-note{font-size:11px;color:rgba(255,255,255,.55)}
-footer small{font-size:10px;color:rgba(255,255,255,.50)}
-.f-a{font-size:13px;color:rgba(255,255,255,.55)}
-.haf-s{font-size:12px;color:rgba(255,255,255,.65)}
-.close-pt span{font-size:13px;color:rgba(255,255,255,.70)}
-.mf-sub{color:rgba(255,255,255,.65)}
-.mb-s{color:rgba(255,255,255,.65)}
-.pi-desc{color:rgba(255,255,255,.65)}
-.pc-body{font-size:14px}
+
+/* Dashboard */
 .g-meta{font-size:12px}
 .gbadge{font-size:11px}
 .g-ptag{font-size:10px}
@@ -777,9 +821,17 @@ table.gqt th{font-size:10px}
   .g-jst .gsq,.gst,.g-ar,.g-atg,.g-ass,
   .g-wpb,.pc-n,.haf-s,.pi-num,
   .rd-pill small,.mb-meta span,.g-bn,
-  .close-pt span,.fs p{
+  .close-pt span,.fs-tag{
     font-size:12px!important;
   }
+  .fs p{font-size:14px!important;color:rgba(255,255,255,.80)!important}
+  .fs h3{font-size:15px!important}
+  .pi-desc{font-size:15px!important;color:rgba(255,255,255,.85)!important}
+  .s-lead.inv{font-size:16px!important;color:rgba(255,255,255,.85)!important}
+  .hn-l{font-size:13px!important;color:rgba(255,255,255,.82)!important}
+  .mf-sub{font-size:13px!important}
+  .mb-s{font-size:13px!important}
+  .cta-sub{font-size:15px!important}
   footer small{font-size:11px;color:rgba(255,255,255,.55)}
   .f-a{font-size:13px;color:rgba(255,255,255,.55)}
   .g-sticky{padding:10px 16px}
