@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>GeoScale × ידיעות אחרונות</title>
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -457,6 +458,53 @@ footer small{font-family:var(--m);font-size:9px;color:var(--w3)}
   .g-bn{padding:7px 12px;font-size:11px}
   .mini-grid{grid-template-columns:repeat(4,1fr)}
   .mini-brands{padding:18px}
+}
+
+/* ══ GLOBAL CONTRAST & READABILITY FIXES ══ */
+/* Boost --w3 from 24% to 50% white for readability on dark backgrounds */
+:root{
+  --w3:rgba(255,255,255,.50);
+  --p3:#7a7470;
+}
+
+/* All text minimum 12px everywhere */
+@media(max-width:720px){
+  /* Nav header fix */
+  nav{gap:8px}
+  .logo{font-size:15px}
+  .n-cta{margin-right:0}
+
+  /* Minimum font sizes — bump everything under 12px */
+  .n-tag,.hero-kicker,.hn-s,.ey,.ey.inv,
+  .formula-label,.cc-badge,.mb-hd,.cta-kicker,.cta-note,
+  .geo-bridge-eyebrow,.gbr-ey,.ha-tag,.ha-label,
+  .g-meta,.gbadge,.g-ptag,.g-mc .ml,.g-endet,
+  .g-jst .gsq,.gst,.g-ar,.g-atg,.g-ass,
+  .g-wpb,.pc-n,.haf-s,.pi-num,
+  .rd-pill small,.mb-meta span,.g-bn,
+  .close-pt span,.fs p{
+    font-size:12px!important;
+  }
+
+  /* Dark-on-dark contrast fixes */
+  .fs p,.haf-s{color:rgba(255,255,255,.60)!important}
+  .hero-kicker{color:rgba(255,255,255,.55)!important}
+  .hn-s{color:rgba(255,255,255,.50)!important}
+  .cta-note{color:rgba(255,255,255,.55)!important}
+  .close-pt span{color:rgba(255,255,255,.70)!important}
+  .mf-sub{color:rgba(255,255,255,.65)!important}
+  .mb-s{color:rgba(255,255,255,.65)!important}
+  .pi-desc{color:rgba(255,255,255,.65)!important}
+  .pi-num{color:rgba(227,0,27,.75)!important}
+
+  /* Footer text contrast */
+  footer small{font-size:11px;color:rgba(255,255,255,.55)}
+  .f-a{font-size:13px;color:rgba(255,255,255,.55)}
+}
+
+@media(max-width:480px){
+  .pc-n{font-size:10px!important}
+  .g-meta{font-size:11px!important}
 }
 
 @keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
