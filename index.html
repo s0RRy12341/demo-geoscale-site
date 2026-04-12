@@ -20,9 +20,9 @@ html{scroll-behavior:smooth}
   --green:#0a9e50; --green+:rgba(10,158,80,.09);
   --amber:#c97400; --amber+:rgba(201,116,0,.09);
   /* TYPE ON INK */
-  --w1:rgba(255,255,255,.92); --w2:rgba(255,255,255,.50); --w3:rgba(255,255,255,.24);
+  --w1:rgba(255,255,255,.95); --w2:rgba(255,255,255,.70); --w3:rgba(255,255,255,.50);
   /* TYPE ON PAPER */
-  --p1:#0d0d0d; --p2:#5a5550; --p3:#a09890;
+  --p1:#0d0d0d; --p2:#4a4540; --p3:#6b6560;
   /* BORDERS */
   --bi:rgba(255,255,255,.07); --bp:rgba(0,0,0,.09);
   --f:'Heebo',system-ui,sans-serif; --m:'DM Mono',monospace;
@@ -45,7 +45,7 @@ body{font-family:var(--f);background:var(--paper);color:var(--p1);direction:rtl;
 ::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:var(--red)}
 
 /* ══ NAV ══ */
-nav{position:sticky;top:0;z-index:200;height:56px;background:rgba(245,242,236,.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--bp);display:flex;align-items:center;justify-content:space-between;padding:0 48px}
+nav{position:sticky;top:0;z-index:200;height:56px;background:rgba(245,242,236,.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--bp);display:flex;align-items:center;justify-content:space-between;padding:0 48px;overflow:hidden}
 .n-l{display:flex;align-items:center;gap:12px}
 .logo{font-size:17px;font-weight:900;letter-spacing:-.5px;color:var(--ink)}.logo span{color:var(--red)}
 .pipe{width:1px;height:15px;background:var(--bp)}
@@ -376,159 +376,15 @@ footer small{font-family:var(--m);font-size:9px;color:var(--w3)}
   .cta-card{padding:32px 24px}
 }
 @media(max-width:720px){
-  nav{padding:0 16px;height:50px}
-  .n-tag{display:none}
-  .hero h1{font-size:36px;letter-spacing:-2px}
-  .hero-sub{font-size:15px}
-  .hero-in{padding:56px 20px 48px}
+  .hero h1{font-size:40px;letter-spacing:-3px}
   .n-a{display:none}
-  .n-cta{padding:7px 14px;font-size:12px}
   .flow-grid{grid-template-columns:1fr 1fr}
-  .flow-grid::before{display:none}
-  .fs{min-height:auto;padding:16px 10px 20px}
-  .fs-num{width:42px;height:42px;font-size:12px;margin-bottom:12px}
   .hero-nums{grid-template-columns:1fr}
   .hn{border-left:none;border-top:1px solid var(--bi);padding:14px 0 0}
   .hn:first-child{border-top:none;padding-top:0}
-  .hn-n{font-size:32px}
-  .red-div-in{flex-direction:column;padding:24px 20px;text-align:center}
-  .rd-txt{font-size:16px}
-  .rd-pills{justify-content:center}
-  .cta-card h2{font-size:32px;letter-spacing:-2px}
-  .cta-sub{font-size:14px}
-  .cta-btns{flex-direction:column;gap:10px}
-  .cta-btns a{text-align:center;justify-content:center}
+  .red-div-in{flex-direction:column}
+  .cta-card h2{font-size:36px}
   .mini-grid{grid-template-columns:repeat(7,1fr)}
-  .s{padding:56px 0}
-  .s-in{padding:0 20px}
-  h2{font-size:28px;letter-spacing:-1.5px}
-  .s-lead{font-size:15px;margin-bottom:32px}
-  .prob-bg .s-in{padding-top:48px!important;padding-bottom:48px!important}
-  .pc{padding:24px 20px}
-  .pc-stat{font-size:36px}
-  .pc h3{font-size:15px}
-  .promise-in{padding:0 20px}
-  .pi{flex-direction:column;gap:12px;padding:24px 0}
-  .pi-title{font-size:22px}
-  .pi-desc{font-size:14px}
-  .model-in{padding:56px 20px}
-  .mf-row{padding:16px;gap:12px}
-  .mf-lbl{font-size:13px}
-  .mf-val{font-size:17px}
-  .mb{padding:14px}
-  .cta-outer{padding:56px 20px}
-  .cta-note{font-size:9px}
-  .close-pt{padding:14px}
-  .close-pt strong{font-size:13px}
-  .close-pt span{font-size:11px}
-  footer{padding:24px 20px;flex-direction:column;text-align:center;gap:16px}
-  .f-links{justify-content:center}
-  .geo-bridge{padding:36px 20px}
-  .geo-bridge h2{font-size:26px!important}
-  .geo-bridge p{font-size:13px}
-  /* Dashboard tables scroll horizontally */
-  table.gqt{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
-  .g-bhdr{flex-direction:column;text-align:center;gap:14px;padding:20px}
-  .g-ring{width:64px;height:64px;font-size:18px}
-  .g-bi h3{font-size:18px}
-  .g-aud-g{grid-template-columns:1fr}
-}
-@media(max-width:480px){
-  .hero h1{font-size:30px;letter-spacing:-1.5px}
-  .hero-sub{font-size:14px;line-height:1.6}
-  .hero-btns{flex-direction:column;gap:10px}
-  .hero-btns a{text-align:center;justify-content:center;width:100%}
-  .btn-r{padding:12px 20px;font-size:13px}
-  .btn-g{padding:11px 16px;font-size:12px}
-  .flow-grid{grid-template-columns:1fr}
-  .fs:not(:last-child){border-left:none;border-bottom:1px solid var(--bi)}
-  h2{font-size:24px;letter-spacing:-1px}
-  .cta-card h2{font-size:26px;letter-spacing:-1.5px}
-  .prob-grid{gap:1px}
-  .pc-n{font-size:8px}
-  #gSB,.g-metrics{grid-template-columns:1fr}
-  .g-journey{grid-template-columns:1fr 1fr}
-  .g-engs{grid-template-columns:1fr}
-  .g-sent{grid-template-columns:1fr}
-  .g-ins-grid,.g-ins-g{grid-template-columns:1fr}
-  .g-sticky{padding:10px 16px}
-  .g-wrap{padding:20px 16px 48px}
-  .g-meta{font-size:9px}
-  #gBN{gap:6px}
-  .g-bn{padding:7px 12px;font-size:11px}
-  .mini-grid{grid-template-columns:repeat(4,1fr)}
-  .mini-brands{padding:18px}
-}
-
-/* ══ GLOBAL CONTRAST & READABILITY FIXES ══ */
-:root{
-  /* Boost faint text tokens for readability */
-  --w3:rgba(255,255,255,.50);
-  --p3:#6b6560;
-}
-
-/* ── Desktop: bump all sub-12px text globally ── */
-.n-tag{font-size:11px}
-.hero-kicker{font-size:11px;color:rgba(255,255,255,.45)}
-.ha-tag,.ha-label{font-size:10px}
-.hn-s{font-size:11px;color:rgba(255,255,255,.45)}
-.ey,.ey.inv{font-size:11px}
-.pc-n{font-size:10px}
-.pi-num{font-size:12px;color:rgba(227,0,27,.7)}
-.fs-tag{font-size:10px}
-.fs p{font-size:13px;color:rgba(255,255,255,.55)}
-.formula-label{font-size:10px}
-.cc-badge{font-size:10px}
-.mb-hd{font-size:10px}
-.rd-pill small{font-size:10px}
-.mb-meta span{font-size:12px}
-.cta-kicker{font-size:11px}
-.cta-note{font-size:11px;color:rgba(255,255,255,.50)}
-footer small{font-size:10px;color:rgba(255,255,255,.45)}
-.f-a{font-size:13px;color:rgba(255,255,255,.50)}
-.haf-s{font-size:12px;color:rgba(255,255,255,.60)}
-.close-pt span{font-size:13px;color:rgba(255,255,255,.65)}
-.mf-sub{color:rgba(255,255,255,.60)}
-.mb-s{color:rgba(255,255,255,.60)}
-.pi-desc{color:rgba(255,255,255,.60)}
-
-/* Dashboard section: bump small text */
-.g-meta{font-size:12px}
-.gbadge{font-size:11px}
-.g-ptag{font-size:10px}
-.g-mc .ml{font-size:12px}
-.g-endet{font-size:12px}
-.g-jst .gsq{font-size:11px}
-.gst{font-size:10px}
-.g-ar{font-size:12px}
-.g-atg{font-size:11px}
-.g-ass{font-size:11px}
-.g-wpb{font-size:10px}
-table.gqt th{font-size:10px}
-
-/* ── Mobile: further bumps ── */
-@media(max-width:720px){
-  nav{gap:8px}
-  .logo{font-size:15px}
-  .n-cta{margin-right:0}
-
-  .n-tag,.hero-kicker,.hn-s,.ey,.ey.inv,
-  .formula-label,.cc-badge,.mb-hd,.cta-kicker,.cta-note,
-  .geo-bridge-eyebrow,.gbr-ey,.ha-tag,.ha-label,
-  .g-meta,.gbadge,.g-ptag,.g-mc .ml,.g-endet,
-  .g-jst .gsq,.gst,.g-ar,.g-atg,.g-ass,
-  .g-wpb,.pc-n,.haf-s,.pi-num,
-  .rd-pill small,.mb-meta span,.g-bn,
-  .close-pt span,.fs p{
-    font-size:12px!important;
-  }
-  footer small{font-size:11px;color:rgba(255,255,255,.55)}
-  .f-a{font-size:13px;color:rgba(255,255,255,.55)}
-}
-
-@media(max-width:480px){
-  .pc-n{font-size:10px!important}
-  .g-meta{font-size:11px!important}
 }
 
 @keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
@@ -814,6 +670,146 @@ table.gqt tr:last-child td{border-bottom:none}
   .g-ins-grid,.g-ins-g,.g-sent{grid-template-columns:1fr}
   #gSB{grid-template-columns:repeat(2,1fr)}
 }
+@media(max-width:720px){
+  .g-journey{grid-template-columns:repeat(2,1fr)}
+  #gSB,.g-metrics{grid-template-columns:repeat(2,1fr)}
+  .geo-bridge{padding:36px 24px}
+}
+
+/* ══ GLOBAL READABILITY & CONTRAST FIXES ══ */
+
+/* Boost all sub-12px text globally */
+.n-tag{font-size:11px}
+.hero-kicker{font-size:11px;color:rgba(255,255,255,.55)}
+.ha-tag,.ha-label{font-size:10px}
+.hn-s{font-size:11px;color:rgba(255,255,255,.55)}
+.ey,.ey.inv{font-size:11px}
+.pc-n{font-size:10px}
+.pi-num{font-size:12px;color:rgba(227,0,27,.7)}
+.fs-tag{font-size:10px}
+.fs p{font-size:13px;color:rgba(255,255,255,.65)}
+.formula-label{font-size:10px}
+.cc-badge{font-size:10px}
+.mb-hd{font-size:10px}
+.rd-pill small{font-size:10px}
+.mb-meta span{font-size:12px}
+.cta-kicker{font-size:11px}
+.cta-note{font-size:11px;color:rgba(255,255,255,.55)}
+footer small{font-size:10px;color:rgba(255,255,255,.50)}
+.f-a{font-size:13px;color:rgba(255,255,255,.55)}
+.haf-s{font-size:12px;color:rgba(255,255,255,.65)}
+.close-pt span{font-size:13px;color:rgba(255,255,255,.70)}
+.mf-sub{color:rgba(255,255,255,.65)}
+.mb-s{color:rgba(255,255,255,.65)}
+.pi-desc{color:rgba(255,255,255,.65)}
+.pc-body{font-size:14px}
+.g-meta{font-size:12px}
+.gbadge{font-size:11px}
+.g-ptag{font-size:10px}
+.g-mc .ml{font-size:12px}
+.g-endet{font-size:12px}
+.g-jst .gsq{font-size:11px}
+.gst{font-size:10px}
+.g-ar{font-size:12px}
+.g-atg{font-size:11px}
+.g-ass{font-size:11px}
+.g-wpb{font-size:10px}
+table.gqt th{font-size:10px}
+
+/* ══ MOBILE 720px ══ */
+@media(max-width:720px){
+  nav{padding:0 16px;height:50px;gap:8px}
+  .logo{font-size:15px}
+  .n-tag{display:none}
+  .n-cta{padding:7px 14px;font-size:12px;margin-right:0}
+  .hero h1{font-size:36px;letter-spacing:-2px}
+  .hero-sub{font-size:15px}
+  .hero-in{padding:56px 20px 48px}
+  .hn-n{font-size:32px}
+  .red-div-in{padding:24px 20px;text-align:center}
+  .rd-txt{font-size:16px}
+  .rd-pills{justify-content:center}
+  .cta-card h2{font-size:32px;letter-spacing:-2px}
+  .cta-sub{font-size:14px}
+  .cta-btns{flex-direction:column;gap:10px}
+  .cta-btns a{text-align:center;justify-content:center}
+  .mini-grid{grid-template-columns:repeat(7,1fr)}
+  .s{padding:56px 0}
+  .s-in{padding:0 20px}
+  h2{font-size:28px;letter-spacing:-1.5px}
+  .s-lead{font-size:15px;margin-bottom:32px}
+  .prob-bg .s-in{padding-top:48px!important;padding-bottom:48px!important}
+  .pc{padding:24px 20px}
+  .pc-stat{font-size:36px}
+  .pc h3{font-size:15px}
+  .promise-in{padding:0 20px}
+  .pi{flex-direction:column;gap:12px;padding:24px 0}
+  .pi-title{font-size:22px}
+  .pi-desc{font-size:14px}
+  .model-in{padding:56px 20px}
+  .mf-row{padding:16px;gap:12px}
+  .mf-lbl{font-size:13px}
+  .mf-val{font-size:17px}
+  .mb{padding:14px}
+  .cta-outer{padding:56px 20px}
+  .cta-note{font-size:9px}
+  .close-pt{padding:14px}
+  .close-pt strong{font-size:13px}
+  .close-pt span{font-size:11px}
+  footer{padding:24px 20px;flex-direction:column;text-align:center;gap:16px}
+  .f-links{justify-content:center}
+  .geo-bridge h2{font-size:26px!important}
+  .geo-bridge p{font-size:13px}
+  table.gqt{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .g-bhdr{flex-direction:column;text-align:center;gap:14px;padding:20px}
+  .g-ring{width:64px;height:64px;font-size:18px}
+  .g-bi h3{font-size:18px}
+  .g-aud-g{grid-template-columns:1fr}
+  .fs{min-height:auto;padding:16px 10px 20px}
+  .fs-num{width:42px;height:42px;font-size:12px;margin-bottom:12px}
+  .flow-grid::before{display:none}
+
+  /* Bump all tiny text on mobile */
+  .n-tag,.hero-kicker,.hn-s,.ey,.ey.inv,
+  .formula-label,.cc-badge,.mb-hd,.cta-kicker,.cta-note,
+  .geo-bridge-eyebrow,.gbr-ey,.ha-tag,.ha-label,
+  .g-meta,.gbadge,.g-ptag,.g-mc .ml,.g-endet,
+  .g-jst .gsq,.gst,.g-ar,.g-atg,.g-ass,
+  .g-wpb,.pc-n,.haf-s,.pi-num,
+  .rd-pill small,.mb-meta span,.g-bn,
+  .close-pt span,.fs p{
+    font-size:12px!important;
+  }
+  footer small{font-size:11px;color:rgba(255,255,255,.55)}
+  .f-a{font-size:13px;color:rgba(255,255,255,.55)}
+  .g-sticky{padding:10px 16px}
+  .g-wrap{padding:20px 16px 48px}
+}
+
+/* ══ MOBILE 480px ══ */
+@media(max-width:480px){
+  .hero h1{font-size:28px;letter-spacing:-1.5px}
+  .hero-sub{font-size:14px;line-height:1.6}
+  .hero-btns{flex-direction:column;gap:10px}
+  .hero-btns a{text-align:center;justify-content:center;width:100%}
+  .btn-r{padding:12px 20px;font-size:13px}
+  .btn-g{padding:11px 16px;font-size:12px}
+  .flow-grid{grid-template-columns:1fr}
+  .fs:not(:last-child){border-left:none;border-bottom:1px solid var(--bi)}
+  h2{font-size:24px;letter-spacing:-1px}
+  .cta-card h2{font-size:26px;letter-spacing:-1.5px}
+  .prob-grid{gap:1px}
+  .pc-n{font-size:10px!important}
+  #gSB,.g-metrics{grid-template-columns:1fr}
+  .g-journey{grid-template-columns:1fr 1fr}
+  .g-engs{grid-template-columns:1fr}
+  .g-sent{grid-template-columns:1fr}
+  .g-ins-grid,.g-ins-g{grid-template-columns:1fr}
+  .mini-grid{grid-template-columns:repeat(4,1fr)}
+  .mini-brands{padding:18px}
+  #gBN{gap:6px}
+  .g-bn{padding:7px 12px;font-size:11px}
+}
 </style>
 </head>
 <body>
@@ -832,7 +828,7 @@ table.gqt tr:last-child td{border-bottom:none}
     <a class="n-a" href="#model">מודל</a>
     <a class="n-a" href="#market">השוק</a>
     <a class="n-a live" href="#live-data">● Live</a>
-    <a class="n-cta" href="#cta">לתיאום פגישה ←</a>
+    <a class="n-cta" href="#cta">לתיאום פגישה <i class="fa-solid fa-arrow-left" style="font-size:11px"></i></a>
   </div>
 </nav>
 
@@ -851,8 +847,8 @@ table.gqt tr:last-child td{border-bottom:none}
       </h1>
       <p class="hero-sub a3">GeoScale מפעילה את תהליך המכירה מול סוכנויות הפרסום — מזיהוי הזדמנויות ועד סגירת העסקה. <b>ידיעות מספקות את הנכסים ומקבלות את ההכנסה.</b></p>
       <div class="hero-btns a4">
-        <a class="btn-r" href="#cta">לתיאום פגישה ←</a>
-        <a class="btn-g" href="#flow">ראו את ה-Flow ↓</a>
+        <a class="btn-r" href="#cta">לתיאום פגישה <i class="fa-solid fa-arrow-left"></i></a>
+        <a class="btn-g" href="#flow">ראו את ה-Flow <i class="fa-solid fa-arrow-down" style="font-size:12px"></i></a>
       </div>
       <!-- IMPROVED: 0 / ₪0 / ∞ (merged GPT model numbers + our market data) -->
       <div class="hero-nums a5">
@@ -955,7 +951,7 @@ table.gqt tr:last-child td{border-bottom:none}
       <div class="pc rv d2">
         <div class="pc-bar"></div>
         <div class="pc-n">03 — Market Erosion</div>
-        <div class="pc-stat a">↓</div>
+        <div class="pc-stat a"><i class="fa-solid fa-arrow-trend-down"></i></div>
         <h3>תחרות מחיר פוגעת בערך הנתפס של כתבות.</h3>
         <div class="pc-body">ספקים קטנים מוכרים כתבות במחירים נמוכים ללא מדידה של תוצאות. זה מוריד את תקרת המחיר של כל השוק.</div>
         <ul class="pc-ul">
@@ -1123,7 +1119,7 @@ table.gqt tr:last-child td{border-bottom:none}
       </div>
     </div>
     <div class="rv-r rv">
-      <div style="font-family:var(--m);font-size:11px;color:rgba(227,0,27,.6);letter-spacing:2px;text-transform:uppercase;margin-bottom:20px">מה ידיעות אחרונות מקבלת</div>
+      <div style="font-family:var(--m);font-size:10px;color:rgba(227,0,27,.5);letter-spacing:2px;text-transform:uppercase;margin-bottom:20px">מה ידיעות אחרונות מקבלת</div>
       <div class="model-bullets">
         <div class="mb rv">
           <div class="mb-ic r"></div>
@@ -1207,7 +1203,7 @@ table.gqt tr:last-child td{border-bottom:none}
     <p class="cta-sub">נציג את נתוני ה-AI של <b>13 מפרסמים פעילים של ידיעות</b>, נסביר את המודל המסחרי ונגדיר יחד את צעדי הכניסה.</p>
     <div class="cta-btns">
       <a class="btn-r" href="mailto:demo@geoscale.ai">לתיאום פגישה</a>
-      <a class="btn-g" href="#problem">חזרה לתחילה ↑</a>
+      <a class="btn-g" href="#problem">חזרה לתחילה <i class="fa-solid fa-arrow-up" style="font-size:12px"></i></a>
     </div>
         <div class="cta-note">GeoScale מפעילה את שכבת המכירה · ידיעות מספקות את הנכסים · ההכנסה לידיעות</div>
   </div>
@@ -1254,8 +1250,10 @@ table.gqt tr:last-child td{border-bottom:none}
 
 <script>
 /* Scroll reveal */
-const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('on')}),{threshold:.06,rootMargin:'0px 0px -20px 0px'});
+const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('on')}),{threshold:0.01,rootMargin:'0px 0px 50px 0px'});
 document.querySelectorAll('.rv,.rv-l,.rv-r').forEach(el=>ro.observe(el));
+/* Fallback: reveal all after 2s in case IntersectionObserver misses */
+setTimeout(()=>{document.querySelectorAll('.rv:not(.on),.rv-l:not(.on),.rv-r:not(.on)').forEach(el=>el.classList.add('on'))},2000);
 
 
 /* ══ GeoScale Data Engine ══ */
