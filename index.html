@@ -461,20 +461,57 @@ footer small{font-family:var(--m);font-size:9px;color:var(--w3)}
 }
 
 /* ══ GLOBAL CONTRAST & READABILITY FIXES ══ */
-/* Boost --w3 from 24% to 50% white for readability on dark backgrounds */
 :root{
+  /* Boost faint text tokens for readability */
   --w3:rgba(255,255,255,.50);
-  --p3:#7a7470;
+  --p3:#6b6560;
 }
 
-/* All text minimum 12px everywhere */
+/* ── Desktop: bump all sub-12px text globally ── */
+.n-tag{font-size:11px}
+.hero-kicker{font-size:11px;color:rgba(255,255,255,.45)}
+.ha-tag,.ha-label{font-size:10px}
+.hn-s{font-size:11px;color:rgba(255,255,255,.45)}
+.ey,.ey.inv{font-size:11px}
+.pc-n{font-size:10px}
+.pi-num{font-size:12px;color:rgba(227,0,27,.7)}
+.fs-tag{font-size:10px}
+.fs p{font-size:13px;color:rgba(255,255,255,.55)}
+.formula-label{font-size:10px}
+.cc-badge{font-size:10px}
+.mb-hd{font-size:10px}
+.rd-pill small{font-size:10px}
+.mb-meta span{font-size:12px}
+.cta-kicker{font-size:11px}
+.cta-note{font-size:11px;color:rgba(255,255,255,.50)}
+footer small{font-size:10px;color:rgba(255,255,255,.45)}
+.f-a{font-size:13px;color:rgba(255,255,255,.50)}
+.haf-s{font-size:12px;color:rgba(255,255,255,.60)}
+.close-pt span{font-size:13px;color:rgba(255,255,255,.65)}
+.mf-sub{color:rgba(255,255,255,.60)}
+.mb-s{color:rgba(255,255,255,.60)}
+.pi-desc{color:rgba(255,255,255,.60)}
+
+/* Dashboard section: bump small text */
+.g-meta{font-size:12px}
+.gbadge{font-size:11px}
+.g-ptag{font-size:10px}
+.g-mc .ml{font-size:12px}
+.g-endet{font-size:12px}
+.g-jst .gsq{font-size:11px}
+.gst{font-size:10px}
+.g-ar{font-size:12px}
+.g-atg{font-size:11px}
+.g-ass{font-size:11px}
+.g-wpb{font-size:10px}
+table.gqt th{font-size:10px}
+
+/* ── Mobile: further bumps ── */
 @media(max-width:720px){
-  /* Nav header fix */
   nav{gap:8px}
   .logo{font-size:15px}
   .n-cta{margin-right:0}
 
-  /* Minimum font sizes — bump everything under 12px */
   .n-tag,.hero-kicker,.hn-s,.ey,.ey.inv,
   .formula-label,.cc-badge,.mb-hd,.cta-kicker,.cta-note,
   .geo-bridge-eyebrow,.gbr-ey,.ha-tag,.ha-label,
@@ -485,19 +522,6 @@ footer small{font-family:var(--m);font-size:9px;color:var(--w3)}
   .close-pt span,.fs p{
     font-size:12px!important;
   }
-
-  /* Dark-on-dark contrast fixes */
-  .fs p,.haf-s{color:rgba(255,255,255,.60)!important}
-  .hero-kicker{color:rgba(255,255,255,.55)!important}
-  .hn-s{color:rgba(255,255,255,.50)!important}
-  .cta-note{color:rgba(255,255,255,.55)!important}
-  .close-pt span{color:rgba(255,255,255,.70)!important}
-  .mf-sub{color:rgba(255,255,255,.65)!important}
-  .mb-s{color:rgba(255,255,255,.65)!important}
-  .pi-desc{color:rgba(255,255,255,.65)!important}
-  .pi-num{color:rgba(227,0,27,.75)!important}
-
-  /* Footer text contrast */
   footer small{font-size:11px;color:rgba(255,255,255,.55)}
   .f-a{font-size:13px;color:rgba(255,255,255,.55)}
 }
@@ -1099,7 +1123,7 @@ table.gqt tr:last-child td{border-bottom:none}
       </div>
     </div>
     <div class="rv-r rv">
-      <div style="font-family:var(--m);font-size:10px;color:rgba(227,0,27,.5);letter-spacing:2px;text-transform:uppercase;margin-bottom:20px">מה ידיעות אחרונות מקבלת</div>
+      <div style="font-family:var(--m);font-size:11px;color:rgba(227,0,27,.6);letter-spacing:2px;text-transform:uppercase;margin-bottom:20px">מה ידיעות אחרונות מקבלת</div>
       <div class="model-bullets">
         <div class="mb rv">
           <div class="mb-ic r"></div>
