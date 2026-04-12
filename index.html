@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GeoScale × ידיעות אחרונות</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  /* 60% INK */
+  --ink:#0d0d0d; --ink+:#14141a; --ink++:#1c1c24;
+  /* 30% PAPER */
+  --paper:#f5f2ec; --paper+:#ffffff; --paper++:#edeae3;
+  /* 10% RED */
+  --red:#e3001b; --red+:rgba(227,0,27,.07); --red++:rgba(227,0,27,.20);
+  /* DATA */
+  --green:#0a9e50; --green+:rgba(10,158,80,.09);
+  --amber:#c97400; --amber+:rgba(201,116,0,.09);
+  /* TYPE ON INK */
+  --w1:rgba(255,255,255,.92); --w2:rgba(255,255,255,.50); --w3:rgba(255,255,255,.24);
+  /* TYPE ON PAPER */
+  --p1:#0d0d0d; --p2:#5a5550; --p3:#a09890;
+  /* BORDERS */
+  --bi:rgba(255,255,255,.07); --bp:rgba(0,0,0,.09);
+  --f:'Heebo',system-ui,sans-serif; --m:'DM Mono',monospace;
+  --ease:cubic-bezier(.4,0,.2,1); --r:8px;
+  --f-sans:var(--f); --f-mono:var(--m);
+  --R:var(--red); --G:var(--green); --A:var(--amber);
+  --Rg:rgba(227,0,27,.07); --Rs:rgba(227,0,27,.18);
+  --Gg:rgba(10,158,80,.08); --Ag:rgba(201,116,0,.08);
+  /* on-ink aliases for GeoScale dashboard */
+  --on-ink-hi: var(--w1);
+  --on-ink-mid: var(--w2);
+  --on-ink-lo: var(--w3);
+  --on-ink-mid: var(--w2);
+  --on-ink-lo: var(--w3);
+  --ink-r: var(--ink+);
+  --ink-rr: var(--ink++);
+}
+body{font-family:var(--f);background:var(--paper);color:var(--p1);direction:rtl;text-align:right;-webkit-font-smoothing:antialiased;line-height:1.6;overflow-x:hidden;letter-spacing:.01em}
+.strip{background:var(--paper+);border-bottom:1px solid var(--bp)}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:var(--red)}
+
+/* ══ NAV ══ */
+nav{position:sticky;top:0;z-index:200;height:56px;background:rgba(245,242,236,.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--bp);display:flex;align-items:center;justify-content:space-between;padding:0 48px}
+.n-l{display:flex;align-items:center;gap:12px}
+.logo{font-size:17px;font-weight:900;letter-spacing:-.5px;color:var(--ink)}.logo span{color:var(--red)}
+.pipe{width:1px;height:15px;background:var(--bp)}
+.n-tag{font-family:var(--m);font-size:10px;color:var(--p3);letter-spacing:1.5px;text-transform:uppercase}
+.n-r{display:flex;align-items:center;gap:4px}
+.n-a{font-size:13px;color:var(--p2);text-decoration:none;padding:5px 10px;border-radius:var(--r);font-weight:500;transition:all .13s}
+.n-a:hover{color:var(--ink);background:var(--paper++)}
+.n-a.live{color:var(--green);font-weight:600}
+.n-cta{background:var(--red);color:#fff;padding:9px 20px;border-radius:var(--r);font-size:13px;font-weight:700;text-decoration:none;transition:filter .13s,transform .13s;margin-right:4px}
+.n-cta:hover{filter:brightness(1.1);transform:translateY(-1px)}
+
+/* ══ HERO — 60% INK ══ */
+.hero{
+  background:var(--ink);
+  min-height:92vh;
+  display:flex;flex-direction:column;justify-content:center;
+  position:relative;overflow:hidden;
+}
+/* IMPROVED: grid with fade mask (from GPT) */
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:linear-gradient(var(--bi) 1px,transparent 1px),linear-gradient(90deg,var(--bi) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.08) 85%);
+  -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.08) 85%);
+  pointer-events:none;
+}
+.hero-glow{position:absolute;bottom:-300px;left:-300px;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(227,0,27,.08),transparent 60%);pointer-events:none}
+.hero-glow2{position:absolute;top:-200px;right:-200px;width:550px;height:550px;border-radius:50%;background:radial-gradient(circle,rgba(227,0,27,.04),transparent 62%);pointer-events:none}
+
+/* IMPROVED: 2-column hero grid (from GPT) */
+.hero-in{
+  max-width:1160px;margin:0 auto;width:100%;
+  padding:88px 48px 72px;
+  position:relative;z-index:1;
+  display:grid;
+  grid-template-columns:1fr 360px;
+  gap:48px;
+  align-items:center;
+}
+.hero-left{}
+.hero-kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--m);font-size:10px;color:var(--w3);letter-spacing:2px;text-transform:uppercase;margin-bottom:24px}
+.hero-kicker::before{content:'';width:20px;height:1px;background:var(--red)}
+.hero h1{font-size:68px;font-weight:900;letter-spacing:-4px;line-height:.95;color:var(--w1);margin-bottom:26px}
+.hero h1 .r{color:var(--red)}
+.hero h1 .dim{color:var(--w3);font-weight:300;letter-spacing:-3px}
+.hero-sub{font-size:18px;color:var(--w2);line-height:1.72;max-width:520px;margin-bottom:36px;letter-spacing:.02em}
+.hero-sub b{color:var(--w1);font-weight:700}
+.hero-btns{display:flex;gap:12px;align-items:center;margin-bottom:64px}
+.btn-r{background:var(--red);color:#fff;padding:14px 26px;border-radius:var(--r);font-size:14px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:filter .14s,transform .14s;box-shadow:0 12px 32px rgba(227,0,27,.22)}
+.btn-r:hover{filter:brightness(1.1);transform:translateY(-2px)}
+.btn-g{border:1px solid var(--bi);color:var(--w2);padding:13px 20px;border-radius:var(--r);font-size:13px;font-weight:500;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:all .14s}
+.btn-g:hover{border-color:rgba(255,255,255,.22);color:var(--w1)}
+
+/* IMPROVED: 0 / 1 / ∞ + market numbers (merged both approaches) */
+.hero-nums{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--bi);padding-top:32px}
+.hn{padding:0 28px;border-left:1px solid var(--bi)}
+.hn:first-child{padding-right:0;border-left:none}
+.hn-n{font-family:var(--m);font-size:44px;line-height:1;letter-spacing:-2.5px;margin-bottom:7px}
+.hn-n.r{color:var(--red)}.hn-n.w{color:var(--w1)}.hn-n.g{color:var(--green)}
+.hn-l{font-size:13px;color:var(--w2);line-height:1.4;margin-bottom:2px}
+.hn-s{font-family:var(--m);font-size:9.5px;color:var(--w3)}
+
+/* IMPROVED: Hero aside — Executive Summary panel (from GPT) */
+.hero-aside{
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--bi);
+  border-radius:14px;
+  overflow:hidden;
+}
+.ha-head{
+  padding:16px 18px;
+  border-bottom:1px solid var(--bi);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.ha-head-t{font-size:14px;font-weight:800;color:var(--w1)}
+.ha-tag{font-family:var(--m);font-size:9px;color:rgba(255,255,255,.5);background:rgba(227,0,27,.1);border:1px solid rgba(227,0,27,.2);border-radius:20px;padding:4px 10px;letter-spacing:1px;text-transform:uppercase}
+.ha-body{padding:16px}
+.ha-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:16px;margin-bottom:10px}
+.ha-card:last-child{margin-bottom:0}
+.ha-label{font-family:var(--m);font-size:9px;color:rgba(227,0,27,.7);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px}
+.ha-card h4{font-size:14px;font-weight:800;color:var(--w1);margin-bottom:6px;line-height:1.25;letter-spacing:-.2px}
+.ha-card p{font-size:12.5px;color:var(--w2);line-height:1.65}
+/* Mini flow inside aside */
+.ha-flow{margin-top:10px;display:flex;flex-direction:column;gap:6px}
+.haf-row{
+  display:grid;grid-template-columns:36px 1fr;gap:10px;align-items:start;
+  background:rgba(255,255,255,.025);border:1px solid var(--bi);border-radius:8px;padding:10px;
+}
+.haf-n{width:36px;height:36px;border-radius:50%;background:rgba(227,0,27,.1);border:1px solid rgba(227,0,27,.22);display:flex;align-items:center;justify-content:center;font-family:var(--m);font-size:12px;color:var(--red);flex-shrink:0}
+.haf-t{font-size:13px;font-weight:700;color:var(--w1);margin-bottom:2px}
+.haf-s{font-size:11px;color:var(--w2)}
+
+/* ══ SECTION BASE ══ */
+.s{padding:96px 0}
+.s-in{max-width:1160px;margin:0 auto;padding:0 48px}
+.s.paper+{background:var(--paper+)}
+.s.paper-d{background:var(--paper)}
+.ey{font-family:var(--m);font-size:10px;color:var(--red);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.ey::before{content:'';width:14px;height:1.5px;background:var(--red);display:inline-block;flex-shrink:0}
+.ey.inv{color:rgba(227,0,27,.6)}.ey.inv::before{background:rgba(227,0,27,.4)}
+h2{font-size:44px;font-weight:900;letter-spacing:-2px;line-height:1.04;color:var(--p1);margin-bottom:14px}
+h2 .r{color:var(--red)}
+h2.inv{color:var(--w1)}
+.s-lead{font-size:17px;color:var(--p2);line-height:1.75;max-width:580px;margin-bottom:52px;letter-spacing:.02em}
+.s-lead b{color:var(--p1);font-weight:700}
+.s-lead.inv{color:var(--w2)}.s-lead.inv b{color:var(--w1)}
+
+/* ══ SLIDE 1: PROBLEM — 4 cards (GPT improvement) ══ */
+.prob-bg{background:var(--paper);border-top:1px solid var(--bp);border-bottom:1px solid var(--bp)}
+/* IMPROVED: 4 cards in 2×2 grid */
+.prob-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--bp);border-radius:14px;overflow:hidden;border:1px solid var(--bp)}
+.pc{
+  background:var(--paper+);padding:38px 32px;
+  position:relative;overflow:hidden;cursor:default;transition:background .18s;
+}
+.pc-bar{position:absolute;top:0;left:0;right:0;height:3px;background:var(--paper++);transition:background .28s}
+.pc:hover{background:#fff9f9}.pc:hover .pc-bar{background:var(--red)}
+.pc-n{font-family:var(--m);font-size:9px;color:var(--p3);letter-spacing:2px;text-transform:uppercase;margin-bottom:18px}
+.pc-stat{font-family:var(--m);font-size:50px;line-height:1;letter-spacing:-3px;margin-bottom:14px}
+.pc-stat.r{color:var(--red)}.pc-stat.k{color:var(--p1)}.pc-stat.a{color:var(--amber)}.pc-stat.g{color:var(--green)}
+.pc h3{font-size:17px;font-weight:800;color:var(--p1);margin-bottom:8px;line-height:1.25}
+.pc-body{font-size:13px;color:var(--p2);line-height:1.72}
+/* Bullet dots (from GPT paper-card style) */
+.pc-ul{list-style:none;margin-top:12px;display:flex;flex-direction:column;gap:7px}
+.pc-ul li{font-size:12.5px;color:var(--p2);padding-right:16px;position:relative;line-height:1.5}
+.pc-ul li::before{content:'';position:absolute;right:0;top:7px;width:6px;height:6px;border-radius:50%;background:var(--red)}
+
+/* ══ RED DIVIDER — 10% ══ */
+.red-div{background:var(--red)}
+.red-div-in{max-width:1160px;margin:0 auto;padding:32px 48px;display:flex;align-items:center;justify-content:space-between;gap:28px}
+.rd-txt{font-size:20px;font-weight:700;color:#fff;line-height:1.38}
+.rd-txt span{color:rgba(255,255,255,.52);font-weight:400}
+.rd-pills{display:flex;gap:8px;flex-shrink:0}
+.rd-pill{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.22);border-radius:6px;padding:9px 16px;font-size:12px;font-weight:700;color:#fff;text-align:center}
+.rd-pill small{display:block;font-size:9.5px;font-weight:400;opacity:.55;margin-top:1px}
+
+/* ══ SLIDE 2: SOLUTION — 60% INK ══ */
+.promise-bg{background:var(--ink);padding:96px 0;position:relative;overflow:hidden}
+.promise-bg::before{
+  content:'';position:absolute;inset:0;
+  background-image:linear-gradient(var(--bi) 1px,transparent 1px),linear-gradient(90deg,var(--bi) 1px,transparent 1px);
+  background-size:56px 56px;
+  mask-image:linear-gradient(180deg,rgba(0,0,0,.4),rgba(0,0,0,.06) 80%);
+  -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.4),rgba(0,0,0,.06) 80%);
+  pointer-events:none;
+}
+.promise-bg::after{content:'';position:absolute;bottom:-200px;right:-200px;width:580px;height:580px;border-radius:50%;background:radial-gradient(circle,rgba(227,0,27,.07),transparent 65%);pointer-events:none}
+.promise-in{max-width:920px;margin:0 auto;padding:0 48px;position:relative;z-index:1}
+.promises{display:flex;flex-direction:column}
+.pi{display:flex;align-items:flex-start;gap:26px;padding:38px 0;border-bottom:1px solid var(--bi)}
+.pi:last-child{border-bottom:none}
+.pi-num{font-family:var(--m);font-size:11px;color:rgba(227,0,27,.55);min-width:22px;margin-top:9px;flex-shrink:0;letter-spacing:.5px}
+.pi-title{font-size:27px;font-weight:900;letter-spacing:-1.5px;color:var(--w1);margin-bottom:8px;line-height:1.1}
+.pi-title .r{color:var(--red)}
+.pi-desc{font-size:15px;color:var(--w2);line-height:1.68;max-width:680px;letter-spacing:.02em}
+.pi-desc b{color:var(--w1);font-weight:600}
+
+/* ══ SLIDE 3: FLOW — 30% PAPER ══ */
+.flow-bg{background:var(--ink)}
+.flow-grid{display:grid;grid-template-columns:repeat(5,1fr);position:relative;margin-top:48px}
+/* IMPROVED: connecting gradient line */
+.flow-grid::before{
+  content:'';position:absolute;top:27px;
+  right:calc(10% + 13px);left:calc(10% + 13px);
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(227,0,27,.28) 20%,rgba(227,0,27,.28) 80%,transparent);
+}
+.fs{padding:0 10px 32px;text-align:center;position:relative;z-index:1;cursor:default;transition:transform .18s;min-height:196px}
+.fs:hover{transform:translateY(-4px)}
+.fs:not(:last-child){border-left:1px solid var(--bi)}
+/* IMPROVED: red gradient top bar on each flow card (from GPT time-card::before) */
+.fs::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,rgba(227,0,27,.0),rgba(227,0,27,.22),rgba(227,0,27,.0));
+  opacity:0;transition:opacity .22s;
+}
+.fs:hover::before{opacity:1}
+.fs-num{
+  width:54px;height:54px;border-radius:50%;
+  background:var(--ink+);border:1px solid rgba(227,0,27,.22);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--m);font-size:14px;color:var(--w2);
+  margin:0 auto 18px;
+  box-shadow:0 0 0 5px rgba(227,0,27,.04);
+  transition:all .2s;
+}
+.fs:hover .fs-num{background:var(--red);border-color:var(--red);color:#fff;box-shadow:0 0 0 5px rgba(227,0,27,.1),0 8px 22px rgba(227,0,27,.28)}
+.fs-tag{display:inline-block;font-family:var(--m);font-size:9px;color:rgba(227,0,27,.55);background:rgba(227,0,27,.07);border:1px solid rgba(227,0,27,.18);border-radius:3px;padding:3px 8px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:11px;transition:all .18s}
+.fs:hover .fs-tag{background:var(--red);border-color:var(--red);color:#fff}
+.fs h3{font-size:13.5px;font-weight:800;color:var(--w1);margin-bottom:6px;line-height:1.3;transition:color .16s;letter-spacing:.01em}
+.fs:hover h3{color:var(--red)}
+.fs p{font-size:12px;color:var(--w3);line-height:1.62}
+
+/* ══ SLIDE 4: BUSINESS MODEL — 60% INK ══ */
+.model-bg{background:var(--ink);position:relative;overflow:hidden}
+.model-bg::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 25% 60%,rgba(227,0,27,.06),transparent 55%);pointer-events:none}
+.model-in{max-width:1160px;margin:0 auto;padding:96px 48px;position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
+
+/* Money flow */
+.mf{display:flex;flex-direction:column;gap:0}
+.mf-row{
+  display:flex;align-items:center;gap:18px;
+  padding:20px 22px;
+  background:var(--ink+);border:1px solid var(--bi);border-radius:10px;
+  margin-bottom:4px;transition:all .17s;cursor:default;
+}
+.mf-row:hover{border-color:rgba(255,255,255,.14);background:var(--ink++)}
+.mf-row.acc{border-color:rgba(227,0,27,.3);background:rgba(227,0,27,.07)}
+.mf-row.acc:hover{background:rgba(227,0,27,.1)}
+.mf-ic{width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.mf-ic.r{background:rgba(227,0,27,.12)}.mf-ic.g{background:rgba(10,158,80,.12)}.mf-ic.a{background:rgba(201,116,0,.12)}
+.mf-lbl{font-size:14px;font-weight:700;color:var(--w1);margin-bottom:2px}
+.mf-sub{font-size:12px;color:var(--w2)}
+.mf-val{font-family:var(--m);font-size:21px;color:var(--green);margin-right:auto;flex-shrink:0}
+.mf-arr{display:flex;height:22px;align-items:center;justify-content:center;position:relative}.mf-arr::before{content:'';display:block;width:1.5px;height:14px;background:linear-gradient(180deg,rgba(227,0,27,.2),rgba(227,0,27,.5));border-radius:1px}.mf-arr::after{content:'';position:absolute;bottom:2px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-top:5px solid rgba(227,0,27,.4)}
+/* Formula box */
+.formula{background:rgba(227,0,27,.08);border:1px solid rgba(227,0,27,.22);border-radius:10px;padding:24px;margin-top:18px}
+.formula-label{font-family:var(--m);font-size:9.5px;color:rgba(227,0,27,.55);letter-spacing:2px;text-transform:uppercase;margin-bottom:13px}
+.formula-txt{font-size:18px;font-weight:700;color:var(--w1);line-height:1.6}
+.formula-txt .r{color:var(--red)}
+
+/* Right bullets */
+.model-bullets{display:flex;flex-direction:column;gap:14px;margin-top:24px}
+.mb{display:flex;align-items:flex-start;gap:14px;padding:17px 18px;background:var(--ink+);border:1px solid var(--bi);border-radius:10px;transition:all .16s}
+.mb:hover{border-color:rgba(255,255,255,.14);background:var(--ink++)}
+.mb-ic{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:7px}
+.mb-ic.r{background:var(--red)}.mb-ic.g{background:var(--green)}.mb-ic.w{background:rgba(255,255,255,.3)}
+.mb-t{font-size:14px;font-weight:700;color:var(--w1);margin-bottom:3px;letter-spacing:.01em}
+.mb-s{font-size:12.5px;color:var(--w2);line-height:1.5;letter-spacing:.02em}
+
+/* ══ SLIDE 5: MARKET — 30% PAPER ══ */
+.comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.cc{border-radius:12px;border:1.5px solid var(--bp);overflow:hidden;background:var(--paper+);transition:all .2s}
+.cc:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(0,0,0,.08)}
+.cc.bad{background:rgba(227,0,27,.04);border-color:rgba(227,0,27,.12)}
+.cc.bad:hover{border-color:rgba(227,0,27,.25);box-shadow:0 14px 40px rgba(227,0,27,.06)}
+.cc.good{background:rgba(10,158,80,.04);border-color:rgba(10,158,80,.12)}
+.cc.good:hover{border-color:rgba(10,158,80,.28);box-shadow:0 14px 40px rgba(10,158,80,.06)}
+.cc-hd{padding:22px 26px;border-bottom:1px solid var(--bp);display:flex;align-items:center;justify-content:space-between}
+.cc.bad .cc-hd{border-bottom-color:rgba(227,0,27,.12)}
+.cc.good .cc-hd{border-bottom-color:rgba(10,158,80,.12)}
+.cc-hd-t{font-size:17px;font-weight:800;color:var(--p1)}
+.cc-badge{font-family:var(--m);font-size:9.5px;padding:4px 10px;border-radius:5px;font-weight:500}
+.cc-badge.bad{background:var(--red+);color:var(--red);border:1px solid var(--red++)}
+.cc-badge.good{background:var(--green+);color:var(--green);border:1px solid rgba(10,158,80,.2)}
+.cc-body{padding:26px}
+.cc-ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.cc-ul li{font-size:14px;color:var(--p2);padding-right:18px;position:relative;line-height:1.65}
+.cc-ul li::before{content:'';position:absolute;right:0;top:9px;width:7px;height:7px;border-radius:50%}
+.cc-ul.bad li::before{background:var(--red)}
+.cc-ul.good li::before{background:var(--green)}
+/* Mini brand bar chart */
+.mini-brands{margin-top:36px;background:var(--paper+);border:1px solid var(--bp);border-radius:12px;padding:28px}
+.mb-hd{font-family:var(--m);font-size:9.5px;color:var(--red);letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:7px}
+.mb-hd::before{content:'';width:12px;height:1.5px;background:var(--red)}
+.mini-grid{display:grid;grid-template-columns:repeat(13,1fr);gap:8px;align-items:end}
+.mb-meta{margin-top:14px;display:flex;gap:20px;flex-wrap:wrap}
+.mb-meta span{font-family:var(--m);font-size:11px;color:var(--p3)}
+.mb-meta b{color:var(--p1)}
+
+/* ══ CTA — 60% INK (IMPROVED: red card wrapper from GPT) ══ */
+.cta-outer{background:var(--ink);padding:96px 48px;position:relative;overflow:hidden}
+.cta-outer::before{
+  content:'';position:absolute;inset:0;
+  background-image:linear-gradient(var(--bi) 1px,transparent 1px),linear-gradient(90deg,var(--bi) 1px,transparent 1px);
+  background-size:56px 56px;
+  mask-image:linear-gradient(180deg,rgba(0,0,0,.4),rgba(0,0,0,.06) 80%);
+  -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.4),rgba(0,0,0,.06) 80%);
+  pointer-events:none;
+}
+/* IMPROVED: CTA is now a card with red gradient (from GPT close-card) */
+.cta-card{
+  max-width:640px;margin:0 auto;
+  text-align:center;
+  position:relative;z-index:1;
+}
+.cta-kicker{font-family:var(--m);font-size:10px;color:rgba(227,0,27,.5);letter-spacing:2px;text-transform:uppercase;margin-bottom:18px}
+.cta-card h2{color:var(--w1);font-size:52px;letter-spacing:-3px;margin-bottom:16px;line-height:.97}
+.cta-card h2 .r{color:var(--red)}
+.cta-sub{font-size:17px;color:var(--w2);line-height:1.75;margin-bottom:36px;max-width:640px;margin-left:auto;margin-right:auto}
+.cta-sub b{color:var(--w1);font-weight:600}
+.cta-btns{display:flex;gap:12px;justify-content:center;margin-bottom:36px}
+
+/* IMPROVED: 3 close points below CTA (from GPT) */
+.close-pts{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:12px;
+  margin-top:0;
+  border-top:1px solid var(--bi);
+  padding-top:28px;
+}
+.close-pt{
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--bi);
+  border-radius:10px;
+  padding:16px 18px;
+  text-align:right;
+}
+.close-pt strong{display:block;font-size:14px;font-weight:700;color:var(--w1);margin-bottom:5px}
+.close-pt span{font-size:12px;color:var(--w2);line-height:1.6}
+
+.cta-note{font-family:var(--m);font-size:10px;color:var(--w3);margin-top:20px;line-height:1.5;letter-spacing:.3px}
+
+/* ══ FOOTER ══ */
+footer{background:#07070a;padding:36px 48px;display:flex;align-items:center;justify-content:space-between;border-top:2px solid rgba(227,0,27,.2);flex-wrap:wrap;gap:12px}
+.f-logo{font-size:15px;font-weight:900;color:var(--w1)}.f-logo span{color:var(--red)}
+.f-links{display:flex;gap:18px}
+.f-a{font-size:12px;color:var(--w3);text-decoration:none;transition:color .13s}.f-a:hover{color:var(--w2)}
+footer small{font-family:var(--m);font-size:9px;color:var(--w3)}
+
+/* ══ REVEAL ══ */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .52s var(--ease),transform .52s var(--ease)}.rv.on{opacity:1;transform:none}
+.rv-l{opacity:0;transform:translateX(-18px);transition:opacity .52s var(--ease),transform .52s var(--ease)}.rv-l.on{opacity:1;transform:none}
+.rv-r{opacity:0;transform:translateX(18px);transition:opacity .52s var(--ease),transform .52s var(--ease)}.rv-r.on{opacity:1;transform:none}
+.d1{transition-delay:.07s}.d2{transition-delay:.14s}.d3{transition-delay:.21s}.d4{transition-delay:.28s}
+
+/* ══ RESPONSIVE ══ */
+@media(max-width:1080px){
+  .hero-in{grid-template-columns:1fr;gap:32px}
+  .hero-aside{display:none}
+  .model-in{grid-template-columns:1fr;gap:36px}
+  .comp-grid{grid-template-columns:1fr}
+  .prob-grid{grid-template-columns:1fr}
+  .close-pts{grid-template-columns:1fr}
+  .flow-grid{grid-template-columns:1fr 1fr 1fr}
+  h2{font-size:36px}.hero h1{font-size:52px}
+  .s-in,.promise-in,.cta-outer,.red-div-in,.model-in,.cta-card{padding-right:24px;padding-left:24px}
+  .cta-card{padding:32px 24px}
+}
+@media(max-width:720px){
+  .hero h1{font-size:40px;letter-spacing:-3px}
+  .n-a{display:none}
+  .flow-grid{grid-template-columns:1fr 1fr}
+  .hero-nums{grid-template-columns:1fr}
+  .hn{border-left:none;border-top:1px solid var(--bi);padding:14px 0 0}
+  .hn:first-child{border-top:none;padding-top:0}
+  .red-div-in{flex-direction:column}
+  .cta-card h2{font-size:36px}
+  .mini-grid{grid-template-columns:repeat(7,1fr)}
+}
+
+@keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.a1{animation:up .48s .03s ease both}.a2{animation:up .48s .1s ease both}
+.a3{animation:up .48s .18s ease both}.a4{animation:up .48s .26s ease both}
+.a5{animation:up .48s .36s ease both}.a6{animation:up .56s .2s ease both}
+
+/* ══════════════════════════════════
+   GEO LIVE DASHBOARD — LIGHT MODE
+   Matches the rest of the page.
+══════════════════════════════════ */
+
+/* ── Bridge header — keeps red (10%) ── */
+.geo-bridge{
+  background:var(--red);
+  padding:56px 48px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.geo-bridge::before{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(45deg,rgba(0,0,0,0) 0,rgba(0,0,0,0) 20px,rgba(0,0,0,.03) 20px,rgba(0,0,0,.03) 21px);
+  pointer-events:none;
+}
+.gbr-in{max-width:680px;margin:0 auto;position:relative;z-index:1}
+.geo-bridge-eyebrow,.gbr-ey{
+  font-family:var(--m);font-size:10px;
+  color:rgba(255,255,255,.55);letter-spacing:2.5px;
+  text-transform:uppercase;margin-bottom:14px;display:block;
+}
+.geo-bridge h2,.geo-bridge h2.inv{
+  font-size:34px!important;font-weight:900;letter-spacing:-1.5px;
+  color:#fff!important;margin-bottom:12px;line-height:1.05;
+}
+.geo-bridge p{font-size:15px;color:rgba(255,255,255,.65);line-height:1.65}
+.geo-bridge p b{color:#fff;font-weight:700}
+
+/* ── Dashboard shell — LIGHT ── */
+.gdash{background:var(--paper)}
+
+/* ── Sticky sub-nav ── */
+.g-sticky{
+  background:rgba(245,242,236,.96);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--bp);
+  padding:13px 48px;
+  position:sticky;top:56px;z-index:88;
+  box-shadow:0 2px 12px rgba(0,0,0,.08);
+}
+.g-sticky-in{
+  max-width:1160px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.g-logo{
+  display:flex;align-items:center;gap:8px;
+  font-size:14px;font-weight:800;color:var(--green);letter-spacing:-.3px;
+}
+.g-meta{font-family:var(--m);font-size:11px;color:var(--p3)}
+
+/* ── Main content wrapper ── */
+.g-wrap{max-width:1160px;margin:0 auto;padding:40px 48px 80px}
+
+/* ── Summary stat cards ── */
+#gSB{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:12px;margin-bottom:36px;
+}
+.g-stat{
+  background:var(--paper+);
+  border:1.5px solid var(--bp);
+  border-radius:10px;padding:22px 16px;text-align:center;
+  transition:border-color .18s,transform .18s;
+  cursor:default;
+}
+.g-stat:hover{border-color:var(--red);transform:translateY(-2px);box-shadow:0 6px 20px rgba(227,0,27,.08)}
+.g-stat .gv{
+  font-family:var(--m);font-size:34px;font-weight:500;
+  color:var(--green);letter-spacing:-2px;line-height:1;margin-bottom:7px;
+}
+.g-stat .gl{font-size:12px;color:var(--p3);font-weight:500;letter-spacing:.2px}
+
+/* ── Brand navigation ── */
+#gBN{
+  display:flex;flex-wrap:wrap;gap:8px;
+  justify-content:center;margin-bottom:32px;
+}
+.g-bn{
+  background:var(--paper+);
+  border:1.5px solid var(--bp);
+  border-radius:7px;padding:9px 16px;
+  color:var(--p2);cursor:pointer;
+  font-family:var(--f);font-size:12.5px;font-weight:500;
+  transition:all .15s;
+  display:inline-flex;align-items:center;gap:7px;
+  white-space:nowrap;
+}
+.g-bn:hover{border-color:var(--red);color:var(--p1);background:var(--paper)}
+.g-bn.on{
+  background:var(--red+);
+  border-color:var(--red);
+  color:var(--red);font-weight:700;
+}
+.gbadge{border-radius:5px;padding:2px 8px;font-family:var(--m);font-size:10px;font-weight:600}
+.gbhi{background:rgba(10,158,80,.1);color:var(--green)}
+.gbmid{background:rgba(201,116,0,.1);color:var(--amber)}
+.gblo{background:rgba(227,0,27,.08);color:var(--red)}
+
+/* ── Brand detail header ── */
+.g-bhdr{
+  display:flex;align-items:center;gap:20px;
+  margin-bottom:20px;padding:24px 28px;
+  background:var(--paper+);
+  border-radius:12px;border:1.5px solid var(--bp);
+}
+.g-ring{
+  width:84px;height:84px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--m);font-size:22px;font-weight:500;
+  flex-shrink:0;border:2.5px solid;
+  box-shadow:0 0 0 5px rgba(0,0,0,.04);
+}
+.g-bi h3{
+  font-size:22px;font-weight:800;color:var(--p1)!important;
+  margin-bottom:4px;letter-spacing:-.5px;
+}
+.g-dom{font-family:var(--m);font-size:12px;color:var(--green);margin-bottom:8px}
+.g-ptag{
+  display:inline-block;font-family:var(--m);font-size:9.5px;
+  padding:4px 12px;border-radius:20px;font-weight:600;letter-spacing:.3px;
+}
+
+/* ── Metrics row ── */
+.g-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
+.g-mc{
+  background:var(--paper+);border:1.5px solid var(--bp);
+  border-radius:10px;padding:16px;text-align:center;
+  transition:border-color .15s;cursor:default;
+}
+.g-mc:hover{border-color:var(--red)}
+.g-mc .mv{
+  font-family:var(--m);font-size:24px;font-weight:500;
+  margin-bottom:5px;line-height:1;letter-spacing:-.5px;
+}
+.g-mc .ml{font-size:11px;color:var(--p3)}
+
+/* ── Engine cards ── */
+.g-engs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.g-eng{
+  background:var(--paper+);border:1.5px solid var(--bp);
+  border-radius:10px;padding:18px 20px;
+  display:flex;align-items:center;gap:14px;
+  transition:border-color .15s;
+}
+.g-eng:hover{border-color:var(--bp)}
+.g-engic{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;flex-shrink:0}
+.g-engic.cg{background:rgba(16,163,127,.1);color:#10a37f}
+.g-engic.gm{background:rgba(66,133,244,.1);color:#4285f4}
+.g-enname{font-weight:700;font-size:14px;color:var(--p1);margin-bottom:3px}
+.g-endet{font-family:var(--m);font-size:11px;color:var(--p3)}
+.g-ensc{font-family:var(--m);font-size:24px;font-weight:500;margin-right:auto;letter-spacing:-1px}
+
+/* ── Journey stages ── */
+.g-journey{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin-bottom:20px}
+.g-jst{
+  background:var(--paper+);border:1.5px solid var(--bp);
+  border-radius:10px;padding:15px 12px;text-align:center;
+  transition:all .15s;cursor:default;
+}
+.g-jst:hover{border-color:var(--red);transform:translateY(-2px)}
+.g-jst .gss{font-family:var(--m);font-size:20px;font-weight:500;margin-bottom:4px;line-height:1}
+.g-jst .gsn{font-size:12px;font-weight:700;margin-bottom:3px;color:var(--p1)}
+.g-jst .gsq{font-family:var(--m);font-size:10px;color:var(--p3)}
+
+/* ── Sentiment ── */
+.g-sent{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+.g-sentc{
+  background:var(--paper+);border:1.5px solid var(--bp);
+  border-radius:10px;padding:20px;text-align:center;cursor:default;
+}
+.g-sentc .sv{font-family:var(--m);font-size:30px;font-weight:500;margin-bottom:6px;line-height:1;letter-spacing:-1px}
+.g-sent-lbl{font-size:12px;font-weight:600;color:var(--p2)}
+
+/* ── Insights ── */
+.g-ins-grid,.g-ins-g{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.g-ins{background:var(--paper+);border:1.5px solid var(--bp);border-radius:10px;padding:18px}
+.g-ins h4{font-size:14px;font-weight:700;margin-bottom:12px;color:var(--p1)!important}
+.g-ins-i{font-size:13px;padding:6px 0;border-bottom:1px solid var(--bp);line-height:1.5;color:var(--p2)}
+.g-ins-i:last-child{border-bottom:none}
+
+/* ── Section label ── */
+.g-sec{font-size:14px;font-weight:800;margin:24px 0 14px;display:flex;align-items:center;gap:8px;color:var(--p1);letter-spacing:-.2px}
+
+/* ── Tabs ── */
+.g-tabs{display:flex;gap:0;margin-bottom:20px;border-bottom:1px solid var(--bp);overflow-x:auto}
+.g-tn{
+  background:none;border:none;color:var(--p3);
+  font-family:var(--f);font-size:13px;font-weight:500;
+  padding:11px 20px;cursor:pointer;
+  border-bottom:2px solid transparent;margin-bottom:-1px;
+  transition:all .15s;white-space:nowrap;
+}
+.g-tn:hover{color:var(--p1)}
+.g-tn.on{color:var(--green);border-bottom-color:var(--green);font-weight:700}
+.g-pane{display:none}
+.g-pane.on{display:block;animation:gFd .22s var(--ease)}
+@keyframes gFd{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+/* ── Query table ── */
+table.gqt{width:100%;border-collapse:collapse;border:1.5px solid var(--bp);border-radius:10px;overflow:hidden;font-size:13px}
+table.gqt thead{background:var(--paper++)}
+table.gqt th{
+  padding:11px 14px;text-align:right;
+  font-family:var(--m);font-size:9px;color:var(--p3);font-weight:500;
+  border-bottom:1.5px solid var(--bp);
+  letter-spacing:1px;text-transform:uppercase;white-space:nowrap;
+}
+table.gqt td{
+  padding:10px 14px;border-bottom:1px solid var(--bp);
+  color:var(--p1);vertical-align:middle;font-size:13px;
+}
+table.gqt tbody tr{background:var(--paper+)}
+table.gqt tbody tr:nth-child(even){background:var(--paper)}
+table.gqt tr:hover td{background:var(--red+)!important}
+table.gqt tr:last-child td{border-bottom:none}
+.gy{color:var(--green)!important;font-weight:700;font-family:var(--m);font-size:14px}
+.gn{color:var(--red)!important;font-weight:700;font-family:var(--m);font-size:14px}
+.gst{display:inline-block;font-family:var(--m);font-size:9.5px;font-weight:600;padding:3px 8px;border-radius:4px;white-space:nowrap}
+.gste{background:rgba(59,130,246,.1);color:#2563eb}
+.gstr{background:rgba(168,85,247,.1);color:#7c3aed}
+.gstd{background:rgba(201,116,0,.1);color:var(--amber)}
+.gsts{background:rgba(10,158,80,.1);color:var(--green)}
+.gstm{background:rgba(236,72,153,.1);color:#db2777}
+
+/* ── Audiences ── */
+.g-aud-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.g-aud{background:var(--paper+);border:1.5px solid var(--bp);border-radius:10px;padding:18px;transition:border-color .15s,transform .15s}
+.g-aud:hover{border-color:var(--red);transform:translateY(-2px)}
+.g-audt{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.g-av{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;flex-shrink:0}
+.av1{background:rgba(10,158,80,.12);color:var(--green)}
+.av2{background:rgba(59,130,246,.12);color:#2563eb}
+.av3{background:rgba(168,85,247,.12);color:#7c3aed}
+.av4{background:rgba(201,116,0,.12);color:var(--amber)}
+.av5{background:rgba(236,72,153,.12);color:#db2777}
+.g-an{font-weight:700;font-size:14px;color:var(--p1);margin-bottom:2px}
+.g-ar{font-size:11px;color:var(--p3)}
+.g-asc{font-family:var(--m);font-size:15px;color:var(--green);margin-right:auto;font-weight:500}
+.g-audd{font-size:12px;color:var(--p2);line-height:1.6;margin-bottom:10px}
+.g-atgs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px}
+.g-atg{background:var(--paper);border:1px solid var(--bp);border-radius:20px;padding:3px 10px;font-size:10.5px;color:var(--p2)}
+.g-ass{display:flex;gap:14px;font-family:var(--m);font-size:10.5px;color:var(--p3)}
+.g-ass b{color:var(--p1)}
+
+/* ── Workplan ── */
+.g-wps{
+  background:var(--paper);border:1.5px solid var(--bp);
+  border-radius:10px;padding:16px 18px;
+  color:var(--p2);font-size:13.5px;line-height:1.75;margin-bottom:20px;
+}
+.g-wp{
+  background:var(--paper+);border:1.5px solid var(--bp);
+  border-radius:10px;padding:17px 20px;margin-bottom:9px;
+  display:flex;justify-content:space-between;align-items:center;gap:14px;
+  transition:border-color .15s,transform .15s;cursor:default;
+}
+.g-wp:hover{border-color:var(--red);transform:translateY(-1px)}
+.g-wp.rec{border-color:var(--green);background:rgba(10,158,80,.04)}
+.g-wplbl{font-weight:700;font-size:14px;color:var(--p1);margin-bottom:4px}
+.g-wpdesc{font-size:12px;color:var(--p2);line-height:1.5}
+.g-wpp{font-family:var(--m);font-size:17px;color:var(--green);white-space:nowrap;flex-shrink:0;font-weight:500}
+.g-wpb{background:rgba(10,158,80,.1);color:var(--green);font-family:var(--m);font-size:8.5px;padding:2px 7px;border-radius:4px;display:inline-block;margin-right:6px;letter-spacing:.5px;font-weight:600}
+
+/* ── Overrides: prevent global dark heading colors ── */
+.gdash h2,.gdash h3,.gdash h4,
+.g-bhdr h3{color:var(--p1)!important}
+.geo-bridge h2{color:#fff!important}
+
+/* ── Responsive ── */
+@media(max-width:1060px){
+  .g-wrap{padding:28px 24px 60px}
+  .g-sticky{padding:12px 24px}
+  .g-metrics,.g-engs{grid-template-columns:1fr 1fr}
+  .g-journey{grid-template-columns:repeat(3,1fr)}
+  .g-ins-grid,.g-ins-g,.g-sent{grid-template-columns:1fr}
+  #gSB{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:720px){
+  .g-journey{grid-template-columns:repeat(2,1fr)}
+  #gSB,.g-metrics{grid-template-columns:repeat(2,1fr)}
+  .geo-bridge{padding:36px 24px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="n-l">
+    <span class="logo">Geo<span>Scale</span></span>
+    <span class="pipe"></span>
+    <span class="n-tag">ידיעות אחרונות · הצעה אסטרטגית</span>
+  </div>
+  <div class="n-r">
+    <a class="n-a" href="#problem">הבעיה</a>
+    <a class="n-a" href="#solution">הפתרון</a>
+    <a class="n-a" href="#flow">איך זה עובד</a>
+    <a class="n-a" href="#model">מודל</a>
+    <a class="n-a" href="#market">השוק</a>
+    <a class="n-a live" href="#live-data">● Live</a>
+    <a class="n-cta" href="#cta">לתיאום פגישה ←</a>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-in">
+
+    <!-- LEFT -->
+    <div class="hero-left">
+      <div class="hero-kicker a1">GeoScale × ידיעות אחרונות · אפריל 2026</div>
+      <h1 class="a2">
+        ערוץ הכנסות חדש<br>
+        <span class="r">לנכסי התוכן<br>של ידיעות אחרונות.</span>
+      </h1>
+      <p class="hero-sub a3">GeoScale מפעילה את תהליך המכירה מול סוכנויות הפרסום — מזיהוי הזדמנויות ועד סגירת העסקה. <b>ידיעות מספקות את הנכסים ומקבלות את ההכנסה.</b></p>
+      <div class="hero-btns a4">
+        <a class="btn-r" href="#cta">לתיאום פגישה ←</a>
+        <a class="btn-g" href="#flow">ראו את ה-Flow ↓</a>
+      </div>
+      <!-- IMPROVED: 0 / ₪0 / ∞ (merged GPT model numbers + our market data) -->
+      <div class="hero-nums a5">
+        <div class="hn">
+          <div class="hn-n r">9/13</div>
+          <div class="hn-l">מפרסמי Ynet עם נראות AI מתחת ל-60%</div>
+          <div class="hn-s">GeoScale Scan, 1.4.2026</div>
+        </div>
+        <div class="hn">
+          <div class="hn-n w">₪0</div>
+          <div class="hn-l">עלות תפעולית לידיעות אחרונות</div>
+          <div class="hn-s">GeoScale מטפלת בכל שלבי המכירה</div>
+        </div>
+        <div class="hn">
+          <div class="hn-n g">∞</div>
+          <div class="hn-l">סוכנויות שיכולות להצטרף לפלטפורמה</div>
+          <div class="hn-s">מודל מבוסס נתונים, לא שכנוע</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: IMPROVED Executive Summary panel (from GPT) -->
+    <div class="hero-aside a6">
+      <div class="ha-head">
+        <span class="ha-head-t">המהלך במשפט אחד</span>
+        <span class="ha-tag">Executive Summary</span>
+      </div>
+      <div class="ha-body">
+        <div class="ha-card">
+          <div class="ha-label">Positioning</div>
+          <h4>שותפות מסחרית, לא מוצר.</h4>
+          <p>ידיעות מספקות את נכסי התוכן. GeoScale מפעילה את שכבת המכירה. ההכנסות זורמות לידיעות.</p>
+        </div>
+        <div class="ha-card">
+          <div class="ha-label">Why now</div>
+          <h4>שוק ה-GEO בישראל עדיין פתוח.</h4>
+          <p>ספקי תוכן זול מורידים מחירים ושוחקים את הערך. ידיעות אחרונות יכולים לקבוע את הסטנדרט לפני שאחרים יגיעו.</p>
+        </div>
+        <div class="ha-flow">
+          <div class="haf-row">
+            <div class="haf-n">01</div>
+            <div>
+              <div class="haf-t">סוכנויות נכנסות למערכת</div>
+              <div class="haf-s">כל משרד פרסום מקבל סביבה ייעודית</div>
+            </div>
+          </div>
+          <div class="haf-row">
+            <div class="haf-n">02</div>
+            <div>
+              <div class="haf-t">הזדמנויות מוכנות לרכישה</div>
+              <div class="haf-s">כל לקוח — כתבות מותאמות לפי AI</div>
+            </div>
+          </div>
+          <div class="haf-row">
+            <div class="haf-n">03</div>
+            <div>
+              <div class="haf-t">GeoScale סוגרת את העסקה</div>
+              <div class="haf-s">הכנסה עוברת לידיעות, עמלה ל-GeoScale</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ SLIDE 1: PROBLEM — 4 cards ══ -->
+<section id="problem" class="prob-bg">
+  <div class="s-in" style="padding-top:80px;padding-bottom:80px">
+    <div class="ey rv">הבעיה</div>
+    <h2 class="rv">הנכסים קיימים. <span class="r">הפוטנציאל המסחרי — לא ממומש.</span></h2>
+    <p class="s-lead rv">ארבעה גורמים שמגבילים את פוטנציאל ההכנסות מנכסי התוכן.</p>
+    <!-- IMPROVED: 4 cards 2×2 -->
+    <div class="prob-grid">
+      <div class="pc rv">
+        <div class="pc-bar"></div>
+        <div class="pc-n">01 — Under-Monetization</div>
+        <div class="pc-stat r">-38%</div>
+        <h3>נכסי תוכן איכותיים ללא מנגנון מכירה יעיל.</h3>
+        <div class="pc-body">Google שולח פחות תנועה. מודל הבנרים נשחק. הפוטנציאל של נכסי הכתיבה לא מתממש.</div>
+        <ul class="pc-ul">
+          <li>מכירת כתבות תלויה בתהליך ידני</li>
+          <li>אין מנגנון קבוע שמזרים ביקוש</li>
+          <li>הכנסה מוגבלת לכמות הטיפול הידני</li>
+        </ul>
+      </div>
+      <div class="pc rv d1">
+        <div class="pc-bar"></div>
+        <div class="pc-n">02 — AI Blindspot</div>
+        <div class="pc-stat k">9/13</div>
+        <h3>מפרסמים מרכזיים אינם מוזכרים בתשובות ה-AI.</h3>
+        <div class="pc-body">מתוך 13 מפרסמים שנסרקו, 9 מקבלים ציון מתחת ל-60%. ב-ChatGPT, המתחרים מופיעים במקומם.</div>
+        <ul class="pc-ul">
+          <li>הצרכן שואל AI ומקבל שם של מתחרה</li>
+          <li>המפרסם לא יודע שיש לו בעיה</li>
+          <li>GeoScale מראה לו את הנתונים</li>
+        </ul>
+      </div>
+      <div class="pc rv d2">
+        <div class="pc-bar"></div>
+        <div class="pc-n">03 — Market Erosion</div>
+        <div class="pc-stat a">↓</div>
+        <h3>תחרות מחיר פוגעת בערך הנתפס של כתבות.</h3>
+        <div class="pc-body">ספקים קטנים מוכרים כתבות במחירים נמוכים ללא מדידה של תוצאות. זה מוריד את תקרת המחיר של כל השוק.</div>
+        <ul class="pc-ul">
+          <li>המחירים יורדים</li>
+          <li>האיכות נשחקת</li>
+          <li>השליטה עוברת לשחקנים קטנים</li>
+        </ul>
+      </div>
+      <!-- IMPROVED: 4th card - Lost Leadership (from GPT) -->
+      <div class="pc rv d3">
+        <div class="pc-bar"></div>
+        <div class="pc-n">04 — Lost Leadership</div>
+        <div class="pc-stat g">#1</div>
+        <h3>ידיעות אחרונות — מקור ה-AI המוביל בעברית.</h3>
+        <div class="pc-body">ידיעות אחרונות הוא המקור המצוטט ביותר ב-AI בעברית. יתרון זה עדיין אינו מתורגם לערוץ מכירה מובנה.</div>
+        <ul class="pc-ul">
+          <li>היתרון קיים — אין מנגנון שממנף אותו</li>
+          <li>הביקוש מפוזר ולא ממוקד</li>
+          <li>ההזדמנות האסטרטגית פתוחה</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RED DIVIDER 1 -->
+<div class="red-div">
+  <div class="red-div-in">
+    <div class="rd-txt">שוק ה-GEO בישראל נמצא בשלב מוקדם. <span>מי שיבנה בו נוכחות מבוססת עכשיו — יקבע את הסטנדרט.</span></div>
+    <div class="rd-pills">
+      <div class="rd-pill">GEO<small>ערוץ הכנסות מדיד</small></div>
+      <div class="rd-pill">2026<small>שלב כניסה מוקדם</small></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 2: SOLUTION ══ -->
+<div id="solution" class="promise-bg">
+  <div class="promise-in">
+    <div class="ey inv rv">ההצעה</div>
+    <h2 class="inv rv">GeoScale — <span class="r">שכבת המכירה החיצונית.</span></h2>
+    <div class="promises">
+      <div class="pi rv">
+        <div class="pi-num">01</div>
+        <div>
+          <div class="pi-title">GeoScale <span class="r">מפעילה את המכירה</span> מקצה לקצה.</div>
+          <p class="pi-desc">מיפוי סוכנויות, זיהוי הזדמנויות לפי לקוח, ניהול התהליך וסגירת העסקה. <b>ידיעות מספקות את הנכס, GeoScale מוכרת אותו.</b></p>
+        </div>
+      </div>
+      <div class="pi rv d1">
+        <div class="pi-num">02</div>
+        <div>
+          <div class="pi-title">ללא <span class="r">עומס תפעולי</span> על ידיעות.</div>
+          <p class="pi-desc">אין צורך בגיוס, הכשרה או ניהול שוטף. GeoScale נושאת באחריות המלאה על שכבת המכירה. <b>ידיעות שומרות על המיקוד העריכתי.</b></p>
+        </div>
+      </div>
+      <div class="pi rv d2">
+        <div class="pi-num">03</div>
+        <div>
+          <div class="pi-title">מוצר <span class="r">שאין למתחרים</span> כרגע.</div>
+          <p class="pi-desc">N12, וואלה ומאקו אינם מציעים מוצר GEO מובנה. שיתוף הפעולה מאפשר לידיעות <b>להיות הגוף הראשון שמציע לסוכנויות פתרון מדיד לנראות AI.</b></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 3: FLOW ══ -->
+<div id="flow" class="flow-bg">
+  <div class="s-in" style="padding-top:80px;padding-bottom:80px">
+    <div class="ey inv rv">תהליך העבודה</div>
+    <h2 class="rv">מסוכנות הפרסום <span class="r">ועד ההכנסה לידיעות —</span> תהליך מובנה.</h2>
+    <p class="s-lead rv" style="margin-bottom:0">חמישה שלבים שמחברים בין הסוכנות לנכסי התוכן של ידיעות.</p>
+    <div class="flow-grid">
+      <div class="fs rv">
+        <div class="fs-num">1</div>
+        <div class="fs-tag">כניסה</div>
+        <h3>משרד פרסום מצטרף</h3>
+        <p>כל משרד מקבל סביבת עבודה ייעודית עם הלקוחות שלו בלבד</p>
+      </div>
+      <div class="fs rv d1">
+        <div class="fs-num">2</div>
+        <div class="fs-tag">אנליזה</div>
+        <h3>הלקוחות נסרקים</h3>
+        <p>GeoScale בודקת כל לקוח — איפה ה-AI מתעלם ממנו ואיפה יש הזדמנות</p>
+      </div>
+      <div class="fs rv d2">
+        <div class="fs-num">3</div>
+        <div class="fs-tag">הצעה</div>
+        <h3>הזדמנויות מוכנות</h3>
+        <p>המשרד רואה כתבות מוכנות לרכישה — לפי לקוח, נושא ושאלות AI אמיתיות</p>
+      </div>
+      <div class="fs rv d3">
+        <div class="fs-num">4</div>
+        <div class="fs-tag">מכירה</div>
+        <h3>GeoScale מנהלת את העסקה</h3>
+        <p>ניהול המשא ומתן וסגירת העסקה מול הסוכנות</p>
+      </div>
+      <div class="fs rv d4">
+        <div class="fs-num">5</div>
+        <div class="fs-tag">הכנסה</div>
+        <h3>הכנסה לידיעות</h3>
+        <p>התמורה עוברת לידיעות. GeoScale מקבלת עמלה מהמרג'ין</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RED DIVIDER 2 -->
+<div class="red-div">
+  <div class="red-div-in">
+    <div class="rd-txt">ההחלטה לרכוש כתבה מתבצעת על בסיס נתוני ה-AI של המפרסם — <span>לא על בסיס שכנוע מצד איש המכירות.</span></div>
+    <div class="rd-pills">
+      <div class="rd-pill">מבוסס נתונים<small>ציוני AI בזמן אמת</small></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 4: BUSINESS MODEL ══ -->
+<div id="model" class="model-bg">
+  <div class="model-in">
+    <div class="rv-l rv">
+      <div class="ey inv">המודל העסקי</div>
+      <h2 class="inv" style="font-size:38px;margin-bottom:28px">מבנה <span class="r">הכנסות וחלוקת תפקידים.</span></h2>
+      <div class="mf">
+        <div class="mf-row rv">
+          <div class="mf-ic a" style="font-size:13px;font-weight:700;font-family:var(--m)">01</div>
+          <div>
+            <div class="mf-lbl">ידיעות אחרונות</div>
+            <div class="mf-sub">מספקת כתבות במחיר סיטונאי</div>
+          </div>
+          <div class="mf-val" style="color:var(--amber)">בסיס</div>
+        </div>
+        <div class="mf-arr rv d1"></div>
+        <div class="mf-row rv d1">
+          <div class="mf-ic r" style="font-size:13px;font-weight:700;font-family:var(--m)">02</div>
+          <div>
+            <div class="mf-lbl">GeoScale מוכרת</div>
+            <div class="mf-sub">לסוכנויות ולמפרסמים במחיר מלא</div>
+          </div>
+          <div class="mf-val" style="color:var(--red)">מחיר שוק</div>
+        </div>
+        <div class="mf-arr rv d2"></div>
+        <div class="mf-row acc rv d2">
+          <div class="mf-ic g" style="font-size:13px;font-weight:700;font-family:var(--m)">03</div>
+          <div>
+            <div class="mf-lbl">הכנסה לידיעות</div>
+            <div class="mf-sub">כל הכסף עובר דרך ידיעות תחילה</div>
+          </div>
+          <div class="mf-val">מלא</div>
+        </div>
+        <div class="mf-arr rv d3"></div>
+        <div class="mf-row rv d3">
+          <div class="mf-ic r" style="font-size:13px;font-weight:700;font-family:var(--m)">04</div>
+          <div>
+            <div class="mf-lbl">עמלת GeoScale</div>
+            <div class="mf-sub">רק מהמרג'ין — לא מהבסיס</div>
+          </div>
+          <div class="mf-val" style="color:var(--w2)">מהפרש</div>
+        </div>
+      </div>
+      <div class="formula rv">
+        <div class="formula-label">הנוסחה</div>
+        <div class="formula-txt">ידיעות אינן נושאות בעלות המכירה.<br><span class="r">ההכנסה מגיעה ישירות מהעסקאות שנסגרו.</span></div>
+      </div>
+    </div>
+    <div class="rv-r rv">
+      <div style="font-family:var(--m);font-size:10px;color:rgba(227,0,27,.5);letter-spacing:2px;text-transform:uppercase;margin-bottom:20px">מה ידיעות אחרונות מקבלת</div>
+      <div class="model-bullets">
+        <div class="mb rv">
+          <div class="mb-ic r"></div>
+          <div>
+            <div class="mb-t">ערוץ הכנסות חדש ללא השקעה תפעולית</div>
+            <div class="mb-s">GeoScale נושאת בעלות המכירה. ידיעות מקבלת הכנסה.</div>
+          </div>
+        </div>
+        <div class="mb rv d1">
+          <div class="mb-ic g"></div>
+          <div>
+            <div class="mb-t">הכנסה חוזרת — מבנה מנויי</div>
+            <div class="mb-s">נראות ב-AI דורשת תוכן שוטף — כל מפרסם הופך ללקוח קבוע.</div>
+          </div>
+        </div>
+        <div class="mb rv d2">
+          <div class="mb-ic w"></div>
+          <div>
+            <div class="mb-t">יתרון תחרותי מובהק כרגע</div>
+            <div class="mb-s">N12, וואלה ומאקו אינם מציעים מוצר GEO מובנה.</div>
+          </div>
+        </div>
+        <div class="mb rv d3">
+          <div class="mb-ic r"></div>
+          <div>
+            <div class="mb-t">מיצוב ידיעות כמוביל שוק ה-GEO</div>
+            <div class="mb-s">ידיעות כבר מדורגים מקור הציטוט #1 ב-AI בעברית.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 5: MARKET ══ -->
+<section id="market" class="s paper-d">
+  <div class="s-in">
+    <div class="ey rv">מצב השוק</div>
+    <h2 class="rv">מצב השוק <span class="r">וההזדמנות לידיעות אחרונות.</span></h2>
+    <p class="s-lead rv">המצב הנוכחי בשוק — ומה שמאפשרת שותפות מובנית עם GeoScale.</p>
+    <div class="comp-grid">
+      <div class="cc bad rv">
+        <div class="cc-hd">
+          <span class="cc-hd-t">מה קורה היום בשוק</span>
+          <span class="cc-badge bad">הבעיה</span>
+        </div>
+        <div class="cc-body">
+          <ul class="cc-ul bad">
+            <li>ספקים זולים מוכרים כתבות בחצי מחיר ופוגעים בערך הנתפס</li>
+            <li>אין בידול אמיתי — הבחירה נהיית רק לפי מחיר</li>
+            <li>המדיה הגדולה מאבדת שליטה לשחקנים קטנים ואגרסיביים</li>
+            <li>הלקוחות מקבלים מוצר חלש, המותג החזק לא מממש את היתרון שלו</li>
+          </ul>
+        </div>
+      </div>
+      <div class="cc good rv d1">
+        <div class="cc-hd">
+          <span class="cc-hd-t">עם שותפות GeoScale</span>
+          <span class="cc-badge good">הפתרון</span>
+        </div>
+        <div class="cc-body">
+          <ul class="cc-ul good">
+            <li>ערוץ מכירה מובנה לנכסי התוכן של ידיעות אחרונות</li>
+            <li>מחיר מוצדק על בסיס תוצאות מדידות — לא תחרות על מחיר</li>
+            <li>שותפות אסטרטגית עם חלוקת תפקידים ברורה</li>
+            <li>בסיס לשיתוף פעולה שניתן להרחיב לקטגוריות ושירותים נוספים</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<div id="cta" class="cta-outer">
+  <!-- IMPROVED: Red gradient card wrapper (from GPT) -->
+  <div class="cta-card rv">
+    <div class="cta-kicker">לפגישה</div>
+    <h2>45 דקות. <span class="r">הנתונים,<br>המודל וצעדי ההתחלה.</span></h2>
+    <p class="cta-sub">נציג את נתוני ה-AI של <b>13 מפרסמים פעילים של ידיעות</b>, נסביר את המודל המסחרי ונגדיר יחד את צעדי הכניסה.</p>
+    <div class="cta-btns">
+      <a class="btn-r" href="mailto:demo@geoscale.ai">לתיאום פגישה</a>
+      <a class="btn-g" href="#problem">חזרה לתחילה ↑</a>
+    </div>
+        <div class="cta-note">GeoScale מפעילה את שכבת המכירה · ידיעות מספקות את הנכסים · ההכנסה לידיעות</div>
+  </div>
+</div>
+
+<div id="live-data">
+  <div class="geo-bridge">
+    <div class="geo-bridge-in">
+      <div class="geo-bridge-eyebrow">GeoScale Live Scan — 1.4.2026</div>
+      <h2>הנתונים האמיתיים — 13 לקוחות Ynet</h2>
+      <p>כך ה-AI מדבר <b>ברגע זה</b> על המפרסמים הגדולים שלכם. בחרו מותג וראו תמונה מלאה.</p>
+    </div>
+  </div>
+  <div class="gdash">
+    <div class="g-sticky">
+      <div class="g-sticky-in">
+        <div class="g-logo">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          GeoScale Live
+        </div>
+        <div class="g-meta">13 brands · ChatGPT + Gemini · 1.4.2026</div>
+      </div>
+    </div>
+    <div class="g-wrap">
+      <div class="g-stats" id="gSB"></div>
+      <div class="g-bnav" id="gBN"></div>
+      <div id="gBD"></div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+
+<footer>
+  <div class="f-logo">Geo<span>Scale</span></div>
+  <div class="f-links">
+    <a class="f-a" href="#">Ynet</a>
+    <a class="f-a" href="#">Calcalist</a>
+    <a class="f-a" href="#">Sport1</a>
+    <a class="f-a" href="#">GeoScale.ai</a>
+  </div>
+  <small>© 2026 GeoScale · הצעה אסטרטגית בלעדית לידיעות אחרונות</small>
+</footer>
+
+<script>
+/* Scroll reveal */
+const ro=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('on')}),{threshold:.06,rootMargin:'0px 0px -20px 0px'});
+document.querySelectorAll('.rv,.rv-l,.rv-r').forEach(el=>ro.observe(el));
+
+
+/* ══ GeoScale Data Engine ══ */
+const DATA = {"openu.ac.il": {"overview": {"brandName": "האוניברסיטה הפתוחה", "metrics": {"שיעור אזכור": "43%", "מיקום ממוצע": "#11.5", "איכות ציטוט": "51%", "סיכון מוניטין": "100%"}, "riskText": "סיכון גבוה", "sentiment": {"positive": 4, "neutral": 39, "negative": 0}, "citation": {"high": "15%", "medium": "70%", "low": "15%"}, "engines": {"chatgpt": {"score": "23%", "found": 9, "total": 39}, "gemini": {"score": "72%", "found": 28, "total": 39}}, "stages": [{"name": "חשיפה", "score": "60%", "queries": 10}, {"name": "מחקר", "score": "70%", "queries": 10}, {"name": "החלטה", "score": "70%", "queries": 10}, {"name": "תמיכה", "score": "100%", "queries": 5}, {"name": "מוניטין", "score": "100%", "queries": 4}, {"name": "רושם כללי", "score": "0%", "queries": 0}], "persona": {"קהל יעד": "סטודנטים פוטנציאליים בגילאים שונים, כולל חיילים בשירות חובה, והורים לילדים בתיכון", "תעשייה": "לימודים לתואר ראשון, שני, שלישי ולימודי תעודה, קורסים אקדמיים המחליפים מקצועות לבגרות, ליווי וייעוץ אקדמי, מלגות לסטודנטים", "מיקום": "ישראל", "ערך ייחודי": "גמישות בלימודים, אפשרות ללמוד מרחוק ובקצב אישי, ושילוב טכנולוגיות הוראה מתקדמות."}, "works": ["Services described", "Specialization clear", "Location known"], "missing": ["Brand not in AI knowledge"], "top5": [{"num": "1", "query": "מה היתרונות והחסרונות של לימודים אקדמיים אחרי הצבא?", "chatgpt": "✓", "gemini": "✓"}, {"num": "2", "query": "מהם הקורסים הכי טובים ללימודי תואר ראשון במנהל עסקים בישראל?", "chatgpt": "✗", "gemini": "✓"}, {"num": "3", "query": "איך אני יכול להשוות בין מסלולי הלימוד השונים למנהל עסקים?", "chatgpt": "✗", "gemini": "✓"}, {"num": "4", "query": "מהן האופציות המובילות ללימודים גמישים במנהל עסקים בישראל?", "chatgpt": "✗", "gemini": "✓"}, {"num": "5", "query": "איך אני יכול להירשם לקורסים אקדמיים אונליין?", "chatgpt": "✗", "gemini": "✓"}]}, "queries": [{"num": "1", "query": "למה כדאי לי ללמוד תואר ראשון במנהל עסקים?", "persona": "אורי", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "2", "query": "מה היתרונות והחסרונות של לימודים אקדמיים אחרי הצבא?", "persona": "אורי", "stage": "חשיפה", "chatgpt": "✓", "gemini": "✓"}, {"num": "3", "query": "מהם הקורסים הכי טובים ללימודי תואר ראשון במנהל עסקים בישראל?", "persona": "אורי", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "4", "query": "איך אני יכול להשוות בין מסלולי הלימוד השונים למנהל עסקים?", "persona": "אורי", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "5", "query": "איזה מוסד הכי מומלץ ללימודים אקדמיים בתחום המנהל עסקים בישראל?", "persona": "אורי", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "6", "query": "מהן האופציות המובילות ללימודים גמישים במנהל עסקים בישראל?", "persona": "אורי", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "7", "query": "איך אני יכול להירשם לקורסים אקדמיים אונליין?", "persona": "אורי", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✓"}, {"num": "8", "query": "מהן הביקורות על האוניברסיטה הפתוחה בלימודי תואר ראשון?", "persona": "אורי", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "9", "query": "איך אפשר לעזור לבת שלי לבחור מקצוע ללימודים אחרי התיכון?", "persona": "נועה", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "10", "query": "מה היתרונות בלימודים לתעודה לעומת תואר ראשון?", "persona": "נועה", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "11", "query": "מהן האפשרויות ללימודי תעודה בישראל ואילו מוסדות מציעים אותן?", "persona": "נועה", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "12", "query": "איך משווים בין קורסים אקדמיים שונים ללימודי תעודה?", "persona": "נועה", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "13", "query": "מהם הקורסים המומלצים ביותר ללימודי תעודה בישראל?", "persona": "נועה", "stage": "החלטה", "chatgpt": "✓", "gemini": "✗"}, {"num": "14", "query": "אילו מוסדות מציעים את הלימודים הכי טובים לתואר ראשון בישראל?", "persona": "נועה", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "15", "query": "איך אני נרשמת לקורסים אקדמיים אונליין?", "persona": "נועה", "stage": "תמיכה", "chatgpt": "✓", "gemini": "✓"}, {"num": "16", "query": "מה הביקורות על האוניברסיטה הפתוחה בתחום הלימודים לתואר ראשון?", "persona": "נועה", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "17", "query": "למה כדאי לי ללמוד תואר שני בתחום ההייטק?", "persona": "רועי", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "18", "query": "איזה יתרונות יש בלימודים אקדמיים לעובדים בתחום התוכנה?", "persona": "רועי", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "19", "query": "מה ההבדלים בין קורסים שונים לתואר שני בהייטק?", "persona": "רועי", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "20", "query": "איך בוחרים את המסלול הנכון ללימודים לתואר שני?", "persona": "רועי", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "21", "query": "מהן האפשרויות הטובות ביותר ללימודים לתואר שני בהייטק בישראל?", "persona": "רועי", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "22", "query": "איזה מוסדות מציעים לימודים לתואר שני בהייטק עם גמישות בזמנים?", "persona": "רועי", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "23", "query": "איך נרשמים לקורסים אקדמיים אונליין?", "persona": "רועי", "stage": "תמיכה", "chatgpt": "✓", "gemini": "✓"}, {"num": "24", "query": "מהן הביקורות על האוניברסיטה הפתוחה בתחום לימודי התואר השני?", "persona": "רועי", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "25", "query": "מה היתרונות בלימוד תואר ראשון במדעי החברה?", "persona": "מאיה", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "26", "query": "איך אפשר לשפר את הכישורים שלי בלימודים?", "persona": "מאיה", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "27", "query": "מה ההבדלים בין קורסים אקדמיים שונים?", "persona": "מאיה", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "28", "query": "כיצד לבחור את הקורסים המתאימים לי?", "persona": "מאיה", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "29", "query": "מהם הקורסים הכי מומלצים במדעי החברה בישראל?", "persona": "מאיה", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "30", "query": "איפה אפשר למצוא מלגות לסטודנטים במדעי החברה בישראל?", "persona": "מאיה", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "31", "query": "איך נרשמים ללימודים לתואר ראשון באוניברסיטה?", "persona": "מאיה", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✓"}, {"num": "32", "query": "מה הביקורות על האוניברסיטה הפתוחה, מוסד לימודים לתואר ראשון ושני?", "persona": "מאיה", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "33", "query": "מהן האפשרויות ללמוד תואר ראשון במקביל לעבודה מלאה?", "persona": "דוד", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "34", "query": "איך אני יכול לשדרג את הכישורים שלי בתחום השיווק?", "persona": "דוד", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "35", "query": "מה ההבדלים בין תואר ראשון לתעודת מקצוע בשיווק?", "persona": "דוד", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "36", "query": "אילו מוסדות מציעים קורסים אקדמיים בתחום השיווק?", "persona": "דוד", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "37", "query": "אילו תוכניות לימוד מציעות גמישות ללמידה עבור עובדים במשרה מלאה בישראל?", "persona": "דוד", "stage": "החלטה", "chatgpt": "✓", "gemini": "✓"}, {"num": "38", "query": "מהן האוניברסיטאות המומלצות בישראל ללימודים מתקדמים בשיווק?", "persona": "דוד", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "39", "query": "איך נרשמים לקורסים אקדמיים באינטרנט?", "persona": "דוד", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✓"}], "audiences": [{"name": "נועה - אמא לילדה בתיכון", "role": "מנהלת משאבי אנוש", "score": "90%", "description": "אמא בת 40, מחפשת אפשרויות ללימודי תעודה לבתה, מתעניינת בשירותי ייעוץ אקדמי.", "age": "35-44", "location": "תל אביב", "industry": "הייטק", "jobTitle": "מנהלת משאבי אנוש", "queries": "8", "mentions": "7"}, {"name": "דוד - עובד במשרה מלאה", "role": "משווק", "score": "89%", "description": "בן 50, עובד במשרה מלאה בתחום השיווק, רוצה להרחיב את הידע שלו ולהשיג תעודת מקצוע.", "age": "45-54", "location": "נתניה", "industry": "שיווק", "jobTitle": "משווק", "queries": "8", "mentions": "8"}, {"name": "רועי - מקצוען בתחום ההייטק", "role": "מפתח תוכנה", "score": "88%", "description": "בן 35, עובד כמפתח תוכנה ומעוניין להרחיב את הידע שלו בלימודי תואר שני.", "age": "35-44", "location": "ירושלים", "industry": "הייטק", "jobTitle": "מפתח תוכנה", "queries": "8", "mentions": "4"}, {"name": "מאיה - סטודנטית לתואר ראשון", "role": "סטודנטית", "score": "87%", "description": "סטודנטית בת 24, לומדת לתואר ראשון במדעי החברה, מעוניינת בקורסים נוספים לשיפור הכישורים שלה.", "age": "18-24", "location": "תל אביב", "industry": "אקדמיה", "jobTitle": "סטודנטית", "queries": "8", "mentions": "5"}, {"name": "אורי - חייל משוחרר", "role": "סטודנט", "score": "85%", "description": "חייל משוחרר בן 21, מתעניין בלימודים לקראת תואר ראשון בתחום המנהל עסקים. מחפש מסגרת גמישה שתתאים ללוח...", "age": "18-24", "location": "חיפה", "industry": "צבא", "jobTitle": "סטודנט", "queries": "8", "mentions": "6"}], "workplan": {"summary": "על בסיס ניתוח מעמיק של 39 שאילתות ב-ChatGPT ו-Gemini, המותג מופיע ב-43% מהשאילתות הרלוונטיות. יש בסיס טוב אבל הרבה מקום לשיפור.", "services": [{"name": "אבחון נוכחות AI מלא", "description": "הצעד הראשון — להבין בדיוק איפה אתם עומדים", "price": "₪3,500", "recommended": true}, {"name": "תשתית טכנית ל-AI", "description": "לדאוג שמנועי AI יכולים לקרוא ולהבין את האתר", "price": "₪4,000", "recommended": false}, {"name": "תוכן + ציטוטים + יח\"צ", "description": "בניית ציטוטים וסמכות", "price": "₪7,500", "recommended": false}, {"name": "אופטימיזציה + תחרות", "description": "אופטימיזציה ל-ChatGPT", "price": "₪4,500", "recommended": false}, {"name": "ליווי וניטור חודשי", "description": "מעקב רציף — לדעת בכל רגע איפה אתם עומדים", "price": "₪2,500/חודש", "recommended": true}, {"name": "ליווי פרימיום + ייעוץ אסטרטגי", "description": "ליווי צמוד — שותף אסטרטגי לנוכחות AI", "price": "₪6,500/חודש", "recommended": false}]}}, "bezeq.co.il": {"overview": {"brandName": "בזק", "metrics": {"שיעור אזכור": "49%", "מיקום ממוצע": "#8.8", "איכות ציטוט": "65%", "סיכון מוניטין": "100%"}, "riskText": "סיכון גבוה", "sentiment": {"positive": 11, "neutral": 36, "negative": 0}, "citation": {"high": "20%", "medium": "69%", "low": "11%"}, "engines": {"chatgpt": {"score": "42%", "found": 16, "total": 38}, "gemini": {"score": "61%", "found": 23, "total": 38}}, "stages": [{"name": "חשיפה", "score": "40%", "queries": 10}, {"name": "מחקר", "score": "38%", "queries": 8}, {"name": "החלטה", "score": "70%", "queries": 10}, {"name": "תמיכה", "score": "100%", "queries": 5}, {"name": "מוניטין", "score": "100%", "queries": 5}, {"name": "רושם כללי", "score": "0%", "queries": 0}], "persona": {"קהל יעד": "לקוחות פרטיים ועסקיים בישראל", "תעשייה": "שירותי אינטרנט, שירותי טלוויזיה, שירותי טלפון קווי, פתרונות תקשורת", "מיקום": "ישראל", "ערך ייחודי": "חברה עם היסטוריה ארוכה בתחום התקשורת בישראל, מציעה מגוון רחב של שירותים ובעלת תשתיות מתקדמות."}, "works": ["Specialization clear", "Services described", "Location known"], "missing": ["Brand not in AI knowledge"], "top5": [{"num": "1", "query": "למה חשוב שיהיה לי שירות טלפון קווי בבית?", "chatgpt": "✗", "gemini": "✓"}, {"num": "2", "query": "מה ההבדלים בין ספקי שירותי אינטרנט בישראל?", "chatgpt": "✓", "gemini": "✓"}, {"num": "3", "query": "מהן האפשרויות הכי טובות לשירותי אינטרנט בנתניה?", "chatgpt": "✗", "gemini": "✓"}, {"num": "4", "query": "איזה שירות טלפון קווי מומלץ לגיל הזהב בישראל?", "chatgpt": "✓", "gemini": "✓"}, {"num": "5", "query": "איך להגדיר את שירות האינטרנט שלי בבית?", "chatgpt": "✓", "gemini": "✓"}]}, "queries": [{"num": "1", "query": "למה חשוב שיהיה לי שירות טלפון קווי בבית?", "persona": "משה", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "2", "query": "איך אינטרנט יכול לעזור לי לשמור על קשר עם המשפחה?", "persona": "משה", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "3", "query": "מה ההבדלים בין ספקי שירותי אינטרנט בישראל?", "persona": "משה", "stage": "מחקר", "chatgpt": "✓", "gemini": "✓"}, {"num": "4", "query": "כיצד לבחור שירות טלוויזיה שמתאים לצרכים שלי?", "persona": "משה", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "5", "query": "מהן האפשרויות הכי טובות לשירותי אינטרנט בנתניה?", "persona": "משה", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "6", "query": "איזה שירות טלפון קווי מומלץ לגיל הזהב בישראל?", "persona": "משה", "stage": "החלטה", "chatgpt": "✓", "gemini": "✓"}, {"num": "7", "query": "איך להגדיר את שירות האינטרנט שלי בבית?", "persona": "משה", "stage": "תמיכה", "chatgpt": "✓", "gemini": "✓"}, {"num": "8", "query": "מה הביקורות על בזק שירותי אינטרנט?", "persona": "משה", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "9", "query": "למה חשוב שיהיה לי אינטרנט מהיר בבית?", "persona": "יוסי", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "10", "query": "איך אני יכול לשפר את חוויית הלקוחות שלי עם שירותי אינטרנט?", "persona": "יוסי", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "11", "query": "איך משווים בין חבילות טלוויזיה שונות בשוק?", "persona": "יוסי", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "12", "query": "מה הספק הטוב ביותר לשירותי אינטרנט בירושלים?", "persona": "יוסי", "stage": "החלטה", "chatgpt": "✓", "gemini": "✓"}, {"num": "13", "query": "איזה שירות טלוויזיה הכי מומלץ בישראל?", "persona": "יוסי", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "14", "query": "איך אני פותר בעיות חיבור אינטרנט?", "persona": "יוסי", "stage": "תמיכה", "chatgpt": "✓", "gemini": "✓"}, {"num": "15", "query": "מה הביקורות על בזק בשירותי אינטרנט?", "persona": "יוסי", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "16", "query": "למה אני צריכה שירותי טלוויזיה ואינטרנט למשפחה שלי?", "persona": "מירי", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "17", "query": "מה היתרונות של שירותי תקשורת מתקדמים למשפחות?", "persona": "מירי", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "18", "query": "איך אני משווה בין תוכניות טלוויזיה שונות למשפחה?", "persona": "מירי", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "19", "query": "מה השירותים הכי משתלמים בישראל לטלוויזיה ואינטרנט?", "persona": "מירי", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "20", "query": "אילו ספקי שירותי אינטרנט הכי מומלצים בחיפה?", "persona": "מירי", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "21", "query": "איך אני מחבר את המודם לשירותי אינטרנט בבית?", "persona": "מירי", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✓"}, {"num": "22", "query": "מהן הביקורות על בזק לשירותי אינטרנט וטלויזיה?", "persona": "מירי", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "23", "query": "איך אני יכול לשפר את הקשר עם הלקוחות שלי בעסק הקטן שלי?", "persona": "אביעד", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "24", "query": "מה היתרונות של פתרונות תקשורת בעסק קטן?", "persona": "אביעד", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "25", "query": "מה ההבדלים בין שירותי אינטרנט שונים בישראל?", "persona": "אביעד", "stage": "מחקר", "chatgpt": "✓", "gemini": "✓"}, {"num": "26", "query": "איך לבחור את שירות הטלוויזיה הכי מתאים לעסק שלי?", "persona": "אביעד", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "27", "query": "מהו ספק שירותי הטלפון הקווי הכי מומלץ בתל אביב?", "persona": "אביעד", "stage": "החלטה", "chatgpt": "✓", "gemini": "✓"}, {"num": "28", "query": "איזה פתרונות תקשורת מתאימים לעסק קטן בישראל?", "persona": "אביעד", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "29", "query": "איך להשתמש בשירותי אינטרנט לעסק שלי בצורה יעילה?", "persona": "אביעד", "stage": "תמיכה", "chatgpt": "✓", "gemini": "✓"}, {"num": "30", "query": "מה הביקורות על בזק ושירותי האינטרנט שלה?", "persona": "אביעד", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "31", "query": "מה היתרונות של חבילת אינטרנט מהירה לסטודנטים?", "persona": "דנה", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "32", "query": "איך חבילות טלוויזיה יכולות לשפר את חוויית הלימודים שלי?", "persona": "דנה", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "33", "query": "מה ההבדלים בין חבילות אינטרנט שונות בישראל?", "persona": "דנה", "stage": "מחקר", "chatgpt": "✓", "gemini": "✓"}, {"num": "34", "query": "איך לבחור את חבילת הטלוויזיה שמתאימה לי?", "persona": "דנה", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "35", "query": "מהן החבילות המומלצות לסטודנטים בתל אביב?", "persona": "דנה", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "36", "query": "איזה ספקי אינטרנט מציעים מחירים טובים בישראל?", "persona": "דנה", "stage": "החלטה", "chatgpt": "✓", "gemini": "✓"}, {"num": "37", "query": "איך אני יכולה לשפר את מהירות האינטרנט בבית?", "persona": "דנה", "stage": "תמיכה", "chatgpt": "✓", "gemini": "✓"}, {"num": "38", "query": "מה ביקורות על בזק בשירותי אינטרנט וטלפון קווי?", "persona": "דנה", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✗"}], "audiences": [{"name": "מירי - אמא לשלושה", "role": "מנהלת משאבי אנוש", "score": "90%", "description": "מירי היא אמא בת 42, גרה בחיפה. היא מחפשת שירותי טלוויזיה ואינטרנט שיתאימו לכל המשפחה ויהיו משתלמים.", "age": "35-44", "location": "חיפה", "industry": "שירותים", "jobTitle": "מנהלת משאבי אנוש", "queries": "8", "mentions": "5"}, {"name": "אביעד - בעל עסק קטן", "role": "בעל עסק", "score": "88%", "description": "אביעד הוא בעל עסק קטן בן 35, מתגורר בתל אביב. מחפש פתרונות תקשורת שיסייעו לו לשפר את הקשר עם לקוחותי...", "age": "35-44", "location": "תל אביב", "industry": "מסחר", "jobTitle": "בעל עסק", "queries": "8", "mentions": "5"}, {"name": "יוסי - טכנאי מחשבים", "role": "טכנאי מחשבים", "score": "85%", "description": "יוסי הוא טכנאי מחשבים בן 28, גר בירושלים, ועובד כעצמאי. מחפש פתרונות אינטרנט מהירים ואמינים כדי לספק...", "age": "25-34", "location": "ירושלים", "industry": "טכנולוגיה", "jobTitle": "טכנאי מחשבים", "queries": "8", "mentions": "5"}, {"name": "דנה - סטודנטית", "role": "סטודנטית", "score": "84%", "description": "דנה היא סטודנטית בת 22, מתגוררת בתל אביב. היא מחפשת חבילות אינטרנט משתלמות כדי לעזור לה בלימודים ובב...", "age": "18-24", "location": "תל אביב", "industry": "אקדמיה", "jobTitle": "סטודנטית", "queries": "8", "mentions": "5"}, {"name": "משה - פנסיונר", "role": "פנסיונר", "score": "82%", "description": "משה הוא פנסיונר בן 67, גר בנתניה. מחפש שירותי טלפון קווי ואינטרנט כדי לשמור על קשר עם בני המשפחה. 65+ נתניה retired פנסיונר 8 שאילתות | 6 אזכורים", "age": "משה הוא פנסיונר בן 67, גר בנתניה. מחפש שירותי טלפון קווי ואינטרנט כדי לשמור על קשר עם בני המשפחה.", "location": "65+", "industry": "נתניה", "jobTitle": "retired", "queries": "8", "mentions": "6"}], "workplan": {"summary": "על בסיס ניתוח מעמיק של 38 שאילתות ב-ChatGPT ו-Gemini, המותג מופיע ב-49% מהשאילתות הרלוונטיות. יש בסיס טוב אבל הרבה מקום לשיפור.", "services": [{"name": "אבחון נוכחות AI מלא", "description": "הצעד הראשון — להבין בדיוק איפה אתם עומדים", "price": "₪3,500", "recommended": true}, {"name": "תשתית טכנית ל-AI", "description": "לדאוג שמנועי AI יכולים לקרוא ולהבין את האתר", "price": "₪4,000", "recommended": false}, {"name": "תוכן + ציטוטים + יח\"צ", "description": "14 שאילתות שבהן המותג לא מוזכר — הזדמנות ענקית", "price": "₪8,500", "recommended": true}, {"name": "אופטימיזציה + תחרות", "description": "אופטימיזציה ל-ChatGPT", "price": "₪4,500", "recommended": false}, {"name": "ליווי וניטור חודשי", "description": "מעקב רציף — לדעת בכל רגע איפה אתם עומדים", "price": "₪2,500/חודש", "recommended": true}, {"name": "ליווי פרימיום + ייעוץ אסטרטגי", "description": "ליווי צמוד — שותף אסטרטגי לנוכחות AI", "price": "₪6,500/חודש", "recommended": false}]}}, "shufersal.co.il": {"overview": {"brandName": "שופרסל", "metrics": {"שיעור אזכור": "58%", "מיקום ממוצע": "#6.4", "איכות ציטוט": "67%", "סיכון מוניטין": "100%"}, "riskText": "סיכון גבוה", "sentiment": {"positive": 9, "neutral": 38, "negative": 1}, "citation": {"high": "20%", "medium": "70%", "low": "10%"}, "engines": {"chatgpt": {"score": "49%", "found": 19, "total": 39}, "gemini": {"score": "72%", "found": 28, "total": 39}}, "stages": [{"name": "חשיפה", "score": "78%", "queries": 9}, {"name": "מחקר", "score": "60%", "queries": 10}, {"name": "החלטה", "score": "70%", "queries": 10}, {"name": "תמיכה", "score": "100%", "queries": 5}, {"name": "מוניטין", "score": "100%", "queries": 5}, {"name": "רושם כללי", "score": "0%", "queries": 0}], "persona": {"קהל יעד": "צרכנים ישראלים, משפחות, סטודנטים", "תעשייה": "מוצרי מזון, מוצרי צריכה, שירותי קנייה אונליין, שירותי משלוחים", "מיקום": "ישראל", "ערך ייחודי": "רשת הסופרמרקטים הגדולה ביותר בישראל עם מגוון רחב של מוצרים ושירותים מתקדמים."}, "works": ["Specialization clear", "Services described", "Location known"], "missing": ["Brand not in AI knowledge"], "top5": [{"num": "1", "query": "איך אני יכול לקנות מוצרי מזון במהירות בתל אביב?", "chatgpt": "✗", "gemini": "✓"}, {"num": "2", "query": "מה האפשרויות שלי לקנייה אונליין של מוצרי צריכה?", "chatgpt": "✓", "gemini": "✓"}, {"num": "3", "query": "איך משווים בין רשתות מזון שונות בישראל?", "chatgpt": "✓", "gemini": "✓"}, {"num": "4", "query": "אילו שירותי קנייה אונליין מומלצים בישראל?", "chatgpt": "✗", "gemini": "✓"}, {"num": "5", "query": "איך משתמשים בשירותי קנייה אונליין למוצרי מזון?", "chatgpt": "✗", "gemini": "✓"}]}, "queries": [{"num": "1", "query": "איך אני יכול לקנות מוצרי מזון במהירות בתל אביב?", "persona": "אבי", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "2", "query": "מה האפשרויות שלי לקנייה אונליין של מוצרי צריכה?", "persona": "אבי", "stage": "חשיפה", "chatgpt": "✓", "gemini": "✓"}, {"num": "3", "query": "מה היתרונות והחסרונות של שירותי משלוחים למוצרי מזון?", "persona": "אבי", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "4", "query": "איך משווים בין רשתות מזון שונות בישראל?", "persona": "אבי", "stage": "מחקר", "chatgpt": "✓", "gemini": "✓"}, {"num": "5", "query": "אילו שירותי קנייה אונליין מומלצים בישראל?", "persona": "אבי", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "6", "query": "איזה סופרמרקט בתל אביב מציע את המחירים הכי טובים?", "persona": "אבי", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "7", "query": "איך משתמשים בשירותי קנייה אונליין למוצרי מזון?", "persona": "אבי", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✓"}, {"num": "8", "query": "מה הביקורות על שופרסל בשירותי המזון שלהם?", "persona": "אבי", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "9", "query": "כיצד אפשר למצוא מוצרים במחירים נוחים באינטרנט?", "persona": "שירה", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "10", "query": "מה היתרונות של קנייה אונליין בהשוואה לקנייה בסופר?", "persona": "שירה", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "11", "query": "מה ההבדל בין שירותי משלוחים שונים בישראל?", "persona": "שירה", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "12", "query": "אילו רשתות מזון מציעות מחירים טובים לסטודנטים?", "persona": "שירה", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "13", "query": "איפה אני יכולה למצוא את המוצרים הכי זולים בירושלים?", "persona": "שירה", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "14", "query": "מה הסופרמרקטים הכי מומלצים בישראל לקניות אונליין?", "persona": "שירה", "stage": "החלטה", "chatgpt": "✓", "gemini": "✓"}, {"num": "15", "query": "איך משתמשים בשירותי משלוחים של מוצרי מזון?", "persona": "שירה", "stage": "תמיכה", "chatgpt": "✓", "gemini": "✓"}, {"num": "16", "query": "מה הבעיות שיש עם שירותי המשלוחים של שופרסל?", "persona": "שירה", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "17", "query": "איך אני יכולה לקנות מוצרי מזון במחירים סבירים למשפחה גדולה?", "persona": "רונית", "stage": "חשיפה", "chatgpt": "✓", "gemini": "✓"}, {"num": "18", "query": "אילו רשתות מציעות שירותי משלוחים במחירים טובים?", "persona": "רונית", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "19", "query": "איך אני משווה בין מחירים של מוצרי מזון באינטרנט?", "persona": "רונית", "stage": "מחקר", "chatgpt": "✓", "gemini": "✓"}, {"num": "20", "query": "מה הסופרמרקטים המומלצים ביותר לחיים בישראל?", "persona": "רונית", "stage": "החלטה", "chatgpt": "✓", "gemini": "✓"}, {"num": "21", "query": "איפה אני יכולה למצוא את המבצעים הכי טובים על מוצרי מזון בחיפה?", "persona": "רונית", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "22", "query": "איך להשתמש בשירותי קנייה אונליין של מוצרי מזון?", "persona": "רונית", "stage": "תמיכה", "chatgpt": "✓", "gemini": "✓"}, {"num": "23", "query": "מה הביקורות על שופרסל בתחום מוצרי המזון?", "persona": "רונית", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "24", "query": "איך אני יכול לחסוך זמן בקניית מוצרי מזון?", "persona": "דני", "stage": "חשיפה", "chatgpt": "✓", "gemini": "✓"}, {"num": "25", "query": "מה היתרונות של קנייה אונליין של מוצרי צריכה?", "persona": "דני", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "26", "query": "מה ההבדלים בין שירותי משלוחים שונים למוצרי מזון?", "persona": "דני", "stage": "מחקר", "chatgpt": "✓", "gemini": "✗"}, {"num": "27", "query": "איך אני בוחר את הסופרמרקט הכי טוב לקניות אונליין?", "persona": "דני", "stage": "מחקר", "chatgpt": "✓", "gemini": "✓"}, {"num": "28", "query": "איזה אתר קניות אונליין במשלוח מהיר הכי מומלץ בישראל?", "persona": "דני", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "29", "query": "מה הסופרמרקטים עם המגוון הרחב ביותר בישראל?", "persona": "דני", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "30", "query": "איך אני משתמש בשירותי המשלוחים של מוצרי מזון?", "persona": "דני", "stage": "תמיכה", "chatgpt": "✓", "gemini": "✗"}, {"num": "31", "query": "מה הביקורות על שופרסל למוצרי מזון ושירותי קנייה אונליין?", "persona": "דני", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "32", "query": "איך אני יכולה למצוא מוצרים איכותיים וטריים לקנייה בירושלים?", "persona": "מאירה", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "33", "query": "מה היתרונות של קניית מוצרי מזון אונליין?", "persona": "מאירה", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "34", "query": "מה ההבדל בין שירותי משלוחים שונים למוצרי מזון?", "persona": "מאירה", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "35", "query": "איך אני משווה בין מחירים של מוצרי צריכה באינטרנט?", "persona": "מאירה", "stage": "מחקר", "chatgpt": "✓", "gemini": "✓"}, {"num": "36", "query": "מהם הסופרמרקטים הטובים ביותר לקנייה אונליין בישראל?", "persona": "מאירה", "stage": "החלטה", "chatgpt": "✓", "gemini": "✓"}, {"num": "37", "query": "איפה אפשר לקנות מוצרי מזון איכותיים בירושלים?", "persona": "מאירה", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "38", "query": "איך להשתמש בשירותי קנייה אונליין למוצרי מזון?", "persona": "מאירה", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✓"}, {"num": "39", "query": "מה ביקורות על שופרסל במוצרי מזון ומשלוחים?", "persona": "מאירה", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}], "audiences": [{"name": "רונית - אם במשפחה גדולה", "role": "עקרת בית", "score": "95%", "description": "רונית בת 38, אם לחמישה ילדים, מתגוררת בחיפה. היא צריכה לקנות הרבה מוצרים במחירים סבירים.", "age": "35-44", "location": "חיפה", "industry": "לא רלוונטי", "jobTitle": "עקרת בית", "queries": "8", "mentions": "8"}, {"name": "שירה - סטודנטית", "role": "סטודנטית", "score": "90%", "description": "שירה בת 23, סטודנטית באוניברסיטה בירושלים, מחפשת מוצרים במחירים נוחים ומבצעים טובים.", "age": "18-24", "location": "ירושלים", "industry": "אקדמיה", "jobTitle": "סטודנטית", "queries": "8", "mentions": "5"}, {"name": "דני - רווק צעיר", "role": "מתכנת", "score": "88%", "description": "דני בן 27, עובד כמתכנת בתל אביב, מעדיף לקנות באינטרנט כדי לחסוך זמן.", "age": "25-34", "location": "תל אביב", "industry": "הייטק", "jobTitle": "מתכנת", "queries": "8", "mentions": "7"}, {"name": "אבי - אב חד הורי", "role": "עצמאי בשיווק", "score": "85%", "description": "אבי בן 40, גר בתל אביב עם שני ילדים. הוא עובד כעצמאי בתחום השיווק וזקוק לפתרונות לקנייה מהירה של מוצ...", "age": "35-44", "location": "תל אביב", "industry": "שיווק", "jobTitle": "עצמאי בשיווק", "queries": "8", "mentions": "6"}, {"name": "מאירה - פנסיונרית", "role": "פנסיונרית", "score": "80%", "description": "מאירה בת 65, פנסיונרית המתגוררת בירושלים, אוהבת לבשל ומחפשת מוצרים איכותיים. 65+ ירושלים לא רלוונטי פנסיונרית 8 שאילתות | 5 אזכורים", "age": "מאירה בת 65, פנסיונרית המתגוררת בירושלים, אוהבת לבשל ומחפשת מוצרים איכותיים.", "location": "65+", "industry": "ירושלים", "jobTitle": "לא רלוונטי", "queries": "8", "mentions": "5"}], "workplan": {"summary": "על בסיס ניתוח מעמיק של 39 שאילתות ב-ChatGPT ו-Gemini, המותג מופיע ב-58% מהשאילתות הרלוונטיות. יש בסיס טוב אבל הרבה מקום לשיפור.", "services": [{"name": "אבחון נוכחות AI מלא", "description": "הצעד הראשון — להבין בדיוק איפה אתם עומדים", "price": "₪3,500", "recommended": true}, {"name": "תשתית טכנית ל-AI", "description": "לדאוג שמנועי AI יכולים לקרוא ולהבין את האתר", "price": "₪4,000", "recommended": false}, {"name": "אופטימיזציה + תחרות", "description": "אופטימיזציה ל-ChatGPT", "price": "₪4,500", "recommended": false}, {"name": "ליווי וניטור חודשי", "description": "מעקב רציף — לדעת בכל רגע איפה אתם עומדים", "price": "₪2,500/חודש", "recommended": true}, {"name": "ליווי פרימיום + ייעוץ אסטרטגי", "description": "ליווי צמוד — שותף אסטרטגי לנוכחות AI", "price": "₪6,500/חודש", "recommended": false}]}}, "shop.super-pharm.co.il": {"overview": {"brandName": "סופר-פארם", "metrics": {"שיעור אזכור": "22%", "מיקום ממוצע": "#10.2", "איכות ציטוט": "49%", "סיכון מוניטין": "100%"}, "riskText": "סיכון גבוה", "sentiment": {"positive": 9, "neutral": 38, "negative": 0}, "citation": {"high": "15%", "medium": "70%", "low": "15%"}, "engines": {"chatgpt": {"score": "10%", "found": 4, "total": 39}, "gemini": {"score": "38%", "found": 15, "total": 39}}, "stages": [{"name": "חשיפה", "score": "20%", "queries": 10}, {"name": "מחקר", "score": "40%", "queries": 10}, {"name": "החלטה", "score": "20%", "queries": 10}, {"name": "תמיכה", "score": "60%", "queries": 5}, {"name": "מוניטין", "score": "100%", "queries": 4}, {"name": "רושם כללי", "score": "0%", "queries": 0}], "persona": {"קהל יעד": "—", "תעשייה": "—", "מיקום": "ישראל", "ערך ייחודי": "—"}, "works": ["Services described"], "missing": ["Brand not in AI knowledge"], "top5": [{"num": "1", "query": "מה הביקורות על סופר-פארם בתחום המוצרים לשמירה על הבריאות?", "chatgpt": "✓", "gemini": "✓"}, {"num": "2", "query": "מה ביקורות על סופר-פארם בתחום המוצרים הבריאים?", "chatgpt": "✓", "gemini": "✓"}, {"num": "3", "query": "מהם המוצרים הכי חשובים לשמירה על בריאות ילדים?", "chatgpt": "✗", "gemini": "✓"}, {"num": "4", "query": "איך לבחור את המוצרים הבריאותיים הטובים ביותר למשפחה?", "chatgpt": "✗", "gemini": "✓"}, {"num": "5", "query": "איך להשתמש במוצרי בריאות חדשים שקניתי?", "chatgpt": "✗", "gemini": "✓"}]}, "queries": [{"num": "1", "query": "למה חשוב לשמור על הבריאות בעבודה פיזית קשה?", "persona": "יוסי", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "2", "query": "מה הסיכונים הבריאותיים של עבודה בתחום הבנייה?", "persona": "יוסי", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "3", "query": "איך לבחור מוצרים לשמירה על הבריאות בעבודה פיזית?", "persona": "יוסי", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "4", "query": "מה ההבדלים בין מוצרים שונים לשמירה על בריאות בעבודה פיזית?", "persona": "יוסי", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "5", "query": "מהן ההמלצות הטובות ביותר למוצרים לשמירה על הבריאות בעבודה בבנייה בישראל?", "persona": "יוסי", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "6", "query": "איפה ניתן לקנות מוצרים לשמירה על הבריאות בעבודה פיזית בישראל?", "persona": "יוסי", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "7", "query": "איך להשתמש במוצר לשמירה על הבריאות בעבודה פיזית?", "persona": "יוסי", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✗"}, {"num": "8", "query": "מה הביקורות על סופר-פארם בתחום המוצרים לשמירה על הבריאות?", "persona": "יוסי", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "9", "query": "איך אפשר לשמור על אורח חיים בריא עם תקציב מוגבל?", "persona": "דניאל", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "10", "query": "מה היתרונות של מוצרים בריאים על פני מוצרים מעובדים?", "persona": "דניאל", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "11", "query": "מה ההבדלים בין חברות המציעות מזון בריא לסטודנטים?", "persona": "דניאל", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "12", "query": "איך להשוות מחירים בין מוצרים בריאים בסופרמרקטים בתל אביב?", "persona": "דניאל", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "13", "query": "איזה מוצרים בריאים מומלצים לסטודנטים בישראל בתקציב נמוך?", "persona": "דניאל", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "14", "query": "איפה אפשר למצוא מוצרים אורגניים במחירים סבירים בתל אביב?", "persona": "דניאל", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "15", "query": "איך להשתמש במוצרים בריאים כדי לבשל ארוחות שמתאימות לסטודנטים?", "persona": "דניאל", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✗"}, {"num": "16", "query": "מה ביקורות על סופר-פארם בתחום המוצרים הבריאים?", "persona": "דניאל", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "17", "query": "איך אני יכולה לשמור על בריאות המשפחה שלי?", "persona": "מיכל", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "18", "query": "מהם המוצרים הכי חשובים לשמירה על בריאות ילדים?", "persona": "מיכל", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "19", "query": "אילו מוצרים בריאותיים מומלצים לאמא עם חמישה ילדים?", "persona": "מיכל", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "20", "query": "איך לבחור את המוצרים הבריאותיים הטובים ביותר למשפחה?", "persona": "מיכל", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "21", "query": "מהם המוצרים הכי טובים לשמירה על בריאות המשפחה בישראל?", "persona": "מיכל", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "22", "query": "אילו אמצעים לחינוך בריאותי מומלצים למשפחה בירושלים?", "persona": "מיכל", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "23", "query": "איך להשתמש במוצרי בריאות חדשים שקניתי?", "persona": "מיכל", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✓"}, {"num": "24", "query": "מה הביקורות על סופר-פארם?", "persona": "מיכל", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "25", "query": "איך לשמור על רמת אנרגיה גבוהה בעבודה מול מחשב?", "persona": "אורי", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "26", "query": "מה הסיבות העיקריות לעייפות אצל אנשי IT?", "persona": "אורי", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "27", "query": "מה ההבדלים בין תוספי תזונה להעלאת אנרגיה?", "persona": "אורי", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "28", "query": "איך לבחור את הפתרון הבריאותי המתאים לי?", "persona": "אורי", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "29", "query": "מהם התוספים הכי מומלצים בישראל לשיפור אנרגיה?", "persona": "אורי", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "30", "query": "איפה ניתן למצוא פתרונות בריאותיים אנרגטיים בתל אביב?", "persona": "אורי", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "31", "query": "איך להשתמש בתוספי תזונה כדי לשמור על רמת אנרגיה גבוהה?", "persona": "אורי", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✓"}, {"num": "32", "query": "ביקורות על סופר-פארם באתר shop.super-pharm.co.il", "persona": "אורי", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "33", "query": "איך אפשר לשמור על אורח חיים פעיל בגיל 65?", "persona": "רונית", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "34", "query": "מה היתרונות של מוצרים לגיל השלישי?", "persona": "רונית", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "35", "query": "מה ההבדל בין תוספי תזונה שונים לגיל השלישי?", "persona": "רונית", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "36", "query": "איזה מוצרי בריאות הכי מתאימים לפנסיונריות?", "persona": "רונית", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "37", "query": "מהן המלצות המוצרים הטובים ביותר לגיל השלישי בישראל?", "persona": "רונית", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "38", "query": "איפה אפשר לקנות את המוצרים המומלצים לגיל השלישי בישראל?", "persona": "רונית", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "39", "query": "איך משתמשים בתוסף תזונה באופן נכון?", "persona": "רונית", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✓"}], "audiences": [{"name": "מיכל - אמא לעשרה", "role": "עקרת בית", "score": "90%", "description": "אמא בת 38 עם חמישה ילדים, גרה בירושלים. מחפשת מוצרים לשמירה על בריאות המשפחה ואמצעים לחינוך בריאותי.", "age": "35-44", "location": "ירושלים", "industry": "משפחה", "jobTitle": "עקרת בית", "queries": "8", "mentions": "4"}, {"name": "אורי - איש IT", "role": "מנהל IT", "score": "88%", "description": "גבר בן 45, עובד בתחום ה-IT בתל אביב. מחפש פתרונות בריאותיים לשמירה על רמת אנרגיה גבוהה.", "age": "45-54", "location": "תל אביב", "industry": "טכנולוגיה", "jobTitle": "מנהל IT", "queries": "8", "mentions": "3"}, {"name": "רונית - פנסיונרית פעילה", "role": "פנסיונרית", "score": "87%", "description": "אישה בת 65, פנסיונרית שמחפשת לשמור על אורח חיים פעיל ובריא. מתעניינת במוצרים המיועדים לגיל השלישי. 65+ חיפה פנסיה פנסיונרית 8 שאילתות | 7 אזכורים", "age": "אישה בת 65, פנסיונרית שמחפשת לשמור על אורח חיים פעיל ובריא. מתעניינת במוצרים המיועדים לגיל השלישי.", "location": "65+", "industry": "חיפה", "jobTitle": "פנסיה", "queries": "8", "mentions": "7"}, {"name": "יוסי - עוסק עצמאי בתחום הבנייה", "role": "עוסק עצמאי", "score": "86%", "description": "גבר בן 30, עצמאי בתחום הבנייה. מחפש מוצרים לשמירה על בריאות בעבודה פיזית קשה.", "age": "25-34", "location": "רמלה", "industry": "בנייה", "jobTitle": "עוסק עצמאי", "queries": "8", "mentions": "1"}, {"name": "דניאל - סטודנט למדעי החיים", "role": "סטודנט", "score": "85%", "description": "סטודנט בן 22 לתואר ראשון במדעי החיים, גר בתל אביב. מחפש מוצרים בריאים וזולים לשמירה על אורח חיים ברי...", "age": "18-24", "location": "תל אביב", "industry": "אקדמיה", "jobTitle": "סטודנט", "queries": "8", "mentions": "1"}], "workplan": {"summary": "על בסיס ניתוח מעמיק של 39 שאילתות ב-ChatGPT ו-Gemini, המותג מופיע ב-22% מהשאילתות הרלוונטיות. יש פער משמעותי — מנועי AI לא מזהים את המותג ברוב השאילתות.", "services": [{"name": "אבחון נוכחות AI מלא", "description": "הצעד הראשון — להבין בדיוק איפה אתם עומדים", "price": "₪3,500", "recommended": true}, {"name": "תשתית טכנית ל-AI", "description": "לדאוג שמנועי AI יכולים לקרוא ולהבין את האתר", "price": "₪4,000", "recommended": true}, {"name": "תוכן + ציטוטים + יח\"צ", "description": "24 שאילתות שבהן המותג לא מוזכר — הזדמנות ענקית", "price": "₪8,500", "recommended": true}, {"name": "אופטימיזציה + תחרות", "description": "אופטימיזציה ל-ChatGPT", "price": "₪4,500", "recommended": false}, {"name": "ליווי וניטור חודשי", "description": "מעקב רציף — לדעת בכל רגע איפה אתם עומדים", "price": "₪2,500/חודש", "recommended": true}, {"name": "ליווי פרימיום + ייעוץ אסטרטגי", "description": "ליווי צמוד — שותף אסטרטגי לנוכחות AI", "price": "₪6,500/חודש", "recommended": false}]}}, "rami-levy.co.il": {"overview": {"brandName": "רמי לוי", "metrics": {"שיעור אזכור": "87%", "מיקום ממוצע": "#4.9", "איכות ציטוט": "70%", "סיכון מוניטין": "100%"}, "riskText": "סיכון גבוה", "sentiment": {"positive": 7, "neutral": 37, "negative": 0}, "citation": {"high": "35%", "medium": "56%", "low": "9%"}, "engines": {"chatgpt": {"score": "79%", "found": 31, "total": 39}, "gemini": {"score": "97%", "found": 38, "total": 39}}, "stages": [{"name": "חשיפה", "score": "90%", "queries": 10}, {"name": "מחקר", "score": "100%", "queries": 9}, {"name": "החלטה", "score": "100%", "queries": 10}, {"name": "תמיכה", "score": "100%", "queries": 5}, {"name": "מוניטין", "score": "100%", "queries": 5}, {"name": "רושם כללי", "score": "0%", "queries": 0}], "persona": {"קהל יעד": "משפחות בישראל, לקוחות המחפשים מחירים נמוכים", "תעשייה": "סופרמרקטים, מכירת מזון, מוצרי בית", "מיקום": "ישראל", "ערך ייחודי": "מחירים נמוכים במיוחד והשקעה בקהילה"}, "works": ["Services described", "Location known"], "missing": ["Brand not in AI knowledge"], "top5": [{"num": "1", "query": "איך אפשר לחסוך בהוצאות על אוכל למשפחה?", "chatgpt": "✗", "gemini": "✓"}, {"num": "2", "query": "מהם הסופרמרקטים שמציעים מחירים נמוכים בישראל?", "chatgpt": "✓", "gemini": "✓"}, {"num": "3", "query": "איך להשוות מחירים בין סופרמרקטים שונים?", "chatgpt": "✓", "gemini": "✓"}, {"num": "4", "query": "אילו מבצעים יש בסופרמרקטים השונים באזור שלי?", "chatgpt": "✓", "gemini": "✓"}, {"num": "5", "query": "מה הסופרמרקט הכי משתלם בישראל למשפחות?", "chatgpt": "✓", "gemini": "✓"}]}, "queries": [{"num": "1", "query": "איך אפשר לחסוך בהוצאות על אוכל למשפחה?", "persona": "דני", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "2", "query": "מהם הסופרמרקטים שמציעים מחירים נמוכים בישראל?", "persona": "דני", "stage": "חשיפה", "chatgpt": "✓", "gemini": "✓"}, {"num": "3", "query": "איך להשוות מחירים בין סופרמרקטים שונים?", "persona": "דני", "stage": "מחקר", "chatgpt": "✓", "gemini": "✓"}, {"num": "4", "query": "אילו מבצעים יש בסופרמרקטים השונים באזור שלי?", "persona": "דני", "stage": "מחקר", "chatgpt": "✓", "gemini": "✓"}, {"num": "5", "query": "מה הסופרמרקט הכי משתלם בישראל למשפחות?", "persona": "דני", "stage": "החלטה", "chatgpt": "✓", "gemini": "✓"}, {"num": "6", "query": "איפה למצוא את הסופרמרקטים עם המחירים הנמוכים ביותר בירושלים?", "persona": "דני", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "7", "query": "איך משתמשים בכרטיסי חבר בסופרמרקטים?", "persona": "דני", "stage": "תמיכה", "chatgpt": "✓", "gemini": "✓"}, {"num": "8", "query": "מה ביקורות על רמי לוי בתחום הסופרמרקטים?", "persona": "דני", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "9", "query": "איך למצוא סופרמרקטים עם מחירים משתלמים?", "persona": "מירי", "stage": "חשיפה", "chatgpt": "✓", "gemini": "✓"}, {"num": "10", "query": "מה היתרונות של קניות בסופרמרקט על פני חנויות אחרות?", "persona": "מירי", "stage": "חשיפה", "chatgpt": "✓", "gemini": "✓"}, {"num": "11", "query": "מה ההבדלים בין הסופרמרקטים השונים בישראל?", "persona": "מירי", "stage": "מחקר", "chatgpt": "✓", "gemini": "✓"}, {"num": "12", "query": "איפה אפשר למצוא את המחירים הכי נמוכים למזון?", "persona": "מירי", "stage": "מחקר", "chatgpt": "✓", "gemini": "✓"}, {"num": "13", "query": "מה הסופרמרקטים המומלצים ביותר בישראל לקניות?", "persona": "מירי", "stage": "החלטה", "chatgpt": "✓", "gemini": "✓"}, {"num": "14", "query": "איזה סופרמרקטים מציעים את המבצעים הכי טובים באזור שלי?", "persona": "מירי", "stage": "החלטה", "chatgpt": "✓", "gemini": "✓"}, {"num": "15", "query": "איך משתמשים באתרי סופרמרקטים להשוואת מחירים?", "persona": "מירי", "stage": "תמיכה", "chatgpt": "✓", "gemini": "✓"}, {"num": "16", "query": "מה הביקורות על רמי לוי בסופרמרקטים בישראל?", "persona": "מירי", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "17", "query": "איך אני יכול לקנות אוכל זול ובריא לפנסיונרים?", "persona": "דוד", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "18", "query": "מהן האפשרויות לקניות בסופרמרקטים עבור אנשים בגיל שלי?", "persona": "דוד", "stage": "חשיפה", "chatgpt": "✓", "gemini": "✓"}, {"num": "19", "query": "מה ההבדל בין הסופרמרקטים השונים בישראל מבחינת מחירים?", "persona": "דוד", "stage": "מחקר", "chatgpt": "✓", "gemini": "✓"}, {"num": "20", "query": "איפה אני יכול למצוא סופרמרקטים עם הנחות על מוצרי מזון?", "persona": "דוד", "stage": "מחקר", "chatgpt": "✓", "gemini": "✓"}, {"num": "21", "query": "מה הסופרמרקטים המומלצים ביותר בישראל לפנסיונרים?", "persona": "דוד", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "22", "query": "איפה יש סופרמרקטים עם מחירים זולים באזור שלי?", "persona": "דוד", "stage": "החלטה", "chatgpt": "✓", "gemini": "✓"}, {"num": "23", "query": "איך לקנות באינטרנט מסופרמרקטים בישראל?", "persona": "דוד", "stage": "תמיכה", "chatgpt": "✓", "gemini": "✓"}, {"num": "24", "query": "מה הביקורות על רמי לוי בתחום הסופרמרקטים בישראל?", "persona": "דוד", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "25", "query": "איך אני יכולה למצוא סופרמרקטים עם מחירים נמוכים באיזור שלי?", "persona": "שני", "stage": "חשיפה", "chatgpt": "✓", "gemini": "✓"}, {"num": "26", "query": "למה כדאי לקנות במקומות שמציעים מזון במחירים חסכוניים?", "persona": "שני", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "27", "query": "מה ההבדלים בין הסופרמרקטים בישראל מבחינת מחירים?", "persona": "שני", "stage": "מחקר", "chatgpt": "✓", "gemini": "✓"}, {"num": "28", "query": "איפה אפשר למצוא את המבצעים הכי טובים על מוצרי מזון?", "persona": "שני", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "29", "query": "איזה סופרמרקטים בישראל מציעים את המחירים הכי נמוכים למזון מהיר?", "persona": "שני", "stage": "החלטה", "chatgpt": "✓", "gemini": "✓"}, {"num": "30", "query": "מהו הסופרמרקט הכי משתלם באזור תל אביב?", "persona": "שני", "stage": "החלטה", "chatgpt": "✓", "gemini": "✓"}, {"num": "31", "query": "איך אני משתמשת באפליקציה של סופרמרקטים להזמין מזון?", "persona": "שני", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✓"}, {"num": "32", "query": "מהן הביקורות על רמי לוי, סופרמרקטים בישראל?", "persona": "שני", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "33", "query": "איך יכולים סופרמרקטים לעזור לי לחסוך זמן בקניות?", "persona": "יוסי", "stage": "חשיפה", "chatgpt": "✓", "gemini": "✓"}, {"num": "34", "query": "למה חשוב לקנות במקומות שמציעים מחירים נמוכים במיוחד?", "persona": "יוסי", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "35", "query": "מה היתרונות והחסרונות של סופרמרקטים בישראל?", "persona": "יוסי", "stage": "מחקר", "chatgpt": "✓", "gemini": "✓"}, {"num": "36", "query": "מהם הסופרמרקטים המומלצים ביותר בישראל?", "persona": "יוסי", "stage": "החלטה", "chatgpt": "✓", "gemini": "✓"}, {"num": "37", "query": "איפה אפשר למצוא את הסופרמרקטים עם המחירים הכי נמוכים בישראל?", "persona": "יוסי", "stage": "החלטה", "chatgpt": "✓", "gemini": "✓"}, {"num": "38", "query": "איך משתמשים באפליקציה של סופרמרקטים בישראל?", "persona": "יוסי", "stage": "תמיכה", "chatgpt": "✓", "gemini": "✓"}, {"num": "39", "query": "מה הביקורות על רמי לוי, סופרמרקטים ומכירת מזון?", "persona": "יוסי", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}], "audiences": [{"name": "יוסי - עצמאי בן 35", "role": "עצמאי", "score": "90%", "description": "יוסי, בן 35, עצמאי בתחום השיווק הדיגיטלי. מחפש פתרונות להזדמנויות חיסכון בזמן קניות.", "age": "30-39", "location": "רמת גן", "industry": "שיווק דיגיטלי", "jobTitle": "עצמאי", "queries": "8", "mentions": "8"}, {"name": "דני - אב לשלושה", "role": "מנהל פרויקטים", "score": "88%", "description": "דני, בן 40, אב לשלושה ילדים. עובד כמנהל פרויקטים בתחום הבנייה. מחפש דרכים לחסוך בהוצאות הבית.", "age": "35-44", "location": "ירושלים", "industry": "בנייה", "jobTitle": "מנהל פרויקטים", "queries": "8", "mentions": "8"}, {"name": "שני - סטודנטית בת 22", "role": "סטודנטית", "score": "87%", "description": "שני, סטודנטית בת 22, גרה בדירה עם שותפים. מחפשת מחירים נמוכים על מזון מהיר.", "age": "18-24", "location": "תל אביב", "industry": "חינוך", "jobTitle": "סטודנטית", "queries": "8", "mentions": "8"}, {"name": "מירי - רווקה בת 28", "role": "מעצבת גרפית", "score": "85%", "description": "מירי, בת 28, רווקה, עובדת כמעצבת גרפית. אוהבת לבשל ולאכול טוב, מחפשת מחירים משתלמים.", "age": "25-34", "location": "תל אביב", "industry": "עיצוב", "jobTitle": "מעצבת גרפית", "queries": "8", "mentions": "8"}, {"name": "דוד - פנסיונר בן 67", "role": "פנסיונר", "score": "80%", "description": "דוד, בן 67, פנסיונר. גר לבד ומחפש פתרונות זולים ומזינים לקניות שלו. 65+ חיפה נמאס פנסיונר 8 שאילתות | 7 אזכורים", "age": "דוד, בן 67, פנסיונר. גר לבד ומחפש פתרונות זולים ומזינים לקניות שלו.", "location": "65+", "industry": "חיפה", "jobTitle": "נמאס", "queries": "8", "mentions": "7"}], "workplan": {"summary": "על בסיס ניתוח מעמיק של 39 שאילתות ב-ChatGPT ו-Gemini, המותג מופיע ב-87% מהשאילתות הרלוונטיות. נוכחות חזקה! התוכנית שלנו תשמור ותגדיל את היתרון.", "services": [{"name": "אבחון נוכחות AI מלא", "description": "הצעד הראשון — להבין בדיוק איפה אתם עומדים", "price": "₪3,500", "recommended": true}, {"name": "תשתית טכנית ל-AI", "description": "לדאוג שמנועי AI יכולים לקרוא ולהבין את האתר", "price": "₪4,000", "recommended": false}, {"name": "אופטימיזציה + תחרות", "description": "אופטימיזציה ל-ChatGPT", "price": "₪4,500", "recommended": false}, {"name": "ליווי וניטור חודשי", "description": "מעקב רציף — לדעת בכל רגע איפה אתם עומדים", "price": "₪2,500/חודש", "recommended": true}, {"name": "ליווי פרימיום + ייעוץ אסטרטגי", "description": "ליווי צמוד — שותף אסטרטגי לנוכחות AI", "price": "₪6,500/חודש", "recommended": false}]}}, "gindi.com": {"overview": {"brandName": "גינדי", "metrics": {"שיעור אזכור": "36%", "מיקום ממוצע": "#8.6", "איכות ציטוט": "61%", "סיכון מוניטין": "100%"}, "riskText": "סיכון גבוה", "sentiment": {"positive": 9, "neutral": 38, "negative": 0}, "citation": {"high": "18%", "medium": "70%", "low": "12%"}, "engines": {"chatgpt": {"score": "32%", "found": 12, "total": 38}, "gemini": {"score": "42%", "found": 16, "total": 38}}, "stages": [{"name": "חשיפה", "score": "44%", "queries": 9}, {"name": "מחקר", "score": "50%", "queries": 10}, {"name": "החלטה", "score": "40%", "queries": 10}, {"name": "תמיכה", "score": "60%", "queries": 5}, {"name": "מוניטין", "score": "100%", "queries": 4}, {"name": "רושם כללי", "score": "0%", "queries": 0}], "persona": {"קהל יעד": "אנשים שמעוניינים לרכוש דירה בתל אביב, צעירים ומשפחות שמחפשות חיי קהילה בעיר", "תעשייה": "מכירת דירות במגדלי מגורים בתל אביב, ייעוץ פיננסי לרכישת נכסים, שירותי סוכנות נדל", "מיקום": "תל אביב", "ערך ייחודי": "שילוב של דירות מעוצבות במגדלי מגורים מרהיבים עם חיי קהילה באווירה תל אביבית"}, "works": ["Specialization clear", "Services described", "Location known"], "missing": ["Brand not in AI knowledge"], "top5": [{"num": "1", "query": "מה היתרונות של דירות במגדלי מגורים בתל אביב?", "chatgpt": "✗", "gemini": "✓"}, {"num": "2", "query": "אילו דירות במגדלי מגורים בתל אביב מומלצות לסטודנטים?", "chatgpt": "✓", "gemini": "✗"}, {"num": "3", "query": "מהן הביקורות על גינדי במכירת דירות בתל אביב?", "chatgpt": "✓", "gemini": "✓"}, {"num": "4", "query": "מה היתרונות של מגורים במגדלי מגורים בתל אביב?", "chatgpt": "✓", "gemini": "✓"}, {"num": "5", "query": "מה ההבדלים בין דירות במגדלי מגורים שונים בתל אביב?", "chatgpt": "✗", "gemini": "✓"}]}, "queries": [{"num": "1", "query": "איך אני יכולה למצוא דירה עם שותפים בתל אביב?", "persona": "מאיה", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "2", "query": "מהם הדברים שחשוב לדעת לפני שקונים דירה בתל אביב?", "persona": "מאיה", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "3", "query": "מה היתרונות של דירות במגדלי מגורים בתל אביב?", "persona": "מאיה", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "4", "query": "איך להשוות בין דירות שונות בתל אביב?", "persona": "מאיה", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "5", "query": "מהן הדירות הכי טובות לשותפים בתל אביב?", "persona": "מאיה", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "6", "query": "אילו דירות במגדלי מגורים בתל אביב מומלצות לסטודנטים?", "persona": "מאיה", "stage": "החלטה", "chatgpt": "✓", "gemini": "✗"}, {"num": "7", "query": "איך להשתמש בשירותי סוכנות נדל בתל אביב כדי למצוא דירה?", "persona": "מאיה", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✗"}, {"num": "8", "query": "מהן הביקורות על גינדי במכירת דירות בתל אביב?", "persona": "מאיה", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "9", "query": "איך אני יכול למצוא דירה בתל אביב עם נגישות לתחבורה ציבורית?", "persona": "רון", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "10", "query": "מה היתרונות של מגורים במגדלי מגורים בתל אביב?", "persona": "רון", "stage": "חשיפה", "chatgpt": "✓", "gemini": "✓"}, {"num": "11", "query": "מה ההבדלים בין דירות במגדלי מגורים שונים בתל אביב?", "persona": "רון", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "12", "query": "איך אני משווה מחירים של דירות בתל אביב?", "persona": "רון", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "13", "query": "מהן הדירות המומלצות ביותר בתל אביב עם גישה לתחבורה ציבורית?", "persona": "רון", "stage": "החלטה", "chatgpt": "✓", "gemini": "✗"}, {"num": "14", "query": "איפה אני יכול למצוא את הדירות הכי מעוצבות בתל אביב?", "persona": "רון", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "15", "query": "איך מחפשים דירות במגדלי מגורים בתל אביב?", "persona": "רון", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✓"}, {"num": "16", "query": "ביקורות על גינדי בתחום מכירת דירות במגדלי מגורים בתל אביב", "persona": "רון", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "17", "query": "איך אני יכולה למצוא דירה שמתאימה לצרכים שלי כמעצבת פנים?", "persona": "שני", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "18", "query": "מהם המחירים הממוצעים לדירות במרכז תל אביב?", "persona": "שני", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "19", "query": "איך להשוות בין דירות שונות במגדלי מגורים בעיר?", "persona": "שני", "stage": "מחקר", "chatgpt": "✓", "gemini": "✗"}, {"num": "20", "query": "איזה מגורי יוקרה בתל אביב הם הכי מומלצים?", "persona": "שני", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "21", "query": "איפה אפשר למצוא דירות מעוצבות במרכז תל אביב?", "persona": "שני", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "22", "query": "איך משתמשים בשירותי סוכנות נדל", "persona": "שני", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✗"}, {"num": "23", "query": "מה הביקורות על גינדי בתחום מכירת דירות במגדלי מגורים בתל אביב?", "persona": "שני", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "24", "query": "מה הסיבות העיקריות לקנות דירה גדולה במרכז תל אביב למשפחה?", "persona": "יוסי", "stage": "חשיפה", "chatgpt": "✓", "gemini": "✓"}, {"num": "25", "query": "איך אני יכול לדעת אם אני צריך לשדרג את הדירה שלי לדירה גדולה יותר?", "persona": "יוסי", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "26", "query": "מה היתרונות של דירות במגדלי מגורים בתל אביב לעומת דירות רגילות?", "persona": "יוסי", "stage": "מחקר", "chatgpt": "✓", "gemini": "✗"}, {"num": "27", "query": "מהן הדירות המומלצות למשפחות בתל אביב?", "persona": "יוסי", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "28", "query": "איזה מגדלי מגורים בתל אביב מציעים דירות למשפחה?", "persona": "יוסי", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "29", "query": "מה הדירות הכי מבוקשות במרכז תל אביב למשפחות?", "persona": "יוסי", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "30", "query": "איך מעבירים טפסים לרכישת דירה במגדלי מגורים בתל אביב?", "persona": "יוסי", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✓"}, {"num": "31", "query": "מה הביקורות על גינדי במכירת דירות במגדלי מגורים בתל אביב?", "persona": "יוסי", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "32", "query": "מה היתרונות של מגורים במגדלי מגורים בתל אביב למשפחה?", "persona": "עדי", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "33", "query": "איך לבחור דירה עם מרחבים ירוקים שמתאימה למשפחה?", "persona": "עדי", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "34", "query": "מהן הדירות הכי טובות במגדלי מגורים בתל אביב למשפחות?", "persona": "עדי", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "35", "query": "איך להשוות בין דירות שונות במגדלי מגורים בתל אביב?", "persona": "עדי", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "36", "query": "מהן הדירות המומלצות ביותר במגדלי מגורים בתל אביב למשפחה?", "persona": "עדי", "stage": "החלטה", "chatgpt": "✓", "gemini": "✓"}, {"num": "37", "query": "אילו מגדלי מגורים בתל אביב מציעים חיי קהילה טובים?", "persona": "עדי", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "38", "query": "איך אני יכולה למצוא דירה במגדלי מגורים בתל אביב?", "persona": "עדי", "stage": "תמיכה", "chatgpt": "✓", "gemini": "✓"}], "audiences": [{"name": "יוסי - מנהל מכירות", "role": "מנהל מכירות", "score": "90%", "description": "מנהל מכירות בן 45, נשוי ואב לשלושה. מחפש דירה גדולה שתתאים למשפחה במרכז תל אביב.", "age": "35-49", "location": "תל אביב", "industry": "מכירות", "jobTitle": "מנהל מכירות", "queries": "8", "mentions": "4"}, {"name": "רון - איש IT", "role": "איש IT", "score": "88%", "description": "איש IT בן 35 מתל אביב, מחפש דירה עם נגישות לתחבורה ציבורית וקרבה למקומות עבודה טכנולוגיים.", "age": "30-39", "location": "תל אביב", "industry": "טכנולוגיה", "jobTitle": "איש IT", "queries": "8", "mentions": "5"}, {"name": "עדי - מנהלת משאבי אנוש", "role": "מנהלת משאבי אנוש", "score": "87%", "description": "מנהלת משאבי אנוש בת 40, נשואה ואמא לשניים. מחפשת דירה עם מרחבים ירוקים וחיי קהילה.", "age": "35-49", "location": "תל אביב", "industry": "משאבי אנוש", "jobTitle": "מנהלת משאבי אנוש", "queries": "8", "mentions": "7"}, {"name": "שני - מעצבת פנים", "role": "מעצבת פנים", "score": "85%", "description": "מעצבת פנים בת 28 מתל אביב, מחפשת דירה חדשה במרכז העיר שתתאים לצרכיה האישיים והמקצועיים.", "age": "25-34", "location": "תל אביב", "industry": "עיצוב", "jobTitle": "מעצבת פנים", "queries": "8", "mentions": "3"}, {"name": "מאיה - סטודנטית", "role": "סטודנטית", "score": "80%", "description": "סטודנטית בת 22 לסוציולוגיה, מחפשת דירה שיתאימה לגור בה עם שותפים בתל אביב.", "age": "18-24", "location": "תל אביב", "industry": "חינוך", "jobTitle": "סטודנטית", "queries": "8", "mentions": "3"}], "workplan": {"summary": "על בסיס ניתוח מעמיק של 38 שאילתות ב-ChatGPT ו-Gemini, המותג מופיע ב-36% מהשאילתות הרלוונטיות. יש פער משמעותי — מנועי AI לא מזהים את המותג ברוב השאילתות.", "services": [{"name": "אבחון נוכחות AI מלא", "description": "הצעד הראשון — להבין בדיוק איפה אתם עומדים", "price": "₪3,500", "recommended": true}, {"name": "תשתית טכנית ל-AI", "description": "לדאוג שמנועי AI יכולים לקרוא ולהבין את האתר", "price": "₪4,000", "recommended": true}, {"name": "תוכן + ציטוטים + יח\"צ", "description": "18 שאילתות שבהן המותג לא מוזכר — הזדמנות ענקית", "price": "₪8,500", "recommended": true}, {"name": "ליווי וניטור חודשי", "description": "מעקב רציף — לדעת בכל רגע איפה אתם עומדים", "price": "₪2,500/חודש", "recommended": true}, {"name": "ליווי פרימיום + ייעוץ אסטרטגי", "description": "ליווי צמוד — שותף אסטרטגי לנוכחות AI", "price": "₪6,500/חודש", "recommended": false}]}}, "cal-online.co.il": {"overview": {"brandName": "כאל", "metrics": {"שיעור אזכור": "30%", "מיקום ממוצע": "#12.4", "איכות ציטוט": "47%", "סיכון מוניטין": "100%"}, "riskText": "סיכון גבוה", "sentiment": {"positive": 3, "neutral": 40, "negative": 0}, "citation": {"high": "14%", "medium": "70%", "low": "16%"}, "engines": {"chatgpt": {"score": "13%", "found": 5, "total": 40}, "gemini": {"score": "55%", "found": 22, "total": 40}}, "stages": [{"name": "חשיפה", "score": "40%", "queries": 10}, {"name": "מחקר", "score": "60%", "queries": 10}, {"name": "החלטה", "score": "40%", "queries": 10}, {"name": "תמיכה", "score": "80%", "queries": 5}, {"name": "מוניטין", "score": "100%", "queries": 5}, {"name": "רושם כללי", "score": "0%", "queries": 0}], "persona": {"קהל יעד": "לקוחות פרטיים ועסקיים בישראל", "תעשייה": "שירותי כרטיסי אשראי, פתרונות תשלום, מימון", "מיקום": "ישראל", "ערך ייחודי": "מגוון רחב של פתרונות תשלום מותאמים אישית ללקוחות פרטיים ועסקיים."}, "works": ["Specialization clear", "Services described", "Founding date known"], "missing": ["Brand not in AI knowledge"], "top5": [{"num": "1", "query": "מהן האפשרויות השונות לתשלום שאני יכול להציע ללקוחות שלי בשיפוצים?", "chatgpt": "✗", "gemini": "✓"}, {"num": "2", "query": "מה היתרונות של פתרונות תשלום שונים עבור עצמאים בתחום השיפוצים?", "chatgpt": "✗", "gemini": "✓"}, {"num": "3", "query": "איך אני משווה בין כרטיסי אשראי שונים לעסק שלי?", "chatgpt": "✓", "gemini": "✓"}, {"num": "4", "query": "מהן האפשרויות המומלצות לכרטיסי אשראי לעצמאים בישראל?", "chatgpt": "✗", "gemini": "✓"}, {"num": "5", "query": "איך אני משתמש בכרטיס אשראי עסקי כדי לנהל את התשלומים שלי?", "chatgpt": "✗", "gemini": "✓"}]}, "queries": [{"num": "1", "query": "מהן האפשרויות השונות לתשלום שאני יכול להציע ללקוחות שלי בשיפוצים?", "persona": "יוסי", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "2", "query": "איך אני יכול לנהל את תשלומי הלקוחות שלי בצורה יותר נוחה?", "persona": "יוסי", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "3", "query": "מה היתרונות של פתרונות תשלום שונים עבור עצמאים בתחום השיפוצים?", "persona": "יוסי", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "4", "query": "איך אני משווה בין כרטיסי אשראי שונים לעסק שלי?", "persona": "יוסי", "stage": "מחקר", "chatgpt": "✓", "gemini": "✓"}, {"num": "5", "query": "איזה שירותי תשלום הכי מתאימים לעסק שלי בישראל?", "persona": "יוסי", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "6", "query": "מהן האפשרויות המומלצות לכרטיסי אשראי לעצמאים בישראל?", "persona": "יוסי", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "7", "query": "איך אני משתמש בכרטיס אשראי עסקי כדי לנהל את התשלומים שלי?", "persona": "יוסי", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✓"}, {"num": "8", "query": "מה אנשים חושבים על כאל שירותי כרטיסי אשראי? ביקורות על כאל", "persona": "יוסי", "stage": "מוניטין", "chatgpt": "✗", "gemini": "✓"}, {"num": "9", "query": "איך אני יכולה לממן רכישת דירה בישראל?", "persona": "נועה", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "10", "query": "מה היתרונות של כרטיסי אשראי בניהול תקציב?", "persona": "נועה", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "11", "query": "איך לבחור את פתרון המימון המתאים לרכישת דירה?", "persona": "נועה", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "12", "query": "מה ההבדלים בין כרטיסי אשראי שונים בישראל?", "persona": "נועה", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "13", "query": "מהם הפתרונות הטובים ביותר למימון דירה בישראל?", "persona": "נועה", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "14", "query": "איזה שירותי כרטיסי אשראי הכי מומלצים בניהול הוצאות?", "persona": "נועה", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "15", "query": "איך להשתמש בכרטיס אשראי בשביל רכישות באינטרנט?", "persona": "נועה", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✗"}, {"num": "16", "query": "מהן הביקורות על כאל בתחום שירותי כרטיסי אשראי?", "persona": "נועה", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✗"}, {"num": "17", "query": "מה היתרונות של פתרונות תשלום באינטרנט לפנסיונרים?", "persona": "דוד", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "18", "query": "למה כדאי להשתמש בכרטיסי אשראי לקניות באינטרנט?", "persona": "דוד", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "19", "query": "מה ההבדלים בין כרטיסי אשראי שונים שמיועדים לפנסיונרים?", "persona": "דוד", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "20", "query": "איך משווים בין פתרונות תשלום שונים לקניות באינטרנט?", "persona": "דוד", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "21", "query": "מהו כרטיס האשראי הטוב ביותר לפנסיונרים בישראל?", "persona": "דוד", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "22", "query": "אילו פתרונות תשלום לקניות באינטרנט מומלצים לפנסיונרים בישראל?", "persona": "דוד", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "23", "query": "איך משתמשים בכרטיס אשראי לקניות באינטרנט?", "persona": "דוד", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✓"}, {"num": "24", "query": "מהן הביקורות על כאל שירותי כרטיסי אשראי?", "persona": "דוד", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "25", "query": "איך אני יכולה לממן את הלימודים שלי בצורה חכמה?", "persona": "מאיה", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "26", "query": "מה היתרונות של כרטיסי אשראי לסטודנטים?", "persona": "מאיה", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "27", "query": "מה ההבדל בין כרטיסי אשראי שונים לסטודנטים?", "persona": "מאיה", "stage": "מחקר", "chatgpt": "✓", "gemini": "✓"}, {"num": "28", "query": "אילו פתרונות מימון מתאימים לסטודנטית למנהל עסקים בישראל?", "persona": "מאיה", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "29", "query": "איזה כרטיס אשראי הוא הכי טוב לסטודנטים בישראל?", "persona": "מאיה", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "30", "query": "מהם הפתרונות המומלצים למימון לימודים גבוהים בישראל?", "persona": "מאיה", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "31", "query": "איך להשתמש בכרטיס אשראי כדי לנהל את ההוצאות שלי?", "persona": "מאיה", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✓"}, {"num": "32", "query": "מה ביקורות על כאל שירותי כרטיסי אשראי?", "persona": "מאיה", "stage": "מוניטין", "chatgpt": "✗", "gemini": "✓"}, {"num": "33", "query": "למה חשוב לעסק שלי להשתמש בשירותי כרטיסי אשראי?", "persona": "אבי", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "34", "query": "איזה בעיות יכולות להיווצר כשלא משתמשים בפתרונות תשלום מתקדמים?", "persona": "אבי", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "35", "query": "מה ההבדלים בין סוגי פתרונות התשלום הקיימים בשוק?", "persona": "אבי", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "36", "query": "איך להשוות בין ספקי שירותי כרטיסי אשראי שונים?", "persona": "אבי", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "37", "query": "מהם הפתרונות המומלצים ביותר לשירותי תשלום בישראל?", "persona": "אבי", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "38", "query": "אילו שירותי כרטיסי אשראי מספקים את התמורה הטובה ביותר בישראל?", "persona": "אבי", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "39", "query": "איך משתמשים בשירותי כרטיסי אשראי לעסק קטן?", "persona": "אבי", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✓"}, {"num": "40", "query": "מהן ביקורות על כאל בתחום שירותי כרטיסי אשראי?", "persona": "אבי", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}], "audiences": [{"name": "אבי - מנהל כספים בחברה בינונית", "role": "מנהל כספים", "score": "91%", "description": "אבי, בן 50, מנהל כספים בחברה בינונית, מחפש פתרונות תשלום מתקדמים עבור העסק.", "age": "45-54", "location": "פתח תקווה", "industry": "עסקים", "jobTitle": "מנהל כספים", "queries": "8", "mentions": "5"}, {"name": "נועה - רווקה בת 28, מנהלת פרויקטים", "role": "מנהלת פרויקטים", "score": "90%", "description": "נועה, בת 28, מנהלת פרויקטים בחברת הייטק. מחפשת פתרונות מימון לרכישת דירה.", "age": "25-34", "location": "תל אביב", "industry": "הייטק", "jobTitle": "מנהלת פרויקטים", "queries": "8", "mentions": "3"}, {"name": "מאיה - סטודנטית בת 22", "role": "סטודנטית", "score": "88%", "description": "מאיה, בת 22, סטודנטית למנהל עסקים, מחפשת פתרונות מימון חכמים עבור הלימודים שלה.", "age": "18-24", "location": "תל אביב", "industry": "חינוך", "jobTitle": "סטודנטית", "queries": "8", "mentions": "6"}, {"name": "יוסי - עצמאי בתחום השיפוצים", "role": "שיפוצניק", "score": "85%", "description": "יוסי, בן 40, עצמאי בתחום השיפוצים. מחפש פתרונות תשלום נוחים כדי לנהל את העסק שלו בצורה יעילה.", "age": "35-44", "location": "חיפה", "industry": "בנייה ושיפוצים", "jobTitle": "שיפוצניק", "queries": "8", "mentions": "6"}, {"name": "דוד - פנסיונר בן 65", "role": "פנסיונר", "score": "78%", "description": "דוד, בן 65, פנסיונר, מחפש פתרונות תשלום נוחים לקניות באינטרנט. 65+ ירושלים לא רלוונטי פנסיונר 8 שאילתות | 3 אזכורים", "age": "דוד, בן 65, פנסיונר, מחפש פתרונות תשלום נוחים לקניות באינטרנט.", "location": "65+", "industry": "ירושלים", "jobTitle": "לא רלוונטי", "queries": "8", "mentions": "3"}], "workplan": {"summary": "על בסיס ניתוח מעמיק של 40 שאילתות ב-ChatGPT ו-Gemini, המותג מופיע ב-30% מהשאילתות הרלוונטיות. יש פער משמעותי — מנועי AI לא מזהים את המותג ברוב השאילתות.", "services": [{"name": "אבחון נוכחות AI מלא", "description": "הצעד הראשון — להבין בדיוק איפה אתם עומדים", "price": "₪3,500", "recommended": true}, {"name": "תשתית טכנית ל-AI", "description": "לדאוג שמנועי AI יכולים לקרוא ולהבין את האתר", "price": "₪4,000", "recommended": true}, {"name": "תוכן + ציטוטים + יח\"צ", "description": "17 שאילתות שבהן המותג לא מוזכר — הזדמנות ענקית", "price": "₪8,500", "recommended": true}, {"name": "אופטימיזציה + תחרות", "description": "אופטימיזציה ל-ChatGPT", "price": "₪4,500", "recommended": false}, {"name": "ליווי וניטור חודשי", "description": "מעקב רציף — לדעת בכל רגע איפה אתם עומדים", "price": "₪2,500/חודש", "recommended": true}, {"name": "ליווי פרימיום + ייעוץ אסטרטגי", "description": "ליווי צמוד — שותף אסטרטגי לנוכחות AI", "price": "₪6,500/חודש", "recommended": false}]}}, "ibi.co.il": {"overview": {"brandName": "IBI CAPITAL", "metrics": {"שיעור אזכור": "28%", "מיקום ממוצע": "#19.2", "איכות ציטוט": "55%", "סיכון מוניטין": "100%"}, "riskText": "סיכון גבוה", "sentiment": {"positive": 6, "neutral": 31, "negative": 1}, "citation": {"high": "17%", "medium": "69%", "low": "14%"}, "engines": {"chatgpt": {"score": "6%", "found": 2, "total": 32}, "gemini": {"score": "59%", "found": 19, "total": 32}}, "stages": [{"name": "חשיפה", "score": "78%", "queries": 9}, {"name": "מחקר", "score": "50%", "queries": 8}, {"name": "החלטה", "score": "33%", "queries": 9}, {"name": "תמיכה", "score": "75%", "queries": 4}, {"name": "מוניטין", "score": "100%", "queries": 2}, {"name": "רושם כללי", "score": "0%", "queries": 0}], "persona": {"קהל יעד": "לקוחות פרטיים, לקוחות מוסדיים, תאגידים", "תעשייה": "ניהול תיקי השקעות, קרנות נאמנות, מסחר עצמאי, שירותי ניהול ותפעול תוכניות הטבה הוניות, שירותי נאמנות, תפעול עסקאות מיזוגים ורכישות, הערכות שווי חברה, קרנות השקעה אלטרנטיביות, קרנות גידור", "מיקום": "ישראל", "ערך ייחודי": "IBI בית השקעות מציעה מגוון רחב של פתרונות השקעה, עם ניסיון של למעלה מ-50 שנה בשוק ההון, צוות מקצועי שמלווה כל לקוח אישית, ושירותים מתקדמים ומגוונים עם דגש על חדשנות."}, "works": ["Services described"], "missing": ["Brand not in AI knowledge"], "top5": [{"num": "1", "query": "מהם היתרונות של ניהול תיקי השקעות לעסקים צעירים?", "chatgpt": "✗", "gemini": "✓"}, {"num": "2", "query": "מהן ההמלצות הטובות ביותר לניהול תיקי השקעות בישראל?", "chatgpt": "✗", "gemini": "✓"}, {"num": "3", "query": "איך אני מתחיל להשתמש בשירותי ניהול תיקי השקעות?", "chatgpt": "✗", "gemini": "✓"}, {"num": "4", "query": "ביקורות על IBI CAPITAL - ניהול תיקי השקעות בישראל", "chatgpt": "✓", "gemini": "✓"}, {"num": "5", "query": "למה חשוב לנהל תיקי השקעות לעובדים בחברה?", "chatgpt": "✗", "gemini": "✓"}]}, "queries": [{"num": "1", "query": "איך אני יכול לנהל את ההשקעות שלי בצורה חכמה כיזם צעיר?", "persona": "אורן", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "2", "query": "מהם היתרונות של ניהול תיקי השקעות לעסקים צעירים?", "persona": "אורן", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "3", "query": "מה ההבדלים בין קרנות נאמנות לקרנות גידור?", "persona": "אורן", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "4", "query": "איך לבחור את שירותי ניהול ההשקעות המתאימים לי?", "persona": "אורן", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "5", "query": "מהן ההמלצות הטובות ביותר לניהול תיקי השקעות בישראל?", "persona": "אורן", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "6", "query": "אילו קרנות השקעה אלטרנטיביות מומלצות ליזמים בישראל?", "persona": "אורן", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "7", "query": "איך אני מתחיל להשתמש בשירותי ניהול תיקי השקעות?", "persona": "אורן", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✓"}, {"num": "8", "query": "ביקורות על IBI CAPITAL - ניהול תיקי השקעות בישראל", "persona": "אורן", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "9", "query": "למה חשוב לנהל תיקי השקעות לעובדים בחברה?", "persona": "נועה", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "10", "query": "איך תוכניות הטבה הוניות יכולות לשפר את רווחת העובדים?", "persona": "נועה", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "11", "query": "כיצד לבחור שירות ניהול תיקי השקעות נכון לעובדים?", "persona": "נועה", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "12", "query": "מהן הקרנות המומלצות ביותר בישראל להשקעות אלטרנטיביות?", "persona": "נועה", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "13", "query": "אילו שירותי ניהול תיקי השקעות הם הטובים ביותר בישראל?", "persona": "נועה", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "14", "query": "איך משתמשים בשירותי ניהול תיקי השקעות?", "persona": "נועה", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✓"}, {"num": "15", "query": "מהן הביקורות על IBI CAPITAL בתחום ניהול תיקי השקעות?", "persona": "נועה", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "16", "query": "מה היתרונות של ניהול תיקי השקעות עבור משקיעים עצמאיים?", "persona": "יוסי", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "17", "query": "כיצד ניתן לבחור קרן נאמנות שמתאימה לצרכים שלי?", "persona": "יוסי", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "18", "query": "איזה סוגי מסחר עצמאי קיימים ומה ההבדלים ביניהם?", "persona": "יוסי", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "19", "query": "מה ההבדל בין קרנות גידור לקרנות השקעה אלטרנטיביות?", "persona": "יוסי", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "20", "query": "איזה שירותי ניהול תיקי השקעות הכי מומלצים בישראל?", "persona": "יוסי", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "21", "query": "כיצד אני יכול להשתמש בשירותי ניהול תיקי השקעות בצורה יעילה?", "persona": "יוסי", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✓"}, {"num": "22", "query": "למה חשוב לנהל תיקי השקעות בצורה מקצועית?", "persona": "מיה", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "23", "query": "איך ניתן להבטיח שההשקעות שלי יהיו מנוהלות בצורה נכונה?", "persona": "מיה", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "24", "query": "איך בוחרים שירותי ניהול תיקי השקעות עבור לקוחות?", "persona": "מיה", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "25", "query": "מהן האפשרויות הכי טובות לניהול תיקי השקעות בישראל?", "persona": "מיה", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "26", "query": "איזה שירותי ניהול תיקי השקעות נחשבים למומלצים בישראל?", "persona": "מיה", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "27", "query": "איך אני משתמשת בשירותי ניהול תיקי השקעות?", "persona": "מיה", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✗"}, {"num": "28", "query": "איזה בעיות יכולות להיווצר בניהול השקעות לא מקצועי?", "persona": "אילן", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "29", "query": "איך אני בוחר בין קרנות נאמנות שונות?", "persona": "אילן", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "30", "query": "מה ההבדלים בין קרנות גידור לקרנות השקעה אלטרנטיביות?", "persona": "אילן", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "31", "query": "איזה שירותי ניהול השקעות הם הטובים ביותר בישראל?", "persona": "אילן", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "32", "query": "מהן האפשרויות הטובות ביותר לניהול תיקי השקעות בישראל?", "persona": "אילן", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}], "audiences": [{"name": "יוסי - משקיע מנוסה", "role": "משקיע עצמאי", "score": "95%", "description": "גבר בן 50, משקיע עצמאי עם ניסיון רב בשוק ההון, מחפש הזדמנויות השקעה חדשות.", "age": "45-54", "location": "רמת גן", "industry": "פיננסים", "jobTitle": "משקיע עצמאי", "queries": "8", "mentions": "6"}, {"name": "אילן - מנהל כספים בתאגיד", "role": "מנהל כספים", "score": "92%", "description": "מנהל כספים בן 45, עובד בתאגיד גדול ומחפש פתרונות ניהול השקעות עבור החברה.", "age": "45-54", "location": "ירושלים", "industry": "תאגידים", "jobTitle": "מנהל כספים", "queries": "8", "mentions": "7"}, {"name": "נועה - מנהלת משאבי אנוש", "role": "מנהלת משאבי אנוש", "score": "90%", "description": "מנהלת משאבי אנוש בת 35, עובדת בחברה גדולה ומחפשת פתרונות ניהול פיננסיים לעובדים.", "age": "35-44", "location": "חיפה", "industry": "תאגידים", "jobTitle": "מנהלת משאבי אנוש", "queries": "8", "mentions": "5"}, {"name": "מיה - עו\"ד בתחום המס", "role": "עו\"ד", "score": "88%", "description": "עו\"ד בת 40, מתמחה במיסוי, מחפשת פתרונות עבור לקוחותיה בנוגע לניהול השקעות.", "age": "35-44", "location": "תל אביב", "industry": "משפטים", "jobTitle": "עו\"ד", "queries": "8", "mentions": "3"}, {"name": "אורן - יזם בתחילת הדרך", "role": "יזם", "score": "85%", "description": "יזם בן 28, פתח סטארטאפ בתחום הטכנולוגיה ומחפש דרכים לנהל את ההשקעות שלו בצורה חכמה.", "age": "25-34", "location": "תל אביב", "industry": "הייטק", "jobTitle": "יזם", "queries": "8", "mentions": "4"}], "workplan": {"summary": "על בסיס ניתוח מעמיק של 32 שאילתות ב-ChatGPT ו-Gemini, המותג מופיע ב-28% מהשאילתות הרלוונטיות. יש פער משמעותי — מנועי AI לא מזהים את המותג ברוב השאילתות.", "services": [{"name": "אבחון נוכחות AI מלא", "description": "הצעד הראשון — להבין בדיוק איפה אתם עומדים", "price": "₪3,500", "recommended": true}, {"name": "תשתית טכנית ל-AI", "description": "לדאוג שמנועי AI יכולים לקרוא ולהבין את האתר", "price": "₪4,000", "recommended": true}, {"name": "תוכן + ציטוטים + יח\"צ", "description": "13 שאילתות שבהן המותג לא מוזכר — הזדמנות ענקית", "price": "₪8,500", "recommended": true}, {"name": "אופטימיזציה + תחרות", "description": "אופטימיזציה ל-ChatGPT", "price": "₪4,500", "recommended": false}, {"name": "ליווי וניטור חודשי", "description": "מעקב רציף — לדעת בכל רגע איפה אתם עומדים", "price": "₪2,500/חודש", "recommended": true}, {"name": "ליווי פרימיום + ייעוץ אסטרטגי", "description": "ליווי צמוד — שותף אסטרטגי לנוכחות AI", "price": "₪6,500/חודש", "recommended": false}]}}, "bankhapoalim.co.il": {"overview": {"brandName": "בנק הפועלים", "metrics": {"שיעור אזכור": "60%", "מיקום ממוצע": "#7.7", "איכות ציטוט": "62%", "סיכון מוניטין": "100%"}, "riskText": "סיכון גבוה", "sentiment": {"positive": 0, "neutral": 40, "negative": 0}, "citation": {"high": "19%", "medium": "70%", "low": "11%"}, "engines": {"chatgpt": {"score": "48%", "found": 19, "total": 40}, "gemini": {"score": "78%", "found": 31, "total": 40}}, "stages": [{"name": "חשיפה", "score": "70%", "queries": 10}, {"name": "מחקר", "score": "90%", "queries": 10}, {"name": "החלטה", "score": "60%", "queries": 10}, {"name": "תמיכה", "score": "80%", "queries": 5}, {"name": "מוניטין", "score": "100%", "queries": 5}, {"name": "רושם כללי", "score": "0%", "queries": 0}], "persona": {"קהל יעד": "לקוחות פרטיים, בעלי עסקים, משקיעים", "תעשייה": "הלוואות, חסכונות, משכנתאות, שירותי מט\"ח, שירותי השקעות, המלצות אנליסטים", "מיקום": "ישראל", "ערך ייחודי": "בניית פתרונות פיננסיים מותאמים אישית ושירותים דיגיטליים מהירים ונוחים מהבית."}, "works": ["Services described", "Specialization clear"], "missing": ["Brand not in AI knowledge"], "top5": [{"num": "1", "query": "איך אני יכול לממן את הלימודים שלי באוניברסיטה?", "chatgpt": "✗", "gemini": "✓"}, {"num": "2", "query": "מה האפשרויות להלוואות לחיילים משוחררים בישראל?", "chatgpt": "✗", "gemini": "✓"}, {"num": "3", "query": "מה ההבדלים בין הלוואות שונות לחיילים משוחררים?", "chatgpt": "✗", "gemini": "✓"}, {"num": "4", "query": "איך אני יכול להשוות בין שירותי השקעות שונים?", "chatgpt": "✗", "gemini": "✓"}, {"num": "5", "query": "מהן ההלוואות הכי טובות לחיילים משוחררים בישראל?", "chatgpt": "✗", "gemini": "✓"}]}, "queries": [{"num": "1", "query": "איך אני יכול לממן את הלימודים שלי באוניברסיטה?", "persona": "אורן", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "2", "query": "מה האפשרויות להלוואות לחיילים משוחררים בישראל?", "persona": "אורן", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "3", "query": "מה ההבדלים בין הלוואות שונות לחיילים משוחררים?", "persona": "אורן", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "4", "query": "איך אני יכול להשוות בין שירותי השקעות שונים?", "persona": "אורן", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "5", "query": "מהן ההלוואות הכי טובות לחיילים משוחררים בישראל?", "persona": "אורן", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "6", "query": "איזה שירותי מט\"ח הכי מומלצים לסטודנטים בישראל?", "persona": "אורן", "stage": "החלטה", "chatgpt": "✓", "gemini": "✓"}, {"num": "7", "query": "איך אני מבצע בקשה להלוואה דרך האינטרנט?", "persona": "אורן", "stage": "תמיכה", "chatgpt": "✓", "gemini": "✓"}, {"num": "8", "query": "מה הביקורות על בנק הפועלים בתחום ההלוואות?", "persona": "אורן", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "9", "query": "מהן האפשרויות להשקעה לפנסיה שאני יכול לשקול?", "persona": "דני", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "10", "query": "איך אני יכול לחסוך יותר כסף לפנסיה שלי?", "persona": "דני", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "11", "query": "מה ההבדלים בין הלוואות שונות שאני יכול לקחת?", "persona": "דני", "stage": "מחקר", "chatgpt": "✓", "gemini": "✓"}, {"num": "12", "query": "מהן ההמלצות להשקעות טובות בשוק הישראלי?", "persona": "דני", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "13", "query": "מהן האפשרויות הכי טובות להשקעה לפנסיה בישראל?", "persona": "דני", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "14", "query": "איזה שירותי השקעות מומלצים בישראל?", "persona": "דני", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "15", "query": "איך אני יכול להשתמש בהלוואות באופן הכי יעיל?", "persona": "דני", "stage": "תמיכה", "chatgpt": "✓", "gemini": "✓"}, {"num": "16", "query": "ביקורות על בנק הפועלים בנוגע לשירותי הלוואות וחסכונות", "persona": "דני", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "17", "query": "איך אני יכולה לממן את ההתרחבות של העסק שלי?", "persona": "מירי", "stage": "חשיפה", "chatgpt": "✓", "gemini": "✓"}, {"num": "18", "query": "מהן האפשרויות להלוואה לעסק קטן בישראל?", "persona": "מירי", "stage": "חשיפה", "chatgpt": "✓", "gemini": "✓"}, {"num": "19", "query": "מה ההבדלים בין סוגי ההלוואות לעסקים?", "persona": "מירי", "stage": "מחקר", "chatgpt": "✓", "gemini": "✓"}, {"num": "20", "query": "איך לבחור את ההלוואה המתאימה ביותר לעסק שלי?", "persona": "מירי", "stage": "מחקר", "chatgpt": "✓", "gemini": "✓"}, {"num": "21", "query": "איזו הלוואה הכי מתאימה לעסק קטן בישראל?", "persona": "מירי", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "22", "query": "האם יש המלצות להלוואות לעסקים בישראל?", "persona": "מירי", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "23", "query": "איך אני מגישה בקשה להלוואה?", "persona": "מירי", "stage": "תמיכה", "chatgpt": "✓", "gemini": "✓"}, {"num": "24", "query": "מה הביקורות על בנק הפועלים בהלוואות לעסקים?", "persona": "מירי", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "25", "query": "איך אני יכול לעזור ללקוחות שלי למצוא הלוואות מתאימות?", "persona": "רמי", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "26", "query": "מה היתרונות של חסכונות עבור לקוחות שזקוקים לעזרה משפטית?", "persona": "רמי", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "27", "query": "מה ההבדלים בין הסוגים השונים של הלוואות בשוק?", "persona": "רמי", "stage": "מחקר", "chatgpt": "✓", "gemini": "✓"}, {"num": "28", "query": "כיצד להשוות בין הצעות להשקעות שונות?", "persona": "רמי", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "29", "query": "מהן ההשקעות המומלצות ביותר בישראל למשקיעים חדשים?", "persona": "רמי", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "30", "query": "אילו שירותי השקעות מתאימים ללקוחות בישראל?", "persona": "רמי", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "31", "query": "איך ניתן להגיש בקשה להלוואה באינטרנט?", "persona": "רמי", "stage": "תמיכה", "chatgpt": "✓", "gemini": "✓"}, {"num": "32", "query": "ביקורות על בנק הפועלים בתחום ההלוואות?", "persona": "רמי", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "33", "query": "איך אני יכולה לממן את העסק שלי בתחום היופי?", "persona": "סיגל", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "34", "query": "מהן האפשרויות לחסוך כסף כאשר אני עצמאית?", "persona": "סיגל", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "35", "query": "מה ההבדל בין הלוואות שונות לעסק שלי?", "persona": "סיגל", "stage": "מחקר", "chatgpt": "✓", "gemini": "✓"}, {"num": "36", "query": "איך להשוות בין שירותי השקעות שונים?", "persona": "סיגל", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "37", "query": "מהן ההלוואות הטובות ביותר לעסקים קטנים בישראל?", "persona": "סיגל", "stage": "החלטה", "chatgpt": "✓", "gemini": "✓"}, {"num": "38", "query": "איזה בנק מציע את התנאים הכי טובים למשכנתאות בישראל?", "persona": "סיגל", "stage": "החלטה", "chatgpt": "✓", "gemini": "✓"}, {"num": "39", "query": "איך אני יכולה להשתמש בהלוואות כדי לקדם את העסק שלי?", "persona": "סיגל", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✗"}, {"num": "40", "query": "מהן הביקורות על בנק הפועלים בתחום ההלוואות?", "persona": "סיגל", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}], "audiences": [{"name": "רמי - עורך דין", "role": "עורך דין", "score": "92%", "description": "עורך דין בן 50, מתמחה בדיני משפחה. מחפש פתרונות השקעה עבור לקוחותיו.", "age": "45-54", "location": "תל אביב", "industry": "law", "jobTitle": "עורך דין", "queries": "8", "mentions": "5"}, {"name": "דני - מנהל משאבי אנוש", "role": "מנהל משאבי אנוש", "score": "90%", "description": "מנהל משאבי אנוש בן 40, עובד בחברה בינלאומית בתל אביב. מחפש אפשרויות השקעה עבור הפנסיה שלו.", "age": "35-44", "location": "תל אביב", "industry": "corporate", "jobTitle": "מנהל משאבי אנוש", "queries": "8", "mentions": "4"}, {"name": "מירי - בעלת עסק קטן", "role": "בעלת עסק", "score": "88%", "description": "בעלת עסק קטן בת 35, מנהלת חנות אונליין. מחפשת הלוואות להרחבת העסק.", "age": "30-39", "location": "ירושלים", "industry": "e-commerce", "jobTitle": "בעלת עסק", "queries": "8", "mentions": "8"}, {"name": "סיגל - עצמאית בתחום היופי", "role": "עצמאית", "score": "87%", "description": "עצמאית בתחום היופי בת 28, מחפשת דרכים לממן את העסק שלה ולהשקיע בחסכונות.", "age": "25-34", "location": "תל אביב", "industry": "beauty", "jobTitle": "עצמאית", "queries": "8", "mentions": "6"}, {"name": "אורן - חייל משוחרר", "role": "סטודנט", "score": "85%", "description": "חייל משוחרר בן 21, מתכנן ללמוד באוניברסיטה ומחפש דרכים לממן את הלימודים.", "age": "18-24", "location": "חיפה", "industry": "education", "jobTitle": "סטודנט", "queries": "8", "mentions": "8"}], "workplan": {"summary": "על בסיס ניתוח מעמיק של 40 שאילתות ב-ChatGPT ו-Gemini, המותג מופיע ב-60% מהשאילתות הרלוונטיות. יש בסיס טוב אבל הרבה מקום לשיפור.", "services": [{"name": "אבחון נוכחות AI מלא", "description": "הצעד הראשון — להבין בדיוק איפה אתם עומדים", "price": "₪3,500", "recommended": true}, {"name": "תשתית טכנית ל-AI", "description": "לדאוג שמנועי AI יכולים לקרוא ולהבין את האתר", "price": "₪4,000", "recommended": false}, {"name": "אופטימיזציה + תחרות", "description": "אופטימיזציה ל-ChatGPT", "price": "₪4,500", "recommended": false}, {"name": "ליווי וניטור חודשי", "description": "מעקב רציף — לדעת בכל רגע איפה אתם עומדים", "price": "₪2,500/חודש", "recommended": true}, {"name": "ליווי פרימיום + ייעוץ אסטרטגי", "description": "ליווי צמוד — שותף אסטרטגי לנוכחות AI", "price": "₪6,500/חודש", "recommended": false}]}}, "fnx.co.il": {"overview": {"brandName": "פניקס ביטוח", "metrics": {"שיעור אזכור": "16%", "מיקום ממוצע": "#15.0", "איכות ציטוט": "50%", "סיכון מוניטין": "100%"}, "riskText": "סיכון גבוה", "sentiment": {"positive": 2, "neutral": 36, "negative": 0}, "citation": {"high": "15%", "medium": "70%", "low": "15%"}, "engines": {"chatgpt": {"score": "19%", "found": 7, "total": 36}, "gemini": {"score": "11%", "found": 4, "total": 36}}, "stages": [{"name": "חשיפה", "score": "40%", "queries": 10}, {"name": "מחקר", "score": "11%", "queries": 9}, {"name": "החלטה", "score": "10%", "queries": 10}, {"name": "תמיכה", "score": "60%", "queries": 5}, {"name": "מוניטין", "score": "100%", "queries": 2}, {"name": "רושם כללי", "score": "0%", "queries": 0}], "persona": {"קהל יעד": "אוכלוסיית ישראל, אנשים המחפשים פתרונות פיננסיים, משקיעים", "תעשייה": "ביטוח רכב, ביטוח נסיעות לחו\"ל, ביטוח דירה, ביטוח בריאות, ביטוח משכנתא, פנסיה, גמל, קרנות השתלמות, תוכניות חיסכון, השקעות", "מיקום": "ישראל", "ערך ייחודי": "הפניקס מציעה מגוון רחב של פתרונות פיננסיים במקום אחד עם ממשק דיגיטלי נוח ויעיל לניהול תביעות והחזרים."}, "works": ["Services described"], "missing": ["Brand not in AI knowledge"], "top5": [{"num": "1", "query": "איך משתמשים בביטוח רכב בישראל?", "chatgpt": "✓", "gemini": "✗"}, {"num": "2", "query": "ביקורות על פניקס ביטוח בתחום ביטוח רכב", "chatgpt": "✓", "gemini": "✗"}, {"num": "3", "query": "למה חשוב להשקיע בביטוח בריאות?", "chatgpt": "✓", "gemini": "✗"}, {"num": "4", "query": "ביקורות על פניקס ביטוח בתחום ביטוח בריאות", "chatgpt": "✓", "gemini": "✗"}, {"num": "5", "query": "למה אני צריכה ביטוח בריאות אם אני בריאה?", "chatgpt": "✗", "gemini": "✓"}]}, "queries": [{"num": "1", "query": "למה צריך ביטוח נסיעות לחו\"ל?", "persona": "מאיה", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "2", "query": "מה היתרונות של ביטוח בריאות לחו\"ל?", "persona": "מאיה", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "3", "query": "איך בוחרים ביטוח נסיעות לחו\"ל זול?", "persona": "מאיה", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "4", "query": "מה ההבדלים בין סוגי ביטוחי בריאות לחו\"ל?", "persona": "מאיה", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "5", "query": "איזה ביטוח נסיעות לחו\"ל הוא הכי משתלם בישראל?", "persona": "מאיה", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "6", "query": "מהן האפשרויות הטובות ביותר לביטוח בריאות לסטודנטים בישראל?", "persona": "מאיה", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "7", "query": "איך משתמשים בביטוח רכב בישראל?", "persona": "מאיה", "stage": "תמיכה", "chatgpt": "✓", "gemini": "✗"}, {"num": "8", "query": "ביקורות על פניקס ביטוח בתחום ביטוח רכב", "persona": "מאיה", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✗"}, {"num": "9", "query": "למה חשוב להשקיע בביטוח בריאות?", "persona": "יוסי", "stage": "חשיפה", "chatgpt": "✓", "gemini": "✗"}, {"num": "10", "query": "מה היתרונות של ביטוח משכנתא?", "persona": "יוסי", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "11", "query": "מה ההבדל בין ביטוח בריאות לסוגי ביטוחים אחרים?", "persona": "יוסי", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "12", "query": "איך אני משווה בין ביטוחי משכנתא שונים?", "persona": "יוסי", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "13", "query": "איזה ביטוח בריאות הוא הכי מומלץ בישראל?", "persona": "יוסי", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "14", "query": "מה הביטוח המשכנתא הטוב ביותר שאני יכול למצוא בישראל?", "persona": "יוסי", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "15", "query": "איך משתמשים בביטוח רכב כדי להגיש תביעה?", "persona": "יוסי", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✗"}, {"num": "16", "query": "ביקורות על פניקס ביטוח בתחום ביטוח בריאות", "persona": "יוסי", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✗"}, {"num": "17", "query": "למה אני צריכה ביטוח בריאות אם אני בריאה?", "persona": "רונית", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "18", "query": "מה היתרונות של ביטוח דירה לעסקים עצמאיים?", "persona": "רונית", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "19", "query": "איך משווים בין פוליסות ביטוח בריאות שונות?", "persona": "רונית", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "20", "query": "מה ההבדלים בין ביטוח דירה לביטוח משכנתא?", "persona": "רונית", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "21", "query": "מהו ביטוח הבריאות הכי טוב בישראל?", "persona": "רונית", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "22", "query": "איפה אני יכולה למצוא ביטוח דירה משתלם בישראל?", "persona": "רונית", "stage": "החלטה", "chatgpt": "✓", "gemini": "✗"}, {"num": "23", "query": "איך אני משתמשת בממשק הדיגיטלי של ביטוח רכב?", "persona": "רונית", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✓"}, {"num": "24", "query": "למה חשוב לעשות ביטוח בריאות בגיל 65?", "persona": "משה", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "25", "query": "מה היתרונות של פנסיה בגיל הפרישה?", "persona": "משה", "stage": "חשיפה", "chatgpt": "✓", "gemini": "✗"}, {"num": "26", "query": "איך אני יכול להשוות בין פוליסות ביטוח בריאות שונות?", "persona": "משה", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "27", "query": "מה הפוליסות המומלצות ביותר לביטוח בריאות בישראל?", "persona": "משה", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "28", "query": "איזה פתרונות פנסיה הם הכי טובים לפנסיונרים בישראל?", "persona": "משה", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "29", "query": "איך להגיש תביעת ביטוח רכב באינטרנט?", "persona": "משה", "stage": "תמיכה", "chatgpt": "✓", "gemini": "✗"}, {"num": "30", "query": "למה חשוב לעשות ביטוח רכב?", "persona": "עדי", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "31", "query": "מה היתרונות של ביטוח בריאות?", "persona": "עדי", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "32", "query": "איך אני משווה בין פוליסות ביטוח דירה שונות?", "persona": "עדי", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "33", "query": "מה ההבדלים בין קרנות השתלמות שונות?", "persona": "עדי", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "34", "query": "איזה ביטוח נסיעות לחו\"ל הוא הכי טוב בישראל?", "persona": "עדי", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "35", "query": "מהן האפשרויות הטובות ביותר לפנסיה בישראל?", "persona": "עדי", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "36", "query": "איך אני משתמשת בפוליסת ביטוח רכב שלי?", "persona": "עדי", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✗"}], "audiences": [{"name": "עדי - יועצת השקעות", "role": "יועצת השקעות", "score": "91%", "description": "יועצת השקעות בת 35, עובדת בחברת השקעות גדולה. מחפשת פתרונות פנסיה והשקעות.", "age": "25-34", "location": "הרצליה", "industry": "פיננסים", "jobTitle": "יועצת השקעות", "queries": "8", "mentions": "2"}, {"name": "יוסי - מנהל פרויקטים", "role": "מנהל פרויקטים", "score": "90%", "description": "מנהל פרויקטים בן 40, עובד בחברת טכנולוגיה. מחפש ביטוח בריאות ומשכנתא.", "age": "35-44", "location": "תל אביב", "industry": "הייטק", "jobTitle": "מנהל פרויקטים", "queries": "8", "mentions": "2"}, {"name": "רונית - עצמאית בתחום האיור", "role": "מעצבת גרפית", "score": "88%", "description": "מעצבת גרפית בת 30, עצמאית. מחפשת ביטוח בריאות וביטוח דירה.", "age": "25-34", "location": "חיפה", "industry": "עיצוב", "jobTitle": "מעצבת גרפית", "queries": "8", "mentions": "5"}, {"name": "משה - פנסיונר", "role": "פנסיונר", "score": "87%", "description": "פנסיונר בן 65, מחפש פתרונות פנסיה וביטוח בריאות. 65+ תל אביב n/a פנסיונר 8 שאילתות | 4 אזכורים", "age": "פנסיונר בן 65, מחפש פתרונות פנסיה וביטוח בריאות.", "location": "65+", "industry": "תל אביב", "jobTitle": "n/a", "queries": "8", "mentions": "4"}, {"name": "מאיה - סטודנטית למשפטים", "role": "סטודנטית", "score": "85%", "description": "סטודנטית בת 24, לומדת משפטים באוניברסיטה ירושלים. מחפשת פתרונות ביטוח זולים לנסיעות לחו\"ל.", "age": "18-24", "location": "ירושלים", "industry": "אקדמיה", "jobTitle": "סטודנטית", "queries": "8", "mentions": "2"}], "workplan": {"summary": "על בסיס ניתוח מעמיק של 36 שאילתות ב-ChatGPT ו-Gemini, המותג מופיע ב-16% מהשאילתות הרלוונטיות. יש פער משמעותי — מנועי AI לא מזהים את המותג ברוב השאילתות.", "services": [{"name": "אבחון נוכחות AI מלא", "description": "הצעד הראשון — להבין בדיוק איפה אתם עומדים", "price": "₪3,500", "recommended": true}, {"name": "תשתית טכנית ל-AI", "description": "לדאוג שמנועי AI יכולים לקרוא ולהבין את האתר", "price": "₪4,000", "recommended": true}, {"name": "תוכן + ציטוטים + יח\"צ", "description": "25 שאילתות שבהן המותג לא מוזכר — הזדמנות ענקית", "price": "₪8,500", "recommended": true}, {"name": "ליווי וניטור חודשי", "description": "מעקב רציף — לדעת בכל רגע איפה אתם עומדים", "price": "₪2,500/חודש", "recommended": true}, {"name": "ליווי פרימיום + ייעוץ אסטרטגי", "description": "ליווי צמוד — שותף אסטרטגי לנוכחות AI", "price": "₪6,500/חודש", "recommended": false}]}}, "migdal.co.il": {"overview": {"brandName": "מגדל ביטוח", "metrics": {"שיעור אזכור": "49%", "מיקום ממוצע": "#12.8", "איכות ציטוט": "55%", "סיכון מוניטין": "100%"}, "riskText": "סיכון גבוה", "sentiment": {"positive": 8, "neutral": 38, "negative": 0}, "citation": {"high": "17%", "medium": "69%", "low": "14%"}, "engines": {"chatgpt": {"score": "28%", "found": 11, "total": 39}, "gemini": {"score": "79%", "found": 31, "total": 39}}, "stages": [{"name": "חשיפה", "score": "80%", "queries": 10}, {"name": "מחקר", "score": "90%", "queries": 10}, {"name": "החלטה", "score": "70%", "queries": 10}, {"name": "תמיכה", "score": "100%", "queries": 5}, {"name": "מוניטין", "score": "100%", "queries": 4}, {"name": "רושם כללי", "score": "0%", "queries": 0}], "persona": {"קהל יעד": "לקוחות פרטיים ועסקיים המעוניינים בביטוח, פנסיה וחיסכון אישי", "תעשייה": "ביטוח בריאות, ביטוח חיים, ביטוח נסיעות לחו\"ל, ביטוח רכב, ביטוח דירה, פנסיה, גמל, השקעות", "מיקום": "ישראל", "ערך ייחודי": "מגוון רחב של פתרונות ביטוח ופיננסים במקום אחד, עם אפשרות לפעולות אונליין וניהול תיק ביטוח בקלות."}, "works": ["Specialization clear", "Services described"], "missing": ["Brand not in AI knowledge"], "top5": [{"num": "1", "query": "למה חשוב לעשות ביטוח בריאות לעצמאים כמו קבלנים?", "chatgpt": "✗", "gemini": "✓"}, {"num": "2", "query": "מה הסיכונים שאין לי ביטוח חיים כבעל עסק?", "chatgpt": "✗", "gemini": "✓"}, {"num": "3", "query": "איך אני משווה בין ביטוחי רכב שונים בישראל?", "chatgpt": "✗", "gemini": "✓"}, {"num": "4", "query": "מהם ביטוחי הבריאות הכי מומלצים לעצמאים בישראל?", "chatgpt": "✗", "gemini": "✓"}, {"num": "5", "query": "איזה ביטוח חיים נותן את הכיסוי הטוב ביותר לעובדים עצמאים בישראל?", "chatgpt": "✓", "gemini": "✓"}]}, "queries": [{"num": "1", "query": "למה חשוב לעשות ביטוח בריאות לעצמאים כמו קבלנים?", "persona": "דני", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "2", "query": "מה הסיכונים שאין לי ביטוח חיים כבעל עסק?", "persona": "דני", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "3", "query": "איך אני משווה בין ביטוחי רכב שונים בישראל?", "persona": "דני", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "4", "query": "מה היתרונות והחסרונות של ביטוח דירה מול ביטוח חיים?", "persona": "דני", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "5", "query": "מהם ביטוחי הבריאות הכי מומלצים לעצמאים בישראל?", "persona": "דני", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "6", "query": "איזה ביטוח חיים נותן את הכיסוי הטוב ביותר לעובדים עצמאים בישראל?", "persona": "דני", "stage": "החלטה", "chatgpt": "✓", "gemini": "✓"}, {"num": "7", "query": "איך אני מפעיל את פוליסת ביטוח הבריאות שלי?", "persona": "דני", "stage": "תמיכה", "chatgpt": "✓", "gemini": "✓"}, {"num": "8", "query": "מהן הביקורות על מגדל ביטוח בתחום ביטוחי בריאות?", "persona": "דני", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✗"}, {"num": "9", "query": "למה חשוב שיהיה לי ביטוח בריאות כסטודנטית לרפואה?", "persona": "רוני", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "10", "query": "מה היתרונות של ביטוח בריאות לסטודנטים?", "persona": "רוני", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "11", "query": "מה ההבדלים בין סוגי ביטוח בריאות הקיימים בשוק?", "persona": "רוני", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "12", "query": "איך לבחור ביטוח בריאות שמתאים לצרכים שלי?", "persona": "רוני", "stage": "מחקר", "chatgpt": "✓", "gemini": "✓"}, {"num": "13", "query": "מהן ההמלצות לביטוח בריאות לסטודנטים בישראל?", "persona": "רוני", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "14", "query": "איזה ביטוח בריאות הכי מומלץ לסטודנטים לרפואה בארץ?", "persona": "רוני", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "15", "query": "איך אני יכולה לנהל את פוליסת הביטוח בריאות שלי אונליין?", "persona": "רוני", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✓"}, {"num": "16", "query": "מהן הביקורות על מגדל ביטוח בתחום ביטוח הבריאות?", "persona": "רוני", "stage": "מוניטין", "chatgpt": "✗", "gemini": "✓"}, {"num": "17", "query": "למה חשוב שיהיה לעובדים ביטוח בריאות?", "persona": "אבי", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "18", "query": "מה היתרונות של ביטוח חיים לעובדים בחברה?", "persona": "אבי", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "19", "query": "איך משווים בין פוליסות ביטוח בריאות שונות?", "persona": "אבי", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "20", "query": "מה ההבדלים בין ביטוח רכב לביטוח דירה?", "persona": "אבי", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "21", "query": "איזה ביטוח בריאות מומלץ לעובדים בישראל?", "persona": "אבי", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "22", "query": "מהן האפשרויות הטובות ביותר לביטוח חיים לעובדים בישראל?", "persona": "אבי", "stage": "החלטה", "chatgpt": "✓", "gemini": "✓"}, {"num": "23", "query": "איך אני משתמש בפוליסת ביטוח בריאות לעובדים?", "persona": "אבי", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✓"}, {"num": "24", "query": "ביקורות על מגדל ביטוח בתחום ביטוח בריאות", "persona": "אבי", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "25", "query": "למה חשוב לי לבעלת עסק קטן ביטוח בריאות?", "persona": "מירי", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "26", "query": "מה הסיכונים שאני עלולה להיתקל בהם כבעלת עסק למכירת בגדים באינטרנט?", "persona": "מירי", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "27", "query": "איך אני יכולה להשוות בין ביטוחי בריאות שונים בישראל?", "persona": "מירי", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "28", "query": "מה ההבדלים בין פוליסות ביטוח חיים שונות?", "persona": "מירי", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "29", "query": "מהו הביטוח העסקי הטוב ביותר עבור עסק קטן בישראל?", "persona": "מירי", "stage": "החלטה", "chatgpt": "✓", "gemini": "✓"}, {"num": "30", "query": "איזה ביטוח בריאות הכי מומלץ לעסק שלי בארץ?", "persona": "מירי", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "31", "query": "איך אני יכולה לבדוק את הכיסוי של ביטוח בריאות שלי?", "persona": "מירי", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✓"}, {"num": "32", "query": "מה הביקורות על מגדל ביטוח בתחום ביטוח הבריאות?", "persona": "מירי", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "33", "query": "למה חשוב לי לדאוג לביטוח בריאות בגיל שלי?", "persona": "יוסי", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "34", "query": "מה היתרונות של ביטוח חיים לפנסיונרים?", "persona": "יוסי", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "35", "query": "איך להשוות בין פוליסות ביטוח בריאות שונות?", "persona": "יוסי", "stage": "מחקר", "chatgpt": "✓", "gemini": "✗"}, {"num": "36", "query": "מה ההבדלים בין ביטוחי חיים שונים בישראל?", "persona": "יוסי", "stage": "מחקר", "chatgpt": "✓", "gemini": "✓"}, {"num": "37", "query": "איזה ביטוח בריאות מומלץ לפנסיונרים בישראל?", "persona": "יוסי", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "38", "query": "מהן האפשרויות הטובות ביותר לביטוח חיים בישראל?", "persona": "יוסי", "stage": "החלטה", "chatgpt": "✓", "gemini": "✓"}, {"num": "39", "query": "איך אני יכול לבדוק את הכיסוי שלי בביטוח בריאות?", "persona": "יוסי", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✓"}], "audiences": [{"name": "רוני - סטודנטית לרפואה", "role": "סטודנטית", "score": "90%", "description": "סטודנטית בת 25, לומדת רפואה באוניברסיטה. מחפשת ביטוח בריאות שיתאים לצרכיה.", "age": "18-24", "location": "ירושלים", "industry": "חינוך", "jobTitle": "סטודנטית", "queries": "8", "mentions": "6"}, {"name": "אבי - מנהל משאבי אנוש", "role": "מנהל משאבי אנוש", "score": "88%", "description": "מנהל משאבי אנוש בן 50, עובד בחברה בינלאומית. מחפש פתרונות ביטוח לעובדים.", "age": "45-54", "location": "תל אביב", "industry": "עסקים", "jobTitle": "מנהל משאבי אנוש", "queries": "8", "mentions": "8"}, {"name": "מירי - בעלת עסק קטן למכירת בגדים", "role": "בעלת עסק", "score": "87%", "description": "בעלת עסק בת 35, מתמחה במכירת בגדים באינטרנט. מחפשת ביטוח עסקי ופרטי.", "age": "25-34", "location": "חיפה", "industry": "אופנה", "jobTitle": "בעלת עסק", "queries": "8", "mentions": "6"}, {"name": "דני - עצמאי בתחום הבנייה", "role": "קבלן", "score": "85%", "description": "עצמאי בן 40, בעל עסק לבנייה ושיפוצים. מחפש פתרונות ביטוח שמגנים עליו ועל משפחתו.", "age": "35-44", "location": "נתניה", "industry": "בנייה", "jobTitle": "קבלן", "queries": "8", "mentions": "7"}, {"name": "יוסי - פנסיונר בן 65", "role": "פנסיונר", "score": "82%", "description": "פנסיונר בן 65, מתעניין בביטוחי בריאות וביטוחי חיים כדי להבטיח את עתידו ועתיד משפחתו. 65+ באר שבע נש retired פנסיונר 8 שאילתות | 7 אזכורים", "age": "פנסיונר בן 65, מתעניין בביטוחי בריאות וביטוחי חיים כדי להבטיח את עתידו ועתיד משפחתו.", "location": "65+", "industry": "באר שבע", "jobTitle": "נש retired", "queries": "8", "mentions": "7"}], "workplan": {"summary": "על בסיס ניתוח מעמיק של 39 שאילתות ב-ChatGPT ו-Gemini, המותג מופיע ב-49% מהשאילתות הרלוונטיות. יש בסיס טוב אבל הרבה מקום לשיפור.", "services": [{"name": "אבחון נוכחות AI מלא", "description": "הצעד הראשון — להבין בדיוק איפה אתם עומדים", "price": "₪3,500", "recommended": true}, {"name": "תשתית טכנית ל-AI", "description": "לדאוג שמנועי AI יכולים לקרוא ולהבין את האתר", "price": "₪4,000", "recommended": false}, {"name": "תוכן + ציטוטים + יח\"צ", "description": "בניית ציטוטים וסמכות", "price": "₪7,500", "recommended": false}, {"name": "אופטימיזציה + תחרות", "description": "אופטימיזציה ל-ChatGPT", "price": "₪4,500", "recommended": false}, {"name": "ליווי וניטור חודשי", "description": "מעקב רציף — לדעת בכל רגע איפה אתם עומדים", "price": "₪2,500/חודש", "recommended": true}, {"name": "ליווי פרימיום + ייעוץ אסטרטגי", "description": "ליווי צמוד — שותף אסטרטגי לנוכחות AI", "price": "₪6,500/חודש", "recommended": false}]}}, "colmobil.co.il": {"overview": {"brandName": "כלמוביל", "metrics": {"שיעור אזכור": "36%", "מיקום ממוצע": "#11.0", "איכות ציטוט": "45%", "סיכון מוניטין": "100%"}, "riskText": "סיכון גבוה", "sentiment": {"positive": 27, "neutral": 34, "negative": 0}, "citation": {"high": "14%", "medium": "69%", "low": "17%"}, "engines": {"chatgpt": {"score": "18%", "found": 7, "total": 39}, "gemini": {"score": "64%", "found": 25, "total": 39}}, "stages": [{"name": "חשיפה", "score": "67%", "queries": 9}, {"name": "מחקר", "score": "50%", "queries": 10}, {"name": "החלטה", "score": "70%", "queries": 10}, {"name": "תמיכה", "score": "80%", "queries": 5}, {"name": "מוניטין", "score": "100%", "queries": 5}, {"name": "רושם כללי", "score": "0%", "queries": 0}], "persona": {"קהל יעד": "לקוחות פרטיים ועסקיים המעוניינים ברכבי יוקרה", "תעשייה": "מכירת רכבים חדשים, מכירת רכבים משומשים, שירותי מימון לרכבים, שירותי ביטוח לרכבים", "מיקום": "ישראל", "ערך ייחודי": "לכלמוביל יש מוניטין גבוה בשוק רכבי היוקרה בישראל, עם מגוון רחב של דגמים ושירותים מותאמים אישית."}, "works": ["Specialization clear", "Services described"], "missing": ["Brand not in AI knowledge"], "top5": [{"num": "1", "query": "מה היתרונות של רכישת רכב יוקרה עבור מנהל כספים?", "chatgpt": "✗", "gemini": "✓"}, {"num": "2", "query": "איך ניתן להשוות בין הצעות מימון שונות לרכב?", "chatgpt": "✓", "gemini": "✗"}, {"num": "3", "query": "איפה ניתן למצוא את העסקאות הטובות ביותר לרכבים יוקרתיים בירושלים?", "chatgpt": "✗", "gemini": "✓"}, {"num": "4", "query": "איך להשתמש בשירותי מכירת רכבים חדשים בצורה הטובה ביותר?", "chatgpt": "✗", "gemini": "✓"}, {"num": "5", "query": "מה אומרים על הביקורות של כלמוביל בתחום מכירת רכבים יוקרתיים?", "chatgpt": "✓", "gemini": "✓"}]}, "queries": [{"num": "1", "query": "מה היתרונות של רכישת רכב יוקרה עבור מנהל כספים?", "persona": "אבי", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "2", "query": "למה כדאי להשקיע ברכב חדש ולא משומש?", "persona": "אבי", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "3", "query": "מה ההבדלים בין דגמי רכבי יוקרה בשוק?", "persona": "אבי", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "4", "query": "איך ניתן להשוות בין הצעות מימון שונות לרכב?", "persona": "אבי", "stage": "מחקר", "chatgpt": "✓", "gemini": "✗"}, {"num": "5", "query": "מהם רכבי היוקרה המומלצים בישראל בשנת 2023?", "persona": "אבי", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "6", "query": "איפה ניתן למצוא את העסקאות הטובות ביותר לרכבים יוקרתיים בירושלים?", "persona": "אבי", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "7", "query": "איך להשתמש בשירותי מכירת רכבים חדשים בצורה הטובה ביותר?", "persona": "אבי", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✓"}, {"num": "8", "query": "מה אומרים על הביקורות של כלמוביל בתחום מכירת רכבים יוקרתיים?", "persona": "אבי", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "9", "query": "איזה סוג רכב קטן מתאים לסטודנטית בתל אביב?", "persona": "מיה", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "10", "query": "מה היתרונות של רכישת רכב חדש לעומת רכב משומש?", "persona": "מיה", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "11", "query": "איך אני יכולה להשוות בין רכבים קטנים שונים?", "persona": "מיה", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "12", "query": "מהם הדגמים המומלצים לרכב קטן בעיר?", "persona": "מיה", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "13", "query": "מהו הרכב הכי נוח לסטודנטית בתל אביב?", "persona": "מיה", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "14", "query": "איפה ניתן לקנות רכב קטן ונוח בישראל?", "persona": "מיה", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "15", "query": "איך לקנות רכב חדש בצורה נכונה?", "persona": "מיה", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✓"}, {"num": "16", "query": "מהן הביקורות על כלמוביל במכירת רכבים חדשים?", "persona": "מיה", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "17", "query": "למה כדאי לי לשקול לקנות רכב מסחרי?", "persona": "יוסי", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "18", "query": "איזה יתרונות יש ברכב משפחתי עבור בעל עסק?", "persona": "יוסי", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "19", "query": "מה ההבדלים בין רכבים מסחריים שונים?", "persona": "יוסי", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "20", "query": "איך להשוות בין רכבים משומשים ורכבים חדשים?", "persona": "יוסי", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "21", "query": "מה הם הרכבים המסחריים הכי מומלצים בישראל?", "persona": "יוסי", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "22", "query": "איפה אפשר לקנות רכב חדש במחירים טובים בישראל?", "persona": "יוסי", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "23", "query": "איך משתמשים לשירותי מכירת רכבים חדשים?", "persona": "יוסי", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✗"}, {"num": "24", "query": "מה ביקורות על כלמוביל בתחום מכירת רכבים?", "persona": "יוסי", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "25", "query": "איזה רכב כדאי לי לבחור כדי להתאים לסטודיו שלי?", "persona": "גילה", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "26", "query": "איך אני יכולה להשוות בין רכבים שונים שמתאימים לצרכים שלי?", "persona": "גילה", "stage": "מחקר", "chatgpt": "✓", "gemini": "✗"}, {"num": "27", "query": "מהם הדגמים הפופולריים ביותר של רכבים עבור אמנים?", "persona": "גילה", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "28", "query": "מהם רכבים המומלצים ביותר לאמניות בישראל?", "persona": "גילה", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "29", "query": "איפה אפשר למצוא את הרכב הכי מתאים לצרכים שלי בישראל?", "persona": "גילה", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "30", "query": "איך להשתמש בשירותי מימון לרכב חדש?", "persona": "גילה", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✓"}, {"num": "31", "query": "מהן הביקורות על כלמוביל בתחום מכירת רכבים חדשים?", "persona": "גילה", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "32", "query": "איזה סוג של רכבים טכנולוגיים קיימים כיום בישראל?", "persona": "דרור", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "33", "query": "למה חשוב להשקיע ברכב חדש עם חידושים טכנולוגיים?", "persona": "דרור", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "34", "query": "מה ההבדלים בין רכבים חדשים לרכבים משומשים?", "persona": "דרור", "stage": "מחקר", "chatgpt": "✗", "gemini": "✗"}, {"num": "35", "query": "איך לבחור רכב טכנולוגי שמתאים לצרכים שלי?", "persona": "דרור", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "36", "query": "מהם הרכבים הטכנולוגיים הכי מומלצים בישראל בשנת 2023?", "persona": "דרור", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "37", "query": "איפה אפשר לקנות רכבים חדשים עם טכנולוגיה מתקדמת בתל אביב?", "persona": "דרור", "stage": "החלטה", "chatgpt": "✗", "gemini": "✗"}, {"num": "38", "query": "איך משתמשים בשירותי מימון לרכבים חדשים?", "persona": "דרור", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✓"}, {"num": "39", "query": "מה הביקורות על כלמוביל במכירת רכבים חדשים ושירותים נוספים?", "persona": "דרור", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}], "audiences": [{"name": "אבי - מנהל כספים", "role": "מנהל כספים", "score": "95%", "description": "מנהל כספים בן 45, עובד בחברה גדולה בירושלים. מחפש רכב יוקרה שיבטא את הצלחתו המקצועית.", "age": "45-54", "location": "ירושלים", "industry": "פיננסים", "jobTitle": "מנהל כספים", "queries": "8", "mentions": "5"}, {"name": "דרור - מהנדס תוכנה", "role": "מהנדס תוכנה", "score": "90%", "description": "מהנדס תוכנה בן 30, עובד בחברת הייטק בתל אביב. מחפש רכב טכנולוגי עם חידושים.", "age": "25-34", "location": "תל אביב", "industry": "הייטק", "jobTitle": "מהנדס תוכנה", "queries": "8", "mentions": "6"}, {"name": "גילה - עצמאית בתחום האמנות", "role": "אמן", "score": "88%", "description": "עצמאית בת 50, עוסקת באמנות ומחפשת רכב שיתאים לסטודיו שלה.", "age": "45-54", "location": "תל אביב", "industry": "אמנות", "jobTitle": "אמן", "queries": "8", "mentions": "8"}, {"name": "יוסי - בעל עסק קטן", "role": "בעל עסק", "score": "85%", "description": "בעל עסק בן 38, מנהל חנות בגדים. מחפש רכב מסחרי שיכול לשמש גם את המשפחה.", "age": "35-44", "location": "חיפה", "industry": "קמעונאות", "jobTitle": "בעל עסק", "queries": "8", "mentions": "4"}, {"name": "מיה - סטודנטית לתואר שני", "role": "סטודנטית", "score": "80%", "description": "סטודנטית בת 28, לומדת משפטים בתל אביב. מחפשת רכב קטן ונוח שמתאים לעיר.", "age": "25-34", "location": "תל אביב", "industry": "אקדמיה", "jobTitle": "סטודנטית", "queries": "8", "mentions": "5"}], "workplan": {"summary": "על בסיס ניתוח מעמיק של 39 שאילתות ב-ChatGPT ו-Gemini, המותג מופיע ב-36% מהשאילתות הרלוונטיות. יש פער משמעותי — מנועי AI לא מזהים את המותג ברוב השאילתות.", "services": [{"name": "אבחון נוכחות AI מלא", "description": "הצעד הראשון — להבין בדיוק איפה אתם עומדים", "price": "₪3,500", "recommended": true}, {"name": "תשתית טכנית ל-AI", "description": "לדאוג שמנועי AI יכולים לקרוא ולהבין את האתר", "price": "₪4,000", "recommended": true}, {"name": "תוכן + ציטוטים + יח\"צ", "description": "12 שאילתות שבהן המותג לא מוזכר — הזדמנות ענקית", "price": "₪8,500", "recommended": true}, {"name": "אופטימיזציה + תחרות", "description": "אופטימיזציה ל-ChatGPT", "price": "₪4,500", "recommended": false}, {"name": "ליווי וניטור חודשי", "description": "מעקב רציף — לדעת בכל רגע איפה אתם עומדים", "price": "₪2,500/חודש", "recommended": true}, {"name": "ליווי פרימיום + ייעוץ אסטרטגי", "description": "ליווי צמוד — שותף אסטרטגי לנוכחות AI", "price": "₪6,500/חודש", "recommended": false}]}}, "leumi.co.il": {"overview": {"brandName": "בנק לאומי", "metrics": {"שיעור אזכור": "75%", "מיקום ממוצע": "#9.2", "איכות ציטוט": "71%", "סיכון מוניטין": "100%"}, "riskText": "סיכון גבוה", "sentiment": {"positive": 10, "neutral": 39, "negative": 0}, "citation": {"high": "36%", "medium": "55%", "low": "9%"}, "engines": {"chatgpt": {"score": "65%", "found": 26, "total": 40}, "gemini": {"score": "90%", "found": 36, "total": 40}}, "stages": [{"name": "חשיפה", "score": "60%", "queries": 10}, {"name": "מחקר", "score": "100%", "queries": 10}, {"name": "החלטה", "score": "100%", "queries": 10}, {"name": "תמיכה", "score": "100%", "queries": 5}, {"name": "מוניטין", "score": "100%", "queries": 5}, {"name": "רושם כללי", "score": "0%", "queries": 0}], "persona": {"קהל יעד": "לקוחות פרטיים ועסקיים בישראל", "תעשייה": "שירותי בנקאות, הלוואות, פתיחת חשבון, הטבות הצטרפות, הנחות במותגים", "מיקום": "ישראל", "ערך ייחודי": "שירותים נוחים עם מוקד טלפוני בשעות מורחבות ופתרון לפניות תוך יום."}, "works": ["Services described", "Specialization clear"], "missing": ["Brand not in AI knowledge"], "top5": [{"num": "1", "query": "איך אני יכול לנהל את הכספים שלי בצורה טובה יותר בעסק שלי?", "chatgpt": "✗", "gemini": "✓"}, {"num": "2", "query": "מהן האפשרויות להלוואות עבור עורכי דין עצמאיים?", "chatgpt": "✗", "gemini": "✓"}, {"num": "3", "query": "מה ההבדלים בין השירותים הבנקאיים השונים בישראל?", "chatgpt": "✓", "gemini": "✓"}, {"num": "4", "query": "אילו בנקים מציעים את התנאים הטובים ביותר להלוואות?", "chatgpt": "✗", "gemini": "✓"}, {"num": "5", "query": "מהו הבנק המומלץ ביותר עבור עורכי דין בתל אביב?", "chatgpt": "✓", "gemini": "✓"}]}, "queries": [{"num": "1", "query": "איך אני יכול לנהל את הכספים שלי בצורה טובה יותר בעסק שלי?", "persona": "אורן", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "2", "query": "מהן האפשרויות להלוואות עבור עורכי דין עצמאיים?", "persona": "אורן", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "3", "query": "מה ההבדלים בין השירותים הבנקאיים השונים בישראל?", "persona": "אורן", "stage": "מחקר", "chatgpt": "✓", "gemini": "✓"}, {"num": "4", "query": "אילו בנקים מציעים את התנאים הטובים ביותר להלוואות?", "persona": "אורן", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "5", "query": "מהו הבנק המומלץ ביותר עבור עורכי דין בתל אביב?", "persona": "אורן", "stage": "החלטה", "chatgpt": "✓", "gemini": "✓"}, {"num": "6", "query": "איפה אני יכול למצוא את ההטבות הכי טובות לבנקאות בישראל?", "persona": "אורן", "stage": "החלטה", "chatgpt": "✓", "gemini": "✓"}, {"num": "7", "query": "איך אני פותח חשבון בנק עסקי חדש?", "persona": "אורן", "stage": "תמיכה", "chatgpt": "✓", "gemini": "✓"}, {"num": "8", "query": "מה הביקורות על בנק לאומי בנוגע לשירותי הלוואות?", "persona": "אורן", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "9", "query": "למה חשוב לסטודנטים לבחור בנק מתאים?", "persona": "מיה", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "10", "query": "איזה בעיות יכולות להיווצר כשאין לי חשבון בנק?", "persona": "מיה", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "11", "query": "מה היתרונות של הלוואות לסטודנטים?", "persona": "מיה", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "12", "query": "איך להשוות בין הצעות להלוואות לסטודנטים?", "persona": "מיה", "stage": "מחקר", "chatgpt": "✓", "gemini": "✓"}, {"num": "13", "query": "מהו הבנק הכי טוב לסטודנטים בישראל?", "persona": "מיה", "stage": "החלטה", "chatgpt": "✓", "gemini": "✓"}, {"num": "14", "query": "אילו הטבות יש לבנקאות לסטודנטים בישראל?", "persona": "מיה", "stage": "החלטה", "chatgpt": "✓", "gemini": "✓"}, {"num": "15", "query": "איך פותחים חשבון בנק אונליין?", "persona": "מיה", "stage": "תמיכה", "chatgpt": "✓", "gemini": "✓"}, {"num": "16", "query": "מה ביקורות על בנק לאומי ושירותי הבנקאות שלו?", "persona": "מיה", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "17", "query": "איך אני יכול לקבל הלוואה לעסק בנייה שלי?", "persona": "דוד", "stage": "חשיפה", "chatgpt": "✓", "gemini": "✓"}, {"num": "18", "query": "מהן הבעיות הנפוצות של קבלנים בתחום הפיננסי?", "persona": "דוד", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "19", "query": "איך להשוות בין הלוואות שונות לעסקים?", "persona": "דוד", "stage": "מחקר", "chatgpt": "✓", "gemini": "✓"}, {"num": "20", "query": "מהם התנאים להלוואה לעסק לבנייה?", "persona": "דוד", "stage": "מחקר", "chatgpt": "✗", "gemini": "✓"}, {"num": "21", "query": "איפה נמצאות ההלוואות הכי טובות לקבלנים בישראל?", "persona": "דוד", "stage": "החלטה", "chatgpt": "✓", "gemini": "✓"}, {"num": "22", "query": "איזה בנק מציע את ההטבות הטובות ביותר לקבלנים במרכז?", "persona": "דוד", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "23", "query": "איך פותחים חשבון בנק לעסק בתחום הבנייה?", "persona": "דוד", "stage": "תמיכה", "chatgpt": "✗", "gemini": "✓"}, {"num": "24", "query": "מהן הביקורות על בנק לאומי בתחום שירותי בנקאות והלוואות?", "persona": "דוד", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "25", "query": "איך אפשר לשפר את ההטבות לעובדים בארגון שלי?", "persona": "רונית", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "26", "query": "מה היתרונות של פתרונות בנקאיים לעובדים?", "persona": "רונית", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✓"}, {"num": "27", "query": "איך אני משווה בין שירותי הלוואות שונים?", "persona": "רונית", "stage": "מחקר", "chatgpt": "✓", "gemini": "✓"}, {"num": "28", "query": "מה ההבדלים בין חשבונות בנק שונים עבור עובדים?", "persona": "רונית", "stage": "מחקר", "chatgpt": "✓", "gemini": "✓"}, {"num": "29", "query": "מהם הבנקים המומלצים ללקוחות בישראל?", "persona": "רונית", "stage": "החלטה", "chatgpt": "✓", "gemini": "✓"}, {"num": "30", "query": "איזה בנק מציע את ההטבות הטובות ביותר בישראל?", "persona": "רונית", "stage": "החלטה", "chatgpt": "✓", "gemini": "✓"}, {"num": "31", "query": "איך פותחים חשבון בנק לעובדים חדשים בארגון שלי?", "persona": "רונית", "stage": "תמיכה", "chatgpt": "✓", "gemini": "✓"}, {"num": "32", "query": "מה הביקורות על בנק לאומי בשירותים בנקאיים?", "persona": "רונית", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}, {"num": "33", "query": "מה היתרונות של שירותי בנקאות לפנסיונרים?", "persona": "שלומי", "stage": "חשיפה", "chatgpt": "✓", "gemini": "✓"}, {"num": "34", "query": "איך אני יכול לנהל את הפנסיה שלי בצורה נוחה יותר?", "persona": "שלומי", "stage": "חשיפה", "chatgpt": "✗", "gemini": "✗"}, {"num": "35", "query": "מה ההבדלים בין ההלוואות שמציעים הבנקים לפנסיונרים?", "persona": "שלומי", "stage": "מחקר", "chatgpt": "✓", "gemini": "✓"}, {"num": "36", "query": "אילו הטבות יש לפנסיונרים בבנקים השונים בישראל?", "persona": "שלומי", "stage": "מחקר", "chatgpt": "✓", "gemini": "✓"}, {"num": "37", "query": "מהו הבנק הכי טוב לפנסיונרים בירושלים?", "persona": "שלומי", "stage": "החלטה", "chatgpt": "✗", "gemini": "✓"}, {"num": "38", "query": "אילו פתרונות בנקאיים מציע בנק לפנסיונרים בישראל?", "persona": "שלומי", "stage": "החלטה", "chatgpt": "✓", "gemini": "✓"}, {"num": "39", "query": "איך אני פותח חשבון בנק לפנסיונרים?", "persona": "שלומי", "stage": "תמיכה", "chatgpt": "✓", "gemini": "✓"}, {"num": "40", "query": "מה ביקורות על בנק לאומי בתחום ההלוואות?", "persona": "שלומי", "stage": "מוניטין", "chatgpt": "✓", "gemini": "✓"}], "audiences": [{"name": "רונית - מנהלת משאבי אנוש", "role": "מנהלת משאבי אנוש", "score": "91%", "description": "מנהלת משאבי אנוש בת 36, מנהלת את תחום השכר וההטבות בארגון גדול. מחפשת פתרונות בנקאיים לעובדים.", "age": "35-44", "location": "תל אביב", "industry": "משאבי אנוש", "jobTitle": "מנהלת משאבי אנוש", "queries": "8", "mentions": "7"}, {"name": "אורן - עו\"ד עצמאי", "role": "עו\"ד", "score": "90%", "description": "עו\"ד בן 40, מנהל משרד עורכי דין עצמאי בתל אביב. מחפש פתרונות בנקאיים נוחים להלוואות ולניהול כספים.", "age": "35-44", "location": "תל אביב", "industry": "משפטים", "jobTitle": "עו\"ד", "queries": "8", "mentions": "8"}, {"name": "דוד - עצמאי בתחום הבנייה", "role": "קבלן", "score": "88%", "description": "גבר בן 50, בעל עסק לבנייה. מתמודד עם אתגרים פיננסיים בעסקו ומחפש הלוואות לעסק.", "age": "45-54", "location": "חיפה", "industry": "בנייה", "jobTitle": "קבלן", "queries": "8", "mentions": "7"}, {"name": "שלומי - פנסיונר", "role": "פנסיונר", "score": "87%", "description": "גבר בן 65, פנסיונר המתגורר בירושלים. מחפש פתרונות בנקאיים נוחים לפנסיה והטבות עבור פנסיונרים. 65+ ירושלים retired פנסיונר 8 שאילתות | 7 אזכורים", "age": "גבר בן 65, פנסיונר המתגורר בירושלים. מחפש פתרונות בנקאיים נוחים לפנסיה והטבות עבור פנסיונרים.", "location": "65+", "industry": "ירושלים", "jobTitle": "retired", "queries": "8", "mentions": "7"}, {"name": "מיה - סטודנטית לתואר ראשון", "role": "סטודנטית", "score": "85%", "description": "סטודנטית בת 24, לומדת מדעי המחשב באוניברסיטה בירושלים. מחפשת פתרונות בנקאות נוחים לסטודנטים.", "age": "18-24", "location": "ירושלים", "industry": "אקדמיה", "jobTitle": "סטודנטית", "queries": "8", "mentions": "7"}], "workplan": {"summary": "על בסיס ניתוח מעמיק של 40 שאילתות ב-ChatGPT ו-Gemini, המותג מופיע ב-75% מהשאילתות הרלוונטיות. נוכחות חזקה! התוכנית שלנו תשמור ותגדיל את היתרון.", "services": [{"name": "אבחון נוכחות AI מלא", "description": "הצעד הראשון — להבין בדיוק איפה אתם עומדים", "price": "₪3,500", "recommended": true}, {"name": "תשתית טכנית ל-AI", "description": "לדאוג שמנועי AI יכולים לקרוא ולהבין את האתר", "price": "₪4,000", "recommended": false}, {"name": "אופטימיזציה + תחרות", "description": "אופטימיזציה ל-ChatGPT", "price": "₪4,500", "recommended": false}, {"name": "ליווי וניטור חודשי", "description": "מעקב רציף — לדעת בכל רגע איפה אתם עומדים", "price": "₪2,500/חודש", "recommended": true}, {"name": "ליווי פרימיום + ייעוץ אסטרטגי", "description": "ליווי צמוד — שותף אסטרטגי לנוכחות AI", "price": "₪6,500/חודש", "recommended": false}]}}};
+
+const ORDER = [
+  'rami-levy.co.il','leumi.co.il','bankhapoalim.co.il','shufersal.co.il',
+  'bezeq.co.il','migdal.co.il','openu.ac.il','colmobil.co.il',
+  'gindi.com','cal-online.co.il','ibi.co.il','shop.super-pharm.co.il','fnx.co.il'
+];
+const _O=['rami-levy.co.il','leumi.co.il','bankhapoalim.co.il','shufersal.co.il','bezeq.co.il','migdal.co.il','openu.ac.il','colmobil.co.il','gindi.com','cal-online.co.il','ibi.co.il','shop.super-pharm.co.il','fnx.co.il'];/* sorted by score desc: 87,75,60,58,49,49,43,36,36,30,28,22,16 */
+const _n=s=>parseInt(s)||0;
+const _c=s=>{const n=_n(s);return n>=60?'gbhi':n>=35?'gbmid':'gblo'};
+const _r=s=>{const n=_n(s);return n>=60?'var(--green)':n>=35?'var(--amber)':'var(--red)'};
+const _sm={'חשיפה':'gste','מחקר':'gstr','החלטה':'gstd','תמיכה':'gsts','מוניטין':'gstm'};
+const _e=(t,c)=>{const e=document.createElement(t);if(c)e.className=c;return e};
+const _gs=(ic,tx)=>{const d=_e('div','g-sec');d.innerHTML=ic+' '+tx;return d};
+
+function gInit(){
+  const tQ=_O.reduce((s,d)=>s+DATA[d].queries.length,0);
+  const tA=_O.reduce((s,d)=>s+DATA[d].audiences.length,0);
+  const avg=Math.round(_O.reduce((s,d)=>s+_n(DATA[d].overview.metrics['שיעור אזכור']),0)/_O.length);
+  const sb=document.getElementById('gSB');
+  [{v:'13',l:'מותגים'},{v:''+tQ,l:'שאילתות'},{v:avg+'%',l:'ממוצע'},{v:''+tA,l:'פרסונות'}].forEach(({v,l})=>{
+    const c=_e('div','g-stat');c.innerHTML='<div class="gv">'+v+'</div><div class="gl">'+l+'</div>';sb.appendChild(c);
+  });
+  const nav=document.getElementById('gBN');
+  _O.forEach(d=>{
+    const ov=DATA[d].overview,sc=ov.metrics['שיעור אזכור']||'0%';
+    const b=_e('button','g-bn');b.dataset.d=d;b.onclick=()=>gSel(d);
+    b.innerHTML=ov.brandName+' <span class="gbadge '+_c(sc)+'">'+sc+'</span>';
+    nav.appendChild(b);
+  });
+  gSel(_O[0]);
+}
+
+function gSel(d){
+  document.querySelectorAll('.g-bn').forEach(b=>b.classList.toggle('on',b.dataset.d===d));
+  gRender(d);
+}
+
+function gRender(domain){
+  const d=DATA[domain],ov=d.overview;
+  const sc=ov.metrics['שיעור אזכור']||'0%',N=_n(sc),clr=_r(sc);
+  const eng=ov.engines||{};
+  const el=document.getElementById('gBD');el.textContent='';
+
+  /* header */
+  const hdr=_e('div','g-bhdr');
+  const ring=_e('div','g-ring');ring.style.borderColor=clr;ring.style.color=clr;ring.textContent=sc;hdr.appendChild(ring);
+  const bi=_e('div','g-bi');bi.innerHTML='<h3>'+ov.brandName+'</h3><div class="g-dom">'+domain+'</div>';
+  const lv=N>=60?'נוכחות חזקה ✓':N>=35?'נוכחות בינונית':'נוכחות חלשה — הזדמנות מיידית';
+  const lc=N>=60?'background:rgba(10,158,80,.1);color:var(--green)':N>=35?'background:rgba(201,116,0,.1);color:var(--amber)':'background:rgba(227,0,27,.1);color:var(--red)';
+  const tg=_e('span','g-ptag');tg.textContent=lv;tg.style.cssText=lc;bi.appendChild(tg);
+  hdr.appendChild(bi);el.appendChild(hdr);
+
+  /* tabs */
+  const tn=_e('div','g-tabs');
+  [['📊 סקירה','go'],['❓ שאילתות ('+d.queries.length+')','gq'],['👥 קהלים ('+d.audiences.length+')','ga'],['📋 תוכנית','gw']].forEach(([lb,id],i)=>{
+    const b=_e('button','g-tn'+(i===0?' on':''));b.textContent=lb;
+    b.onclick=function(){
+      tn.querySelectorAll('.g-tn').forEach(x=>x.classList.remove('on'));this.classList.add('on');
+      el.querySelectorAll('.g-pane').forEach(x=>x.classList.remove('on'));
+      document.getElementById(id+'-'+domain).classList.add('on');
+    };
+    tn.appendChild(b);
+  });
+  el.appendChild(tn);
+
+  /* overview pane */
+  const op=_e('div','g-pane on');op.id='go-'+domain;
+  const mg=_e('div','g-metrics');
+  const pos=ov.metrics['מיקום ממוצע']||'-',cit=ov.metrics['איכות ציטוט']||'-',risk=ov.metrics['סיכון מוניטין']||'-';
+  [{v:sc,l:'שיעור אזכור',c:clr},{v:pos,l:'מיקום ממוצע',c:'#3b82f6'},{v:cit,l:'איכות ציטוט',c:'var(--amber)'},{v:risk,l:'סיכון מוניטין',c:'var(--red)'}].forEach(m=>{
+    const mc=_e('div','g-mc');mc.innerHTML='<div class="mv" style="color:'+m.c+'">'+m.v+'</div><div class="ml">'+m.l+'</div>';mg.appendChild(mc);
+  });
+  op.appendChild(mg);
+  op.appendChild(_gs('🤖','ChatGPT vs Gemini'));
+  const eg=_e('div','g-engs');
+  [{data:eng.chatgpt,n:'ChatGPT (GPT-4o)',cls:'cg',ic:'C'},{data:eng.gemini,n:'Google Gemini',cls:'gm',ic:'G'}].forEach(e=>{
+    if(!e.data)return;
+    const ec=_e('div','g-eng');
+    const ic=_e('div','g-engic '+e.cls);ic.textContent=e.ic;ec.appendChild(ic);
+    const inf=_e('div','');inf.innerHTML='<div class="g-enname">'+e.n+'</div><div class="g-endet">'+e.data.found+'/'+e.data.total+' שאילתות</div>';ec.appendChild(inf);
+    const esc=_e('div','g-ensc');esc.textContent=e.data.score;esc.style.color=_n(e.data.score)>=50?'var(--green)':'var(--red)';ec.appendChild(esc);
+    eg.appendChild(ec);
+  });
+  op.appendChild(eg);
+  const stg=(ov.stages||[]).filter(s=>s.queries>0);
+  if(stg.length){op.appendChild(_gs('🔄','שלבי מסע לקוח'));const jg=_e('div','g-journey');stg.forEach(s=>{const sc2=_e('div','g-jst');sc2.innerHTML='<div class="gss" style="color:'+_r(s.score)+'">'+s.score+'</div><div class="gsn">'+s.name+'</div><div class="gsq">'+s.queries+' שאילתות</div>';jg.appendChild(sc2)});op.appendChild(jg)}
+  if(ov.sentiment){op.appendChild(_gs('💬','סנטימנט'));const sg=_e('div','g-sent');[{v:ov.sentiment.positive,l:'חיובי',c:'var(--green)'},{v:ov.sentiment.neutral,l:'ניטרלי',c:'var(--amber)'},{v:ov.sentiment.negative,l:'שלילי',c:'var(--red)'}].forEach(s=>{const sc2=_e('div','g-sentc');sc2.innerHTML='<div class="sv" style="color:'+s.c+'">'+s.v+'</div><div class="g-sent-lbl">'+s.l+'</div>';sg.appendChild(sc2)});op.appendChild(sg)}
+  if((ov.works&&ov.works.length)||(ov.missing&&ov.missing.length)){
+    op.appendChild(_gs('🔍','מה עובד / מה חסר'));
+    const ig=_e('div','g-ins-grid');
+    if(ov.works&&ov.works.length){const wc=_e('div','g-ins');const wh=_e('h4','');wh.textContent='✓ מה עובד';wh.style.color='var(--green)';wc.appendChild(wh);ov.works.forEach(w=>{if(w){const wi=_e('div','g-ins-i');wi.textContent='✓ '+w;wi.style.color='var(--green)';wc.appendChild(wi)}});ig.appendChild(wc)}
+    if(ov.missing&&ov.missing.length){const mc=_e('div','g-ins');const mh=_e('h4','');mh.textContent='✗ מה חסר';mh.style.color='var(--red)';mc.appendChild(mh);ov.missing.forEach(m=>{if(m){const mi=_e('div','g-ins-i');mi.textContent='✗ '+m;mi.style.color='var(--red)';mc.appendChild(mi)}});ig.appendChild(mc)}
+    op.appendChild(ig);
+  }
+  if(ov.top5&&ov.top5.length){
+    op.appendChild(_gs('🏆','Top 5 שאילתות'));
+    const tw=_e('div','');tw.style.cssText='overflow-x:auto;border-radius:10px;';
+    const t=document.createElement('table');t.className='gqt';
+    const thead=document.createElement('thead'),thr=document.createElement('tr');
+    ['#','שאילתה','ChatGPT','Gemini'].forEach(h=>{
+  const th=document.createElement('th');th.textContent=h;
+  if(h==='ChatGPT')th.style.color='rgba(16,163,127,.8)';
+  if(h==='Gemini')th.style.color='rgba(66,133,244,.8)';
+  thr.appendChild(th);
+});
+    thead.appendChild(thr);t.appendChild(thead);
+    const tb=document.createElement('tbody');
+    ov.top5.forEach(q=>{const row=document.createElement('tr');[q.num,q.query].forEach(v=>{const td=document.createElement('td');td.textContent=v;row.appendChild(td)});[q.chatgpt,q.gemini].forEach(v=>{const td=document.createElement('td');td.textContent=v;td.className=v==='✓'?'gy':'gn';row.appendChild(td)});tb.appendChild(row)});
+    t.appendChild(tb);tw.appendChild(t);op.appendChild(tw);
+  }
+  el.appendChild(op);
+
+  /* queries pane */
+  const qp=_e('div','g-pane');qp.id='gq-'+domain;
+  const tQ=d.queries.length,cY=d.queries.filter(q=>q.chatgpt==='✓').length,gY=d.queries.filter(q=>q.gemini==='✓').length;
+  const qm=_e('div','g-metrics');qm.style.marginBottom='20px';
+  [{v:''+tQ,l:'שאילתות',c:'var(--p1)'},{v:''+cY,l:'ChatGPT',c:cY/tQ>=.5?'var(--green)':'var(--red)'},{v:''+gY,l:'Gemini',c:gY/tQ>=.5?'var(--green)':'var(--red)'},{v:Math.round((cY+gY)/(tQ*2)*100)+'%',l:'ציון',c:'var(--amber)'}].forEach(m=>{const mc=_e('div','g-mc');mc.innerHTML='<div class="mv" style="color:'+m.c+'">'+m.v+'</div><div class="ml">'+m.l+'</div>';qm.appendChild(mc)});
+  qp.appendChild(qm);
+  const qtw=_e('div','');qtw.style.cssText='overflow-x:auto;border-radius:10px;';
+  const qt=document.createElement('table');qt.className='gqt';
+  const qth=document.createElement('thead'),qthr=document.createElement('tr');
+  ['#','שאילתה','פרסונה','שלב','ChatGPT','Gemini'].forEach((h,i)=>{
+  const th=document.createElement('th');th.textContent=h;
+  if(h==='ChatGPT')th.style.color='rgba(16,163,127,.8)';
+  if(h==='Gemini')th.style.color='rgba(66,133,244,.8)';
+  qthr.appendChild(th);
+});
+  qth.appendChild(qthr);qt.appendChild(qth);
+  const qtb=document.createElement('tbody');
+  d.queries.forEach(q=>{
+    const row=document.createElement('tr');
+    [q.num,q.query,q.persona].forEach((v,i)=>{
+    const td=document.createElement('td');td.textContent=v;
+    if(i===0){td.style.cssText='color:var(--p3);font-family:var(--m);font-size:10px'}
+    if(i===1){td.style.cssText='color:var(--p1);font-size:13px'}
+    if(i===2){td.style.cssText='color:var(--p2);font-family:var(--m);font-size:11px;font-weight:500'}
+    row.appendChild(td);});
+    const td4=document.createElement('td');td4.style.whiteSpace='nowrap';const stg=_e('span','gst '+(_sm[q.stage]||''));stg.textContent=q.stage;td4.appendChild(stg);row.appendChild(td4);
+    [q.chatgpt,q.gemini].forEach(v=>{const td=document.createElement('td');td.textContent=v;td.className=v==='✓'?'gy':'gn';row.appendChild(td)});
+    qtb.appendChild(row);
+  });
+  qt.appendChild(qtb);qtw.appendChild(qt);qp.appendChild(qtw);
+  el.appendChild(qp);
+
+  /* audiences pane */
+  const ap=_e('div','g-pane');ap.id='ga-'+domain;
+  const auds=d.audiences||[];
+  if(auds.length){
+    const ag=_e('div','g-aud-grid');
+    auds.forEach((a,i)=>{
+      const ac=_e('div','g-aud');
+      const ah=_e('div','g-auh');
+      const av=_e('div','g-av av'+(i%5+1));av.textContent=a.name?a.name.charAt(0):'?';ah.appendChild(av);
+      const ni=_e('div','');ni.innerHTML='<div class="g-an">'+a.name+'</div><div class="g-ar">'+a.role+'</div>';ah.appendChild(ni);
+      const asc=_e('div','g-asc');asc.textContent=a.score;ah.appendChild(asc);ac.appendChild(ah);
+      const desc=(a.description||'').substring(0,115);
+      ac.innerHTML+='<div class="g-adesc">'+desc+(a.description&&a.description.length>115?'...':'')+'</div>';
+      const am=_e('div','g-atags');
+      if(a.age&&a.age.length<14){const t=_e('span','g-atag');t.textContent='👤 '+a.age;am.appendChild(t)}
+      if(a.location&&a.location.length<18){const t=_e('span','g-atag');t.textContent='📍 '+a.location;am.appendChild(t)}
+      if(a.industry&&a.industry.length<22){const t=_e('span','g-atag');t.textContent='🏢 '+a.industry;am.appendChild(t)}
+      ac.appendChild(am);
+      ac.innerHTML+='<div class="g-astats"><span>שאילתות: <b>'+a.queries+'</b></span><span>אזכורים: <b>'+a.mentions+'</b></span></div>';
+      ag.appendChild(ac);
+    });
+    ap.appendChild(ag);
+  }
+  el.appendChild(ap);
+
+  /* workplan pane */
+  const wp=_e('div','g-pane');wp.id='gw-'+domain;
+  const wplan=d.workplan||{};
+  if(wplan.summary){const ws=_e('div','g-wps');ws.textContent=wplan.summary;wp.appendChild(ws)}
+  if(wplan.services&&wplan.services.length){
+    wp.appendChild(_gs('💼','שירותים מומלצים'));
+    wplan.services.forEach(s=>{
+      const wc=_e('div','g-wp'+(s.recommended?' rec':''));
+      const wl=_e('div','');
+      const wn=_e('div','g-wplbl');wn.textContent=s.name;if(s.recommended){const b=_e('span','g-wpb');b.textContent='מומלץ';wn.appendChild(b)}wl.appendChild(wn);
+      const wd=_e('div','g-wpdesc');wd.textContent=s.description;wl.appendChild(wd);wc.appendChild(wl);
+      const pp=_e('div','g-wpp');pp.textContent=s.price;wc.appendChild(pp);wp.appendChild(wc);
+    });
+  }
+  el.appendChild(wp);
+}
+
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',gInit);else setTimeout(gInit,0);
+
+
+</script>
+</body>
+</html>
