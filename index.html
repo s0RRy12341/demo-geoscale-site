@@ -876,7 +876,8 @@ table.gqt th{font-size:10px}
   transition:all .15s;cursor:default;min-width:72px;
 }
 .hb-item:hover{border-color:rgba(227,0,27,.3);background:rgba(227,0,27,.06);transform:translateY(-2px)}
-.hb-name{font-size:10px;color:var(--w2);white-space:nowrap;text-align:center;font-weight:500}
+.hb-logo{width:36px;height:36px;object-fit:contain;border-radius:6px;filter:brightness(0) invert(1);opacity:.85;transition:opacity .15s}
+.hb-item:hover .hb-logo{opacity:1}
 .hb-score{font-family:var(--m);font-size:13px;font-weight:600}
 
 /* ══ FLOW DIAGRAM (4-station) ══ */
@@ -942,6 +943,20 @@ table.gqt th{font-size:10px}
 .rev-math-big{font-size:22px;font-weight:800;color:#fff;margin-bottom:8px;letter-spacing:-.5px}
 .rev-math-big span{font-size:28px;letter-spacing:-1px}
 .rev-math-sub{font-size:13px;color:rgba(255,255,255,.7)}
+/* Revenue context stats */
+.rev-ctx{display:flex;justify-content:center;gap:40px;margin-bottom:36px}
+.rev-ctx-item{text-align:center}
+.rev-ctx-val{font-size:28px;font-weight:800;color:var(--w1);letter-spacing:-1px}
+.rev-ctx-lbl{font-size:12px;color:var(--w3);font-family:var(--m);margin-top:4px}
+.rpl-amt{font-size:11px;color:var(--w3);margin-right:6px;font-family:var(--m)}
+/* Quarterly ramp */
+.rev-ramp{margin-top:20px;padding-top:16px;border-top:1px solid var(--bi)}
+.rev-ramp-title{font-size:11px;font-family:var(--m);color:var(--w3);letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+.rev-ramp-bars{display:flex;gap:8px;height:80px;align-items:flex-end}
+.rev-ramp-q{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;height:100%}
+.rev-ramp-q span{font-size:11px;color:var(--w3);font-family:var(--m)}
+.rev-ramp-bar{width:100%;border-radius:4px 4px 0 0;background:linear-gradient(180deg,var(--red),rgba(227,0,27,.5));transition:height .6s ease}
+.rev-ramp-v{font-size:10px;color:var(--w2);font-weight:600}
 
 /* ══ HOVER EFFECTS ══ */
 .btn-r{transition:filter .14s,transform .14s,box-shadow .14s}
@@ -967,6 +982,9 @@ table.gqt th{font-size:10px}
   .rev-math-big{font-size:17px}
   .rev-math-big span{font-size:22px}
   .rev-in{padding:0 20px}
+  .rev-ctx{flex-wrap:wrap;gap:20px}
+  .rev-ctx-val{font-size:22px}
+  .rev-ramp-bars{height:60px}
   .hero-brands{gap:6px}
   .hb-item{padding:6px 8px;min-width:60px}
   .hb-name{font-size:9px}
@@ -1034,6 +1052,74 @@ table.gqt th{font-size:10px}
 </section>
 
 
+<!-- ══ REVENUE PROJECTION ══ -->
+<div class="rev-bg">
+  <div class="rev-in">
+    <h2 class="inv rv" style="text-align:center;margin-bottom:8px">כך נגיע ל-<span class="r">5 מיליון שקל</span> במכירות כתבות GEO</h2>
+    <div class="rev-sub rv">המחשה בלבד - מבוססת על מחירי כתבות ממוצעים בשוק הישראלי</div>
+
+    <!-- market context -->
+    <div class="rev-ctx rv">
+      <div class="rev-ctx-item">
+        <div class="rev-ctx-val">₪2.1B</div>
+        <div class="rev-ctx-lbl">שוק הפרסום הדיגיטלי בישראל</div>
+      </div>
+      <div class="rev-ctx-item">
+        <div class="rev-ctx-val">+32%</div>
+        <div class="rev-ctx-lbl">גידול בביקוש לתוכן GEO/AI</div>
+      </div>
+      <div class="rev-ctx-item">
+        <div class="rev-ctx-val">13+</div>
+        <div class="rev-ctx-lbl">מותגים כבר נסרקו במערכת</div>
+      </div>
+    </div>
+
+    <div class="rev-grid rv">
+      <div class="rev-pie-wrap">
+        <svg class="rev-pie" viewBox="0 0 200 200">
+          <circle cx="100" cy="100" r="80" fill="none" stroke="#3b82f6" stroke-width="40" stroke-dasharray="201 503" stroke-dashoffset="0" transform="rotate(-90 100 100)"/>
+          <circle cx="100" cy="100" r="80" fill="none" stroke="#0d9488" stroke-width="40" stroke-dasharray="176 503" stroke-dashoffset="-201" transform="rotate(-90 100 100)"/>
+          <circle cx="100" cy="100" r="80" fill="none" stroke="rgba(227,0,27,.7)" stroke-width="40" stroke-dasharray="126 503" stroke-dashoffset="-377" transform="rotate(-90 100 100)"/>
+        </svg>
+        <div class="rev-pie-labels">
+          <div class="rpl"><span class="rpl-dot" style="background:#3b82f6"></span><span class="rpl-pct">40%</span> משרדי פרסום <span class="rpl-amt">₪2,000,000</span></div>
+          <div class="rpl"><span class="rpl-dot" style="background:#0d9488"></span><span class="rpl-pct">35%</span> מפרסמים ישירים <span class="rpl-amt">₪1,750,000</span></div>
+          <div class="rpl"><span class="rpl-dot" style="background:rgba(227,0,27,.7)"></span><span class="rpl-pct">25%</span> סוכנויות GEO / JIT <span class="rpl-amt">₪1,250,000</span></div>
+        </div>
+      </div>
+      <div class="rev-pricing">
+        <table class="rev-table">
+          <thead><tr><th>פלטפורמה</th><th>מחיר כתבה</th><th>כתבות / שנה</th></tr></thead>
+          <tbody>
+            <tr><td>Ynet</td><td>₪10,000 - ₪30,000</td><td>~150</td></tr>
+            <tr><td>Calcalist</td><td>₪7,000 - ₪10,000</td><td>~120</td></tr>
+            <tr><td>Mako / Walla</td><td>₪5,000 - ₪8,000</td><td>~100</td></tr>
+            <tr><td>כתבת GEO (בסיס)</td><td>₪10,000</td><td>~500</td></tr>
+          </tbody>
+        </table>
+        <div class="rev-note">* מחירים משוערים לצורך המחשה בלבד</div>
+
+        <!-- quarterly ramp -->
+        <div class="rev-ramp">
+          <div class="rev-ramp-title">תחזית רבעונית (שנה 1)</div>
+          <div class="rev-ramp-bars">
+            <div class="rev-ramp-q"><div class="rev-ramp-bar" style="height:25%"></div><span>Q1</span><span class="rev-ramp-v">₪625K</span></div>
+            <div class="rev-ramp-q"><div class="rev-ramp-bar" style="height:45%"></div><span>Q2</span><span class="rev-ramp-v">₪1.1M</span></div>
+            <div class="rev-ramp-q"><div class="rev-ramp-bar" style="height:70%"></div><span>Q3</span><span class="rev-ramp-v">₪1.5M</span></div>
+            <div class="rev-ramp-q"><div class="rev-ramp-bar" style="height:100%"></div><span>Q4</span><span class="rev-ramp-v">₪1.8M</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rev-math rv">
+      <div class="rev-math-big">500 כתבות GEO בשנה × ₪10,000 = <span>5,000,000 ₪</span></div>
+      <div class="rev-math-sub">כתבה ממוצעת שאינה מקודמת. עם קידום וחשיפה מוגברת - המחיר עולה.</div>
+    </div>
+  </div>
+</div>
+
+
 <!-- ══ FLOW DIAGRAM ══ -->
 <div id="flow" class="flow-bg">
   <div class="s-in" style="padding-top:56px;padding-bottom:56px">
@@ -1089,49 +1175,6 @@ table.gqt th{font-size:10px}
   </div>
 </div>
 
-<!-- ══ REVENUE PROJECTION ══ -->
-<div class="rev-bg">
-  <div class="rev-in">
-    <h2 class="inv rv" style="text-align:center;margin-bottom:8px">כך נגיע ל-<span class="r">5 מיליון שקל</span> במכירות כתבות GEO</h2>
-    <div class="rev-sub rv">המחשה בלבד - מבוססת על מחירי כתבות ממוצעים בשוק</div>
-    <div class="rev-grid rv">
-      <!-- Pie chart -->
-      <div class="rev-pie-wrap">
-        <svg class="rev-pie" viewBox="0 0 200 200">
-          <!-- 40% Ad agencies: 0 to 144deg -->
-          <circle cx="100" cy="100" r="80" fill="none" stroke="#3b82f6" stroke-width="40" stroke-dasharray="201 503" stroke-dashoffset="0" transform="rotate(-90 100 100)"/>
-          <!-- 35% Direct advertisers: 144 to 270deg -->
-          <circle cx="100" cy="100" r="80" fill="none" stroke="#0d9488" stroke-width="40" stroke-dasharray="176 503" stroke-dashoffset="-201" transform="rotate(-90 100 100)"/>
-          <!-- 25% GEO partners: 270 to 360deg -->
-          <circle cx="100" cy="100" r="80" fill="none" stroke="rgba(227,0,27,.7)" stroke-width="40" stroke-dasharray="126 503" stroke-dashoffset="-377" transform="rotate(-90 100 100)"/>
-        </svg>
-        <div class="rev-pie-labels">
-          <div class="rpl"><span class="rpl-dot" style="background:#3b82f6"></span><span class="rpl-pct">40%</span> משרדי פרסום</div>
-          <div class="rpl"><span class="rpl-dot" style="background:#0d9488"></span><span class="rpl-pct">35%</span> מפרסמים ישירים</div>
-          <div class="rpl"><span class="rpl-dot" style="background:rgba(227,0,27,.7)"></span><span class="rpl-pct">25%</span> סוכנויות GEO / JIT</div>
-        </div>
-      </div>
-      <!-- Pricing table -->
-      <div class="rev-pricing">
-        <table class="rev-table">
-          <thead><tr><th>פלטפורמה</th><th>מחיר כתבה ממוצע</th></tr></thead>
-          <tbody>
-            <tr><td>Ynet</td><td>₪10,000 - ₪30,000</td></tr>
-            <tr><td>Calcalist</td><td>₪7,000 - ₪10,000</td></tr>
-            <tr><td>כתבת GEO</td><td>₪10,000 (בסיס)</td></tr>
-          </tbody>
-        </table>
-        <div class="rev-note">* מחירים משוערים לצורך המחשה בלבד</div>
-      </div>
-    </div>
-    <!-- Math callout -->
-    <div class="rev-math rv">
-      <div class="rev-math-big">500 כתבות GEO בשנה × ₪10,000 = <span>5,000,000 ₪</span></div>
-      <div class="rev-math-sub">כתבה ממוצעת שאינה מקודמת. עם קידום וחשיפה מוגברת - המחיר עולה.</div>
-    </div>
-  </div>
-</div>
-
 <!-- ══ CTA ══ -->
 <div id="cta" class="cta-outer">
   <div class="cta-card rv">
@@ -1180,13 +1223,32 @@ const _sm={'חשיפה':'gste','מחקר':'gstr','החלטה':'gstd','תמיכה
 const _e=(t,c)=>{const e=document.createElement(t);if(c)e.className=c;return e};
 const _gs=(ic,tx)=>{const d=_e('div','g-sec');d.innerHTML=ic+' '+tx;return d};
 
+/* Brand logo URLs from demo-ynet.geoscale.ai */
+const _logos={
+  'rami-levy.co.il':'https://demo-ynet.geoscale.ai/%D7%A8%D7%9E%D7%99-%D7%9C%D7%95%D7%99-300x225-Photoroom.png',
+  'leumi.co.il':'https://demo-ynet.geoscale.ai/BankLeumiLogo.svg.png',
+  'bankhapoalim.co.il':'https://demo-ynet.geoscale.ai/%D7%9C%D7%95%D7%92%D7%95-5.png',
+  'shufersal.co.il':'https://demo-ynet.geoscale.ai/%D7%9C%D7%95%D7%92%D7%95%20%D7%A9%D7%95%D7%A4%D7%A8%D7%A1%D7%9C%20%D7%A0%D7%A7%D7%99.avif',
+  'bezeq.co.il':'https://demo-ynet.geoscale.ai/Bezeq_logo.svg',
+  'migdal.co.il':'https://demo-ynet.geoscale.ai/Migdal-190x190.png',
+  'openu.ac.il':'https://demo-ynet.geoscale.ai/Open_University_of_Israel_logo.svg.png',
+  'colmobil.co.il':'https://demo-ynet.geoscale.ai/Colmobilgrouplogo-Photoroom.png',
+  'gindi.com':'https://demo-ynet.geoscale.ai/%D7%9C%D7%95%D7%92%D7%95-%D7%92%D7%99%D7%A0%D7%93%D7%99--Photoroom.png',
+  'cal-online.co.il':'https://demo-ynet.geoscale.ai/Cal_logo_2019.svg.png',
+  'ibi.co.il':'https://demo-ynet.geoscale.ai/IBILogo2021.svg',
+  'shop.super-pharm.co.il':'https://demo-ynet.geoscale.ai/%D7%A1%D7%95%D7%A4%D7%A8%D7%A4%D7%90%D7%A8%D7%9D.png',
+  'fnx.co.il':'https://demo-ynet.geoscale.ai/logo_phonix.png'
+};
+
 /* Hero brand logos */
 function initHeroBrands(){
   const hb=document.getElementById('heroBrands');if(!hb)return;
   _O.forEach(d=>{
     const ov=DATA[d].overview,sc=ov.metrics['שיעור אזכור']||'0%';
     const item=_e('div','hb-item');
-    const name=_e('div','hb-name');name.textContent=ov.brandName;item.appendChild(name);
+    if(_logos[d]){
+      const img=document.createElement('img');img.src=_logos[d];img.alt=ov.brandName;img.className='hb-logo';img.loading='lazy';item.appendChild(img);
+    }
     const score=_e('div','hb-score');score.textContent=sc;score.style.color=_r(sc);item.appendChild(score);
     hb.appendChild(item);
   });
