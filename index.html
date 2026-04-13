@@ -863,36 +863,87 @@ table.gqt th{font-size:10px}
   .g-bn{padding:7px 12px;font-size:11px}
 }
 
-/* ══ HERO DIAGRAM ══ */
-.hero-diagram{
-  background:rgba(255,255,255,.04);
-  border:1px solid var(--bi);
-  border-radius:14px;
-  padding:28px 24px;
-  overflow:hidden;
+/* ══ HERO BRANDS ROW ══ */
+.hero-brands{
+  display:flex;flex-wrap:wrap;gap:10px;justify-content:center;
+  margin-bottom:28px;padding:20px 0;
+  border-top:1px solid var(--bi);border-bottom:1px solid var(--bi);
 }
-.hd-title{
-  font-family:var(--m);font-size:11px;color:rgba(227,0,27,.7);
-  letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;
+.hb-item{
+  display:flex;flex-direction:column;align-items:center;gap:4px;
+  padding:8px 10px;border-radius:8px;
+  background:rgba(255,255,255,.04);border:1px solid var(--bi);
+  transition:all .15s;cursor:default;min-width:72px;
+}
+.hb-item:hover{border-color:rgba(227,0,27,.3);background:rgba(227,0,27,.06);transform:translateY(-2px)}
+.hb-name{font-size:10px;color:var(--w2);white-space:nowrap;text-align:center;font-weight:500}
+.hb-score{font-family:var(--m);font-size:13px;font-weight:600}
+
+/* ══ FLOW DIAGRAM (4-station) ══ */
+.flow-dia{
+  display:flex;align-items:center;justify-content:center;gap:0;
+  padding:20px 0;
+}
+.fd-station{
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  padding:24px 20px;flex:1;max-width:200px;
+  text-align:center;cursor:default;transition:transform .15s;
+}
+.fd-station:hover{transform:translateY(-4px)}
+.fd-icon{
+  width:64px;height:64px;border-radius:50%;
+  background:rgba(227,0,27,.1);border:2px solid rgba(227,0,27,.3);
+  display:flex;align-items:center;justify-content:center;
+  font-size:24px;color:var(--red);
+  transition:all .2s;
+}
+.fd-station:hover .fd-icon{background:var(--red);color:#fff;border-color:var(--red);box-shadow:0 0 0 6px rgba(227,0,27,.15)}
+.fd-name{font-size:14px;font-weight:700;color:var(--w1);line-height:1.3}
+.fd-arrow{color:var(--red);font-size:20px;flex-shrink:0;padding:0 4px}
+.fd-caption{
+  text-align:center;font-size:13px;color:var(--w2);
+  margin-top:16px;max-width:600px;margin-left:auto;margin-right:auto;
+  line-height:1.6;
+}
+
+/* ══ REVENUE PROJECTION ══ */
+.rev-bg{background:var(--ink);padding:64px 0;position:relative;overflow:hidden}
+.rev-bg::before{
+  content:'';position:absolute;inset:0;
+  background-image:linear-gradient(var(--bi) 1px,transparent 1px),linear-gradient(90deg,var(--bi) 1px,transparent 1px);
+  background-size:56px 56px;
+  mask-image:linear-gradient(180deg,rgba(0,0,0,.3),rgba(0,0,0,.05) 80%);
+  -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.3),rgba(0,0,0,.05) 80%);
+  pointer-events:none;
+}
+.rev-in{max-width:960px;margin:0 auto;padding:0 48px;position:relative;z-index:1}
+.rev-sub{text-align:center;font-size:13px;color:var(--w3);margin-bottom:40px;font-family:var(--m)}
+.rev-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin-bottom:32px}
+/* Pie */
+.rev-pie-wrap{display:flex;flex-direction:column;align-items:center;gap:20px}
+.rev-pie{width:200px;height:200px}
+.rev-pie-labels{display:flex;flex-direction:column;gap:8px}
+.rpl{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--w2);font-weight:500}
+.rpl-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.rpl-pct{font-family:var(--m);font-weight:700;color:var(--w1);min-width:32px}
+/* Pricing table */
+.rev-pricing{width:100%}
+.rev-table{width:100%;border-collapse:collapse;font-size:14px;color:var(--w1)}
+.rev-table th{text-align:right;padding:12px 16px;font-size:11px;font-family:var(--m);color:var(--w3);letter-spacing:1px;text-transform:uppercase;border-bottom:1px solid var(--bi)}
+.rev-table td{padding:14px 16px;border-bottom:1px solid var(--bi);font-weight:500}
+.rev-table tr:last-child td{border-bottom:none}
+.rev-table tr:hover td{background:rgba(255,255,255,.03)}
+.rev-note{font-size:11px;color:var(--w3);margin-top:12px;font-family:var(--m)}
+/* Math callout */
+.rev-math{
+  background:var(--red);border-radius:12px;padding:28px 32px;
   text-align:center;
 }
-.hd-steps{
-  display:flex;align-items:center;justify-content:center;gap:12px;
-}
-.hd-step{
-  background:rgba(255,255,255,.05);border:1px solid var(--bi);
-  border-radius:12px;padding:20px 16px;text-align:center;
-  flex:1;transition:all .2s;cursor:default;
-}
-.hd-step:hover{border-color:rgba(227,0,27,.3);background:rgba(227,0,27,.06);transform:translateY(-3px)}
-.hd-step.accent{border-color:rgba(227,0,27,.3);background:rgba(227,0,27,.08)}
-.hd-step.accent:hover{background:rgba(227,0,27,.14)}
-.hd-icon{font-size:22px;color:var(--red);margin-bottom:10px}
-.hd-label{font-size:14px;font-weight:700;color:var(--w1);margin-bottom:4px}
-.hd-desc{font-size:12px;color:var(--w2);line-height:1.5}
-.hd-arrow{color:var(--red);font-size:16px;opacity:.6;flex-shrink:0}
+.rev-math-big{font-size:22px;font-weight:800;color:#fff;margin-bottom:8px;letter-spacing:-.5px}
+.rev-math-big span{font-size:28px;letter-spacing:-1px}
+.rev-math-sub{font-size:13px;color:rgba(255,255,255,.7)}
 
-/* ══ ENHANCED HOVER EFFECTS (Alexei) ══ */
+/* ══ HOVER EFFECTS ══ */
 .btn-r{transition:filter .14s,transform .14s,box-shadow .14s}
 .btn-r:hover{filter:brightness(1.1);transform:translateY(-2px);box-shadow:0 14px 36px rgba(227,0,27,.30)}
 .btn-g{transition:all .14s}
@@ -901,19 +952,25 @@ table.gqt th{font-size:10px}
 .n-cta:hover{filter:brightness(1.1);transform:translateY(-2px);box-shadow:0 8px 24px rgba(227,0,27,.25)}
 .n-a{transition:all .14s}
 .n-a:hover{color:var(--red)!important;background:var(--red+)}
-.g-bn{transition:all .15s}
-.g-bn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.08)}
 
-/* Make hero single-column layout */
+/* Hero single-column */
 .hero-in{grid-template-columns:1fr!important;max-width:880px}
-.hero-diagram{margin-top:8px}
 
 @media(max-width:720px){
-  .hd-steps{flex-direction:column;gap:8px}
-  .hd-arrow{transform:rotate(-90deg)}
-  .hd-step{padding:14px 12px}
-  .hd-label{font-size:13px}
-  .hero-diagram{padding:20px 16px}
+  .flow-dia{flex-wrap:wrap;gap:8px}
+  .fd-station{min-width:120px;padding:16px 10px}
+  .fd-icon{width:48px;height:48px;font-size:18px}
+  .fd-name{font-size:12px}
+  .fd-arrow{font-size:14px;padding:0 2px}
+  .rev-grid{grid-template-columns:1fr;gap:24px}
+  .rev-pie{width:160px;height:160px}
+  .rev-math-big{font-size:17px}
+  .rev-math-big span{font-size:22px}
+  .rev-in{padding:0 20px}
+  .hero-brands{gap:6px}
+  .hb-item{padding:6px 8px;min-width:60px}
+  .hb-name{font-size:9px}
+  .hb-score{font-size:11px}
 }
 </style>
 </head>
@@ -950,9 +1007,10 @@ table.gqt th{font-size:10px}
       <p class="hero-sub a3">GeoScale מפעילה את תהליך המכירה מול סוכנויות הפרסום — מזיהוי הזדמנויות ועד סגירת העסקה. <b>ידיעות מספקות את הנכסים ומקבלות את ההכנסה.</b></p>
       <div class="hero-btns a4">
         <a class="btn-r" href="#cta">לתיאום פגישה <i class="fa-solid fa-arrow-left"></i></a>
-        <a class="btn-g" href="#flow">ראו את ה-Flow <i class="fa-solid fa-arrow-down" style="font-size:12px"></i></a>
       </div>
-      <!-- IMPROVED: 0 / ₪0 / ∞ (merged GPT model numbers + our market data) -->
+      <!-- Brand logos with AI visibility scores -->
+      <div class="hero-brands a5" id="heroBrands"></div>
+      <!-- KPI Stats -->
       <div class="hero-nums a5">
         <div class="hn">
           <div class="hn-n r">9/13</div>
@@ -965,33 +1023,9 @@ table.gqt th{font-size:10px}
           <div class="hn-s">GeoScale מטפלת בכל שלבי המכירה</div>
         </div>
         <div class="hn">
-          <div class="hn-n g">∞</div>
-          <div class="hn-l">סוכנויות שיכולות להצטרף לפלטפורמה</div>
-          <div class="hn-s">מודל מבוסס נתונים, לא שכנוע</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- RIGHT: Visual diagram -->
-    <div class="hero-diagram a6">
-      <div class="hd-title">איך זה עובד</div>
-      <div class="hd-steps">
-        <div class="hd-step">
-          <div class="hd-icon"><i class="fa-solid fa-building"></i></div>
-          <div class="hd-label">סוכנויות פרסום</div>
-          <div class="hd-desc">נכנסות למערכת GeoScale</div>
-        </div>
-        <div class="hd-arrow"><i class="fa-solid fa-arrow-left"></i></div>
-        <div class="hd-step accent">
-          <div class="hd-icon"><i class="fa-solid fa-bolt"></i></div>
-          <div class="hd-label">GeoScale סורקת ומוכרת</div>
-          <div class="hd-desc">מזהה הזדמנויות, סוגרת עסקאות</div>
-        </div>
-        <div class="hd-arrow"><i class="fa-solid fa-arrow-left"></i></div>
-        <div class="hd-step">
-          <div class="hd-icon"><i class="fa-solid fa-coins"></i></div>
-          <div class="hd-label">הכנסה לידיעות</div>
-          <div class="hd-desc">ללא עלות תפעולית</div>
+          <div class="hn-n g">45%</div>
+          <div class="hn-l">ממוצע נראות AI של המפרסמים שנסרקו</div>
+          <div class="hn-s">GeoScale Scan, 1.4.2026</div>
         </div>
       </div>
     </div>
@@ -1000,44 +1034,31 @@ table.gqt th{font-size:10px}
 </section>
 
 
-<!-- ══ SLIDE 3: FLOW ══ -->
+<!-- ══ FLOW DIAGRAM ══ -->
 <div id="flow" class="flow-bg">
-  <div class="s-in" style="padding-top:80px;padding-bottom:80px">
-    <div class="ey inv rv">תהליך העבודה</div>
-    <h2 class="inv rv">מסוכנות הפרסום <span class="r">ועד ההכנסה לידיעות —</span> תהליך מובנה.</h2>
-    <p class="s-lead inv rv" style="margin-bottom:0">חמישה שלבים שמחברים בין הסוכנות לנכסי התוכן של ידיעות.</p>
-    <div class="flow-grid">
-      <div class="fs rv">
-        <div class="fs-num">1</div>
-        <div class="fs-tag">כניסה</div>
-        <h3>משרד פרסום מצטרף</h3>
-        <p>כל משרד מקבל סביבת עבודה ייעודית עם הלקוחות שלו בלבד</p>
+  <div class="s-in" style="padding-top:56px;padding-bottom:56px">
+    <div class="flow-dia rv">
+      <div class="fd-station">
+        <div class="fd-icon"><i class="fa-solid fa-building"></i></div>
+        <div class="fd-name">משרד פרסום</div>
       </div>
-      <div class="fs rv d1">
-        <div class="fs-num">2</div>
-        <div class="fs-tag">אנליזה</div>
-        <h3>הלקוחות נסרקים</h3>
-        <p>GeoScale בודקת כל לקוח — איפה ה-AI מתעלם ממנו ואיפה יש הזדמנות</p>
+      <div class="fd-arrow"><i class="fa-solid fa-arrow-left"></i></div>
+      <div class="fd-station">
+        <div class="fd-icon"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+        <div class="fd-name">GeoScale סורקת</div>
       </div>
-      <div class="fs rv d2">
-        <div class="fs-num">3</div>
-        <div class="fs-tag">הצעה</div>
-        <h3>הזדמנויות מוכנות</h3>
-        <p>המשרד רואה כתבות מוכנות לרכישה — לפי לקוח, נושא ושאלות AI אמיתיות</p>
+      <div class="fd-arrow"><i class="fa-solid fa-arrow-left"></i></div>
+      <div class="fd-station">
+        <div class="fd-icon"><i class="fa-solid fa-newspaper"></i></div>
+        <div class="fd-name">כתבה בידיעות</div>
       </div>
-      <div class="fs rv d3">
-        <div class="fs-num">4</div>
-        <div class="fs-tag">מכירה</div>
-        <h3>GeoScale מנהלת את העסקה</h3>
-        <p>ניהול המשא ומתן וסגירת העסקה מול הסוכנות</p>
-      </div>
-      <div class="fs rv d4">
-        <div class="fs-num">5</div>
-        <div class="fs-tag">הכנסה</div>
-        <h3>הכנסה לידיעות</h3>
-        <p>התמורה עוברת לידיעות. GeoScale מקבלת עמלה מהמרג'ין</p>
+      <div class="fd-arrow"><i class="fa-solid fa-arrow-left"></i></div>
+      <div class="fd-station">
+        <div class="fd-icon"><i class="fa-solid fa-shekel-sign"></i></div>
+        <div class="fd-name">הכנסה לידיעות</div>
       </div>
     </div>
+    <div class="fd-caption rv">GeoScale מנהלת את כל שלבי המכירה. ידיעות מספקות את הנכסים ומקבלות את ההכנסה.</div>
   </div>
 </div>
 
@@ -1068,17 +1089,57 @@ table.gqt th{font-size:10px}
   </div>
 </div>
 
+<!-- ══ REVENUE PROJECTION ══ -->
+<div class="rev-bg">
+  <div class="rev-in">
+    <h2 class="inv rv" style="text-align:center;margin-bottom:8px">כך נגיע ל-<span class="r">5 מיליון שקל</span> במכירות כתבות GEO</h2>
+    <div class="rev-sub rv">המחשה בלבד - מבוססת על מחירי כתבות ממוצעים בשוק</div>
+    <div class="rev-grid rv">
+      <!-- Pie chart -->
+      <div class="rev-pie-wrap">
+        <svg class="rev-pie" viewBox="0 0 200 200">
+          <!-- 40% Ad agencies: 0 to 144deg -->
+          <circle cx="100" cy="100" r="80" fill="none" stroke="#3b82f6" stroke-width="40" stroke-dasharray="201 503" stroke-dashoffset="0" transform="rotate(-90 100 100)"/>
+          <!-- 35% Direct advertisers: 144 to 270deg -->
+          <circle cx="100" cy="100" r="80" fill="none" stroke="#0d9488" stroke-width="40" stroke-dasharray="176 503" stroke-dashoffset="-201" transform="rotate(-90 100 100)"/>
+          <!-- 25% GEO partners: 270 to 360deg -->
+          <circle cx="100" cy="100" r="80" fill="none" stroke="rgba(227,0,27,.7)" stroke-width="40" stroke-dasharray="126 503" stroke-dashoffset="-377" transform="rotate(-90 100 100)"/>
+        </svg>
+        <div class="rev-pie-labels">
+          <div class="rpl"><span class="rpl-dot" style="background:#3b82f6"></span><span class="rpl-pct">40%</span> משרדי פרסום</div>
+          <div class="rpl"><span class="rpl-dot" style="background:#0d9488"></span><span class="rpl-pct">35%</span> מפרסמים ישירים</div>
+          <div class="rpl"><span class="rpl-dot" style="background:rgba(227,0,27,.7)"></span><span class="rpl-pct">25%</span> סוכנויות GEO / JIT</div>
+        </div>
+      </div>
+      <!-- Pricing table -->
+      <div class="rev-pricing">
+        <table class="rev-table">
+          <thead><tr><th>פלטפורמה</th><th>מחיר כתבה ממוצע</th></tr></thead>
+          <tbody>
+            <tr><td>Ynet</td><td>₪10,000 - ₪30,000</td></tr>
+            <tr><td>Calcalist</td><td>₪7,000 - ₪10,000</td></tr>
+            <tr><td>כתבת GEO</td><td>₪10,000 (בסיס)</td></tr>
+          </tbody>
+        </table>
+        <div class="rev-note">* מחירים משוערים לצורך המחשה בלבד</div>
+      </div>
+    </div>
+    <!-- Math callout -->
+    <div class="rev-math rv">
+      <div class="rev-math-big">500 כתבות GEO בשנה × ₪10,000 = <span>5,000,000 ₪</span></div>
+      <div class="rev-math-sub">כתבה ממוצעת שאינה מקודמת. עם קידום וחשיפה מוגברת - המחיר עולה.</div>
+    </div>
+  </div>
+</div>
+
 <!-- ══ CTA ══ -->
 <div id="cta" class="cta-outer">
   <div class="cta-card rv">
     <div class="cta-kicker">לפגישה</div>
     <h2>45 דקות. <span class="r">הנתונים,<br>המודל וצעדי ההתחלה.</span></h2>
-    <p class="cta-sub">נציג את נתוני ה-AI של <b>13 מפרסמים פעילים של ידיעות</b>, נסביר את המודל המסחרי ונגדיר יחד את צעדי הכניסה.</p>
     <div class="cta-btns">
       <a class="btn-r" href="mailto:demo@geoscale.ai">לתיאום פגישה <i class="fa-solid fa-arrow-left"></i></a>
-      <a class="btn-g" href="#live-data">חזרה לנתונים <i class="fa-solid fa-arrow-up" style="font-size:12px"></i></a>
     </div>
-    <div class="cta-note">GeoScale מפעילה את שכבת המכירה · ידיעות מספקות את הנכסים · ההכנסה לידיעות</div>
   </div>
 </div>
 
@@ -1118,6 +1179,18 @@ const _r=s=>{const n=_n(s);return n>=60?'var(--green)':n>=35?'var(--amber)':'var
 const _sm={'חשיפה':'gste','מחקר':'gstr','החלטה':'gstd','תמיכה':'gsts','מוניטין':'gstm'};
 const _e=(t,c)=>{const e=document.createElement(t);if(c)e.className=c;return e};
 const _gs=(ic,tx)=>{const d=_e('div','g-sec');d.innerHTML=ic+' '+tx;return d};
+
+/* Hero brand logos */
+function initHeroBrands(){
+  const hb=document.getElementById('heroBrands');if(!hb)return;
+  _O.forEach(d=>{
+    const ov=DATA[d].overview,sc=ov.metrics['שיעור אזכור']||'0%';
+    const item=_e('div','hb-item');
+    const name=_e('div','hb-name');name.textContent=ov.brandName;item.appendChild(name);
+    const score=_e('div','hb-score');score.textContent=sc;score.style.color=_r(sc);item.appendChild(score);
+    hb.appendChild(item);
+  });
+}
 
 function gInit(){
   const tQ=_O.reduce((s,d)=>s+DATA[d].queries.length,0);
@@ -1291,7 +1364,8 @@ function gRender(domain){
   el.appendChild(wp);
 }
 
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',gInit);else setTimeout(gInit,0);
+function bootAll(){initHeroBrands();gInit()}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bootAll);else setTimeout(bootAll,0);
 
 
 </script>
