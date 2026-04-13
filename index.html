@@ -462,9 +462,8 @@ footer small{font-family:var(--m);font-size:9px;color:var(--w3)}
 .g-stat .gv{
   font-family:var(--m);font-size:34px;font-weight:500;
   color:var(--green);letter-spacing:-2px;line-height:1;margin-bottom:7px;
-  text-align:center;
 }
-.g-stat .gl{font-size:12px;color:var(--p3);font-weight:500;letter-spacing:.2px;text-align:center}
+.g-stat .gl{font-size:12px;color:var(--p3);font-weight:500;letter-spacing:.2px}
 
 /* ── Brand navigation ── */
 #gBN{
@@ -505,7 +504,6 @@ footer small{font-family:var(--m);font-size:9px;color:var(--w3)}
   font-family:var(--m);font-size:22px;font-weight:500;
   flex-shrink:0;border:2.5px solid;
   box-shadow:0 0 0 5px rgba(0,0,0,.04);
-  text-align:center;line-height:1;
 }
 .g-bi h3{
   font-size:22px;font-weight:800;color:var(--p1)!important;
@@ -522,23 +520,14 @@ footer small{font-family:var(--m);font-size:9px;color:var(--w3)}
 .g-mc{
   background:var(--paper+);border:1.5px solid var(--bp);
   border-radius:10px;padding:16px;text-align:center;
-  transition:border-color .15s,transform .15s,box-shadow .15s;cursor:default;
-  position:relative;
+  transition:border-color .15s;cursor:default;
 }
-.g-mc:hover{border-color:var(--red);transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.06)}
+.g-mc:hover{border-color:var(--red)}
 .g-mc .mv{
   font-family:var(--m);font-size:24px;font-weight:500;
   margin-bottom:5px;line-height:1;letter-spacing:-.5px;
 }
 .g-mc .ml{font-size:11px;color:var(--p3)}
-/* Eye icon + tooltip */
-.g-mc .g-eye{position:absolute;top:8px;left:8px;width:20px;height:20px;border-radius:50%;background:var(--paper);border:1px solid var(--bp);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--p3);cursor:help;transition:all .15s;z-index:2}
-.g-mc .g-eye:hover{background:var(--red);color:#fff;border-color:var(--red)}
-.g-mc .g-tip{display:none;position:absolute;top:32px;left:0;right:0;background:var(--ink);color:var(--w1);font-size:11px;line-height:1.5;padding:10px 12px;border-radius:8px;z-index:10;text-align:right;box-shadow:0 8px 24px rgba(0,0,0,.2)}
-.g-mc .g-eye:hover+.g-tip,.g-mc .g-tip:hover{display:block}
-/* Risk alert styling */
-.g-mc.risk-alert{border-color:rgba(227,0,27,.3);background:rgba(227,0,27,.04);animation:riskPulse 2s ease-in-out infinite}
-@keyframes riskPulse{0%,100%{box-shadow:0 0 0 0 rgba(227,0,27,0)}50%{box-shadow:0 0 0 4px rgba(227,0,27,.1)}}
 
 /* ── Engine cards ── */
 .g-engs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
@@ -554,7 +543,7 @@ footer small{font-family:var(--m);font-size:9px;color:var(--w3)}
 .g-engic.gm{background:rgba(66,133,244,.1);color:#4285f4}
 .g-enname{font-weight:700;font-size:14px;color:var(--p1);margin-bottom:3px}
 .g-endet{font-family:var(--m);font-size:11px;color:var(--p3)}
-.g-ensc{font-family:var(--m);font-size:24px;font-weight:500;margin-right:auto;letter-spacing:-1px;text-align:center}
+.g-ensc{font-family:var(--m);font-size:24px;font-weight:500;margin-right:auto;letter-spacing:-1px}
 
 /* ── Journey stages ── */
 .g-journey{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin-bottom:20px}
@@ -1185,20 +1174,8 @@ function gRender(domain){
   const op=_e('div','g-pane on');op.id='go-'+domain;
   const mg=_e('div','g-metrics');
   const pos=ov.metrics['מיקום ממוצע']||'-',cit=ov.metrics['איכות ציטוט']||'-',risk=ov.metrics['סיכון מוניטין']||'-';
-  const _tips={'שיעור אזכור':'אחוז השאילתות בהן המותג מוזכר בתשובות ה-AI','מיקום ממוצע':'המיקום הממוצע של המותג כשהוא מופיע ברשימת התוצאות','איכות ציטוט':'איכות ההקשר בו המותג מוזכר - חיובי, ניטרלי או שלילי','סיכון מוניטין':'רמת הסיכון שתשובות AI מציגות מידע שלילי או לא מדויק על המותג'};
   [{v:sc,l:'שיעור אזכור',c:clr},{v:pos,l:'מיקום ממוצע',c:'#3b82f6'},{v:cit,l:'איכות ציטוט',c:'var(--amber)'},{v:risk,l:'סיכון מוניטין',c:'var(--red)'}].forEach(m=>{
-    const mc=_e('div','g-mc');
-    const isRisk=m.l==='סיכון מוניטין'&&_n(m.v)>=70;
-    if(isRisk)mc.classList.add('risk-alert');
-    /* eye icon */
-    const eye=_e('div','g-eye');const eyeI=document.createElement('i');eyeI.className='fa-solid fa-eye';eyeI.style.fontSize='9px';eye.appendChild(eyeI);mc.appendChild(eye);
-    /* tooltip */
-    const tip=_e('div','g-tip');tip.textContent=_tips[m.l]||'';mc.appendChild(tip);
-    /* value */
-    const mv=_e('div','mv');mv.style.color=m.c;mv.textContent=m.v;mc.appendChild(mv);
-    /* label */
-    const ml=_e('div','ml');ml.textContent=m.l;mc.appendChild(ml);
-    mg.appendChild(mc);
+    const mc=_e('div','g-mc');mc.innerHTML='<div class="mv" style="color:'+m.c+'">'+m.v+'</div><div class="ml">'+m.l+'</div>';mg.appendChild(mc);
   });
   op.appendChild(mg);
   op.appendChild(_gs('🤖','ChatGPT vs Gemini'));
