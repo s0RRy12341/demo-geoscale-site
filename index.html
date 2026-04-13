@@ -60,7 +60,7 @@ nav{position:sticky;top:0;z-index:200;height:56px;background:rgba(245,242,236,.9
 /* ══ HERO — 60% INK ══ */
 .hero{
   background:var(--ink);
-  min-height:92vh;
+  min-height:auto;
   display:flex;flex-direction:column;justify-content:center;
   position:relative;overflow:hidden;
 }
@@ -79,7 +79,7 @@ nav{position:sticky;top:0;z-index:200;height:56px;background:rgba(245,242,236,.9
 /* IMPROVED: 2-column hero grid (from GPT) */
 .hero-in{
   max-width:1160px;margin:0 auto;width:100%;
-  padding:88px 48px 72px;
+  padding:56px 48px 48px;
   position:relative;z-index:1;
   display:grid;
   grid-template-columns:1fr 360px;
@@ -365,7 +365,7 @@ footer small{font-family:var(--m);font-size:9px;color:var(--w3)}
 /* ══ RESPONSIVE ══ */
 @media(max-width:1080px){
   .hero-in{grid-template-columns:1fr;gap:32px}
-  .hero-aside{display:none}
+  .hero-diagram{margin-top:16px}
   .model-in{grid-template-columns:1fr;gap:36px}
   .comp-grid{grid-template-columns:1fr}
   .prob-grid{grid-template-columns:1fr}
@@ -862,6 +862,59 @@ table.gqt th{font-size:10px}
   #gBN{gap:6px}
   .g-bn{padding:7px 12px;font-size:11px}
 }
+
+/* ══ HERO DIAGRAM ══ */
+.hero-diagram{
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--bi);
+  border-radius:14px;
+  padding:28px 24px;
+  overflow:hidden;
+}
+.hd-title{
+  font-family:var(--m);font-size:11px;color:rgba(227,0,27,.7);
+  letter-spacing:2px;text-transform:uppercase;margin-bottom:20px;
+  text-align:center;
+}
+.hd-steps{
+  display:flex;align-items:center;justify-content:center;gap:12px;
+}
+.hd-step{
+  background:rgba(255,255,255,.05);border:1px solid var(--bi);
+  border-radius:12px;padding:20px 16px;text-align:center;
+  flex:1;transition:all .2s;cursor:default;
+}
+.hd-step:hover{border-color:rgba(227,0,27,.3);background:rgba(227,0,27,.06);transform:translateY(-3px)}
+.hd-step.accent{border-color:rgba(227,0,27,.3);background:rgba(227,0,27,.08)}
+.hd-step.accent:hover{background:rgba(227,0,27,.14)}
+.hd-icon{font-size:22px;color:var(--red);margin-bottom:10px}
+.hd-label{font-size:14px;font-weight:700;color:var(--w1);margin-bottom:4px}
+.hd-desc{font-size:12px;color:var(--w2);line-height:1.5}
+.hd-arrow{color:var(--red);font-size:16px;opacity:.6;flex-shrink:0}
+
+/* ══ ENHANCED HOVER EFFECTS (Alexei) ══ */
+.btn-r{transition:filter .14s,transform .14s,box-shadow .14s}
+.btn-r:hover{filter:brightness(1.1);transform:translateY(-2px);box-shadow:0 14px 36px rgba(227,0,27,.30)}
+.btn-g{transition:all .14s}
+.btn-g:hover{border-color:rgba(255,255,255,.30);color:#fff;background:rgba(255,255,255,.06);transform:translateY(-1px)}
+.n-cta{transition:filter .14s,transform .14s,box-shadow .14s}
+.n-cta:hover{filter:brightness(1.1);transform:translateY(-2px);box-shadow:0 8px 24px rgba(227,0,27,.25)}
+.n-a{transition:all .14s}
+.n-a:hover{color:var(--red)!important;background:var(--red+)}
+.g-bn{transition:all .15s}
+.g-bn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.08)}
+
+/* Make hero single-column layout */
+.hero-in{grid-template-columns:1fr!important;max-width:880px}
+.hero-diagram{margin-top:8px}
+
+@media(max-width:720px){
+  .hd-steps{flex-direction:column;gap:8px}
+  .hd-arrow{transform:rotate(-90deg)}
+  .hd-step{padding:14px 12px}
+  .hd-label{font-size:13px}
+  .hero-diagram{padding:20px 16px}
+}
 </style>
 </head>
 <body>
@@ -874,12 +927,9 @@ table.gqt th{font-size:10px}
     <span class="n-tag">ידיעות אחרונות · הצעה אסטרטגית</span>
   </div>
   <div class="n-r">
-    <a class="n-a" href="#problem">הבעיה</a>
-    <a class="n-a" href="#solution">הפתרון</a>
     <a class="n-a" href="#flow">איך זה עובד</a>
-    <a class="n-a" href="#model">מודל</a>
-    <a class="n-a" href="#market">השוק</a>
-    <a class="n-a live" href="#live-data">● Live</a>
+    <a class="n-a live" href="#live-data">● נתוני מותגים</a>
+    <a class="n-a" href="#cta">צרו קשר</a>
     <a class="n-cta" href="#cta">לתיאום פגישה <i class="fa-solid fa-arrow-left" style="font-size:11px"></i></a>
   </div>
 </nav>
@@ -922,45 +972,26 @@ table.gqt th{font-size:10px}
       </div>
     </div>
 
-    <!-- RIGHT: IMPROVED Executive Summary panel (from GPT) -->
-    <div class="hero-aside a6">
-      <div class="ha-head">
-        <span class="ha-head-t">המהלך במשפט אחד</span>
-        <span class="ha-tag">Executive Summary</span>
-      </div>
-      <div class="ha-body">
-        <div class="ha-card">
-          <div class="ha-label">Positioning</div>
-          <h4>שותפות מסחרית, לא מוצר.</h4>
-          <p>ידיעות מספקות את נכסי התוכן. GeoScale מפעילה את שכבת המכירה. ההכנסות זורמות לידיעות.</p>
+    <!-- RIGHT: Visual diagram -->
+    <div class="hero-diagram a6">
+      <div class="hd-title">איך זה עובד</div>
+      <div class="hd-steps">
+        <div class="hd-step">
+          <div class="hd-icon"><i class="fa-solid fa-building"></i></div>
+          <div class="hd-label">סוכנויות פרסום</div>
+          <div class="hd-desc">נכנסות למערכת GeoScale</div>
         </div>
-        <div class="ha-card">
-          <div class="ha-label">Why now</div>
-          <h4>שוק ה-GEO בישראל עדיין פתוח.</h4>
-          <p>ספקי תוכן זול מורידים מחירים ושוחקים את הערך. ידיעות אחרונות יכולים לקבוע את הסטנדרט לפני שאחרים יגיעו.</p>
+        <div class="hd-arrow"><i class="fa-solid fa-arrow-left"></i></div>
+        <div class="hd-step accent">
+          <div class="hd-icon"><i class="fa-solid fa-bolt"></i></div>
+          <div class="hd-label">GeoScale סורקת ומוכרת</div>
+          <div class="hd-desc">מזהה הזדמנויות, סוגרת עסקאות</div>
         </div>
-        <div class="ha-flow">
-          <div class="haf-row">
-            <div class="haf-n">01</div>
-            <div>
-              <div class="haf-t">סוכנויות נכנסות למערכת</div>
-              <div class="haf-s">כל משרד פרסום מקבל סביבה ייעודית</div>
-            </div>
-          </div>
-          <div class="haf-row">
-            <div class="haf-n">02</div>
-            <div>
-              <div class="haf-t">הזדמנויות מוכנות לרכישה</div>
-              <div class="haf-s">כל לקוח — כתבות מותאמות לפי AI</div>
-            </div>
-          </div>
-          <div class="haf-row">
-            <div class="haf-n">03</div>
-            <div>
-              <div class="haf-t">GeoScale סוגרת את העסקה</div>
-              <div class="haf-s">הכנסה עוברת לידיעות, עמלה ל-GeoScale</div>
-            </div>
-          </div>
+        <div class="hd-arrow"><i class="fa-solid fa-arrow-left"></i></div>
+        <div class="hd-step">
+          <div class="hd-icon"><i class="fa-solid fa-coins"></i></div>
+          <div class="hd-label">הכנסה לידיעות</div>
+          <div class="hd-desc">ללא עלות תפעולית</div>
         </div>
       </div>
     </div>
@@ -968,108 +999,6 @@ table.gqt th{font-size:10px}
   </div>
 </section>
 
-<!-- ══ SLIDE 1: PROBLEM — 4 cards ══ -->
-<section id="problem" class="prob-bg">
-  <div class="s-in" style="padding-top:80px;padding-bottom:80px">
-    <div class="ey rv">הבעיה</div>
-    <h2 class="rv">הנכסים קיימים. <span class="r">הפוטנציאל המסחרי — לא ממומש.</span></h2>
-    <p class="s-lead rv">ארבעה גורמים שמגבילים את פוטנציאל ההכנסות מנכסי התוכן.</p>
-    <!-- IMPROVED: 4 cards 2×2 -->
-    <div class="prob-grid">
-      <div class="pc rv">
-        <div class="pc-bar"></div>
-        <div class="pc-n">01 — Under-Monetization</div>
-        <div class="pc-stat r">-38%</div>
-        <h3>נכסי תוכן איכותיים ללא מנגנון מכירה יעיל.</h3>
-        <div class="pc-body">Google שולח פחות תנועה. מודל הבנרים נשחק. הפוטנציאל של נכסי הכתיבה לא מתממש.</div>
-        <ul class="pc-ul">
-          <li>מכירת כתבות תלויה בתהליך ידני</li>
-          <li>אין מנגנון קבוע שמזרים ביקוש</li>
-          <li>הכנסה מוגבלת לכמות הטיפול הידני</li>
-        </ul>
-      </div>
-      <div class="pc rv d1">
-        <div class="pc-bar"></div>
-        <div class="pc-n">02 — AI Blindspot</div>
-        <div class="pc-stat k">9/13</div>
-        <h3>מפרסמים מרכזיים אינם מוזכרים בתשובות ה-AI.</h3>
-        <div class="pc-body">מתוך 13 מפרסמים שנסרקו, 9 מקבלים ציון מתחת ל-60%. ב-ChatGPT, המתחרים מופיעים במקומם.</div>
-        <ul class="pc-ul">
-          <li>הצרכן שואל AI ומקבל שם של מתחרה</li>
-          <li>המפרסם לא יודע שיש לו בעיה</li>
-          <li>GeoScale מראה לו את הנתונים</li>
-        </ul>
-      </div>
-      <div class="pc rv d2">
-        <div class="pc-bar"></div>
-        <div class="pc-n">03 — Market Erosion</div>
-        <div class="pc-stat a"><i class="fa-solid fa-arrow-trend-down"></i></div>
-        <h3>תחרות מחיר פוגעת בערך הנתפס של כתבות.</h3>
-        <div class="pc-body">ספקים קטנים מוכרים כתבות במחירים נמוכים ללא מדידה של תוצאות. זה מוריד את תקרת המחיר של כל השוק.</div>
-        <ul class="pc-ul">
-          <li>המחירים יורדים</li>
-          <li>האיכות נשחקת</li>
-          <li>השליטה עוברת לשחקנים קטנים</li>
-        </ul>
-      </div>
-      <!-- IMPROVED: 4th card - Lost Leadership (from GPT) -->
-      <div class="pc rv d3">
-        <div class="pc-bar"></div>
-        <div class="pc-n">04 — Lost Leadership</div>
-        <div class="pc-stat g">#1</div>
-        <h3>ידיעות אחרונות — מקור ה-AI המוביל בעברית.</h3>
-        <div class="pc-body">ידיעות אחרונות הוא המקור המצוטט ביותר ב-AI בעברית. יתרון זה עדיין אינו מתורגם לערוץ מכירה מובנה.</div>
-        <ul class="pc-ul">
-          <li>היתרון קיים — אין מנגנון שממנף אותו</li>
-          <li>הביקוש מפוזר ולא ממוקד</li>
-          <li>ההזדמנות האסטרטגית פתוחה</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- RED DIVIDER 1 -->
-<div class="red-div">
-  <div class="red-div-in">
-    <div class="rd-txt">שוק ה-GEO בישראל נמצא בשלב מוקדם. <span>מי שיבנה בו נוכחות מבוססת עכשיו — יקבע את הסטנדרט.</span></div>
-    <div class="rd-pills">
-      <div class="rd-pill">GEO<small>ערוץ הכנסות מדיד</small></div>
-      <div class="rd-pill">2026<small>שלב כניסה מוקדם</small></div>
-    </div>
-  </div>
-</div>
-
-<!-- ══ SLIDE 2: SOLUTION ══ -->
-<div id="solution" class="promise-bg">
-  <div class="promise-in">
-    <div class="ey inv rv">ההצעה</div>
-    <h2 class="inv rv">GeoScale — <span class="r">שכבת המכירה החיצונית.</span></h2>
-    <div class="promises">
-      <div class="pi rv">
-        <div class="pi-num">01</div>
-        <div>
-          <div class="pi-title">GeoScale <span class="r">מפעילה את המכירה</span> מקצה לקצה.</div>
-          <p class="pi-desc">מיפוי סוכנויות, זיהוי הזדמנויות לפי לקוח, ניהול התהליך וסגירת העסקה. <b>ידיעות מספקות את הנכס, GeoScale מוכרת אותו.</b></p>
-        </div>
-      </div>
-      <div class="pi rv d1">
-        <div class="pi-num">02</div>
-        <div>
-          <div class="pi-title">ללא <span class="r">עומס תפעולי</span> על ידיעות.</div>
-          <p class="pi-desc">אין צורך בגיוס, הכשרה או ניהול שוטף. GeoScale נושאת באחריות המלאה על שכבת המכירה. <b>ידיעות שומרות על המיקוד העריכתי.</b></p>
-        </div>
-      </div>
-      <div class="pi rv d2">
-        <div class="pi-num">03</div>
-        <div>
-          <div class="pi-title">מוצר <span class="r">שאין למתחרים</span> כרגע.</div>
-          <p class="pi-desc">N12, וואלה ומאקו אינם מציעים מוצר GEO מובנה. שיתוף הפעולה מאפשר לידיעות <b>להיות הגוף הראשון שמציע לסוכנויות פתרון מדיד לנראות AI.</b></p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- ══ SLIDE 3: FLOW ══ -->
 <div id="flow" class="flow-bg">
@@ -1112,154 +1041,6 @@ table.gqt th{font-size:10px}
   </div>
 </div>
 
-<!-- RED DIVIDER 2 -->
-<div class="red-div">
-  <div class="red-div-in">
-    <div class="rd-txt">ההחלטה לרכוש כתבה מתבצעת על בסיס נתוני ה-AI של המפרסם — <span>לא על בסיס שכנוע מצד איש המכירות.</span></div>
-    <div class="rd-pills">
-      <div class="rd-pill">מבוסס נתונים<small>ציוני AI בזמן אמת</small></div>
-    </div>
-  </div>
-</div>
-
-<!-- ══ SLIDE 4: BUSINESS MODEL ══ -->
-<div id="model" class="model-bg">
-  <div class="model-in">
-    <div class="rv-l rv">
-      <div class="ey inv">המודל העסקי</div>
-      <h2 class="inv" style="font-size:38px;margin-bottom:28px">מבנה <span class="r">הכנסות וחלוקת תפקידים.</span></h2>
-      <div class="mf">
-        <div class="mf-row rv">
-          <div class="mf-ic a" style="font-size:13px;font-weight:700;font-family:var(--m)">01</div>
-          <div>
-            <div class="mf-lbl">ידיעות אחרונות</div>
-            <div class="mf-sub">מספקת כתבות במחיר סיטונאי</div>
-          </div>
-          <div class="mf-val" style="color:var(--amber)">בסיס</div>
-        </div>
-        <div class="mf-arr rv d1"></div>
-        <div class="mf-row rv d1">
-          <div class="mf-ic r" style="font-size:13px;font-weight:700;font-family:var(--m)">02</div>
-          <div>
-            <div class="mf-lbl">GeoScale מוכרת</div>
-            <div class="mf-sub">לסוכנויות ולמפרסמים במחיר מלא</div>
-          </div>
-          <div class="mf-val" style="color:var(--red)">מחיר שוק</div>
-        </div>
-        <div class="mf-arr rv d2"></div>
-        <div class="mf-row acc rv d2">
-          <div class="mf-ic g" style="font-size:13px;font-weight:700;font-family:var(--m)">03</div>
-          <div>
-            <div class="mf-lbl">הכנסה לידיעות</div>
-            <div class="mf-sub">כל הכסף עובר דרך ידיעות תחילה</div>
-          </div>
-          <div class="mf-val">מלא</div>
-        </div>
-        <div class="mf-arr rv d3"></div>
-        <div class="mf-row rv d3">
-          <div class="mf-ic r" style="font-size:13px;font-weight:700;font-family:var(--m)">04</div>
-          <div>
-            <div class="mf-lbl">עמלת GeoScale</div>
-            <div class="mf-sub">רק מהמרג'ין — לא מהבסיס</div>
-          </div>
-          <div class="mf-val" style="color:var(--w2)">מהפרש</div>
-        </div>
-      </div>
-      <div class="formula rv">
-        <div class="formula-label">הנוסחה</div>
-        <div class="formula-txt">ידיעות אינן נושאות בעלות המכירה.<br><span class="r">ההכנסה מגיעה ישירות מהעסקאות שנסגרו.</span></div>
-      </div>
-    </div>
-    <div class="rv-r rv">
-      <div style="font-family:var(--m);font-size:10px;color:rgba(227,0,27,.5);letter-spacing:2px;text-transform:uppercase;margin-bottom:20px">מה ידיעות אחרונות מקבלת</div>
-      <div class="model-bullets">
-        <div class="mb rv">
-          <div class="mb-ic r"></div>
-          <div>
-            <div class="mb-t">ערוץ הכנסות חדש ללא השקעה תפעולית</div>
-            <div class="mb-s">GeoScale נושאת בעלות המכירה. ידיעות מקבלת הכנסה.</div>
-          </div>
-        </div>
-        <div class="mb rv d1">
-          <div class="mb-ic g"></div>
-          <div>
-            <div class="mb-t">הכנסה חוזרת — מבנה מנויי</div>
-            <div class="mb-s">נראות ב-AI דורשת תוכן שוטף — כל מפרסם הופך ללקוח קבוע.</div>
-          </div>
-        </div>
-        <div class="mb rv d2">
-          <div class="mb-ic w"></div>
-          <div>
-            <div class="mb-t">יתרון תחרותי מובהק כרגע</div>
-            <div class="mb-s">N12, וואלה ומאקו אינם מציעים מוצר GEO מובנה.</div>
-          </div>
-        </div>
-        <div class="mb rv d3">
-          <div class="mb-ic r"></div>
-          <div>
-            <div class="mb-t">מיצוב ידיעות כמוביל שוק ה-GEO</div>
-            <div class="mb-s">ידיעות כבר מדורגים מקור הציטוט #1 ב-AI בעברית.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ══ SLIDE 5: MARKET ══ -->
-<section id="market" class="s paper-d">
-  <div class="s-in">
-    <div class="ey rv">מצב השוק</div>
-    <h2 class="rv">מצב השוק <span class="r">וההזדמנות לידיעות אחרונות.</span></h2>
-    <p class="s-lead rv">המצב הנוכחי בשוק — ומה שמאפשרת שותפות מובנית עם GeoScale.</p>
-    <div class="comp-grid">
-      <div class="cc bad rv">
-        <div class="cc-hd">
-          <span class="cc-hd-t">מה קורה היום בשוק</span>
-          <span class="cc-badge bad">הבעיה</span>
-        </div>
-        <div class="cc-body">
-          <ul class="cc-ul bad">
-            <li>ספקים זולים מוכרים כתבות בחצי מחיר ופוגעים בערך הנתפס</li>
-            <li>אין בידול אמיתי — הבחירה נהיית רק לפי מחיר</li>
-            <li>המדיה הגדולה מאבדת שליטה לשחקנים קטנים ואגרסיביים</li>
-            <li>הלקוחות מקבלים מוצר חלש, המותג החזק לא מממש את היתרון שלו</li>
-          </ul>
-        </div>
-      </div>
-      <div class="cc good rv d1">
-        <div class="cc-hd">
-          <span class="cc-hd-t">עם שותפות GeoScale</span>
-          <span class="cc-badge good">הפתרון</span>
-        </div>
-        <div class="cc-body">
-          <ul class="cc-ul good">
-            <li>ערוץ מכירה מובנה לנכסי התוכן של ידיעות אחרונות</li>
-            <li>מחיר מוצדק על בסיס תוצאות מדידות — לא תחרות על מחיר</li>
-            <li>שותפות אסטרטגית עם חלוקת תפקידים ברורה</li>
-            <li>בסיס לשיתוף פעולה שניתן להרחיב לקטגוריות ושירותים נוספים</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ CTA ══ -->
-<div id="cta" class="cta-outer">
-  <!-- IMPROVED: Red gradient card wrapper (from GPT) -->
-  <div class="cta-card rv">
-    <div class="cta-kicker">לפגישה</div>
-    <h2>45 דקות. <span class="r">הנתונים,<br>המודל וצעדי ההתחלה.</span></h2>
-    <p class="cta-sub">נציג את נתוני ה-AI של <b>13 מפרסמים פעילים של ידיעות</b>, נסביר את המודל המסחרי ונגדיר יחד את צעדי הכניסה.</p>
-    <div class="cta-btns">
-      <a class="btn-r" href="mailto:demo@geoscale.ai">לתיאום פגישה</a>
-      <a class="btn-g" href="#problem">חזרה לתחילה <i class="fa-solid fa-arrow-up" style="font-size:12px"></i></a>
-    </div>
-        <div class="cta-note">GeoScale מפעילה את שכבת המכירה · ידיעות מספקות את הנכסים · ההכנסה לידיעות</div>
-  </div>
-</div>
 
 <div id="live-data">
   <div class="geo-bridge">
@@ -1284,6 +1065,20 @@ table.gqt th{font-size:10px}
       <div class="g-bnav" id="gBN"></div>
       <div id="gBD"></div>
     </div>
+  </div>
+</div>
+
+<!-- ══ CTA ══ -->
+<div id="cta" class="cta-outer">
+  <div class="cta-card rv">
+    <div class="cta-kicker">לפגישה</div>
+    <h2>45 דקות. <span class="r">הנתונים,<br>המודל וצעדי ההתחלה.</span></h2>
+    <p class="cta-sub">נציג את נתוני ה-AI של <b>13 מפרסמים פעילים של ידיעות</b>, נסביר את המודל המסחרי ונגדיר יחד את צעדי הכניסה.</p>
+    <div class="cta-btns">
+      <a class="btn-r" href="mailto:demo@geoscale.ai">לתיאום פגישה <i class="fa-solid fa-arrow-left"></i></a>
+      <a class="btn-g" href="#live-data">חזרה לנתונים <i class="fa-solid fa-arrow-up" style="font-size:12px"></i></a>
+    </div>
+    <div class="cta-note">GeoScale מפעילה את שכבת המכירה · ידיעות מספקות את הנכסים · ההכנסה לידיעות</div>
   </div>
 </div>
 
