@@ -347,6 +347,75 @@ h2.inv{color:var(--w1)}
 
 .cta-note{font-family:var(--m);font-size:10px;color:var(--w3);margin-top:20px;line-height:1.5;letter-spacing:.3px}
 
+/* ══ CONTACT (plain text, no button) ══ */
+.contact-outer{background:var(--ink);padding:80px 48px;position:relative;overflow:hidden}
+.contact-outer::before{
+  content:'';position:absolute;inset:0;
+  background-image:linear-gradient(var(--bi) 1px,transparent 1px),linear-gradient(90deg,var(--bi) 1px,transparent 1px);
+  background-size:56px 56px;
+  mask-image:linear-gradient(180deg,rgba(0,0,0,.4),rgba(0,0,0,.06) 80%);
+  -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.4),rgba(0,0,0,.06) 80%);
+  pointer-events:none;
+}
+.contact-card{max-width:640px;margin:0 auto;text-align:center;position:relative;z-index:1}
+.contact-kicker{font-family:var(--m);font-size:10px;color:rgba(227,0,27,.5);letter-spacing:2px;text-transform:uppercase;margin-bottom:18px}
+.contact-card h2{color:var(--w1);font-size:44px;letter-spacing:-2px;margin-bottom:28px;line-height:1}
+.contact-card h2 .r{color:var(--red)}
+.contact-text{font-size:17px;color:var(--w2);line-height:1.8;max-width:520px;margin:0 auto}
+.contact-phone{display:inline-block;font-family:var(--m);font-size:22px;color:var(--red);letter-spacing:1px;font-weight:700;margin-top:6px;direction:ltr;unicode-bidi:isolate}
+.contact-name{font-size:17px;color:var(--w2)}
+
+/* ══ ECOSYSTEM DIAGRAM ══ */
+.eco-bg{background:var(--paper);padding:72px 48px;position:relative}
+.eco-in{max-width:1120px;margin:0 auto}
+.eco-head{text-align:center;max-width:720px;margin:0 auto 56px}
+.eco-eyebrow{font-family:var(--m);font-size:10px;color:var(--red);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px}
+.eco-head h2{font-size:40px;letter-spacing:-1.5px;line-height:1.05;margin-bottom:16px;color:var(--ink)}
+.eco-head h2 .r{color:var(--red)}
+.eco-head p{font-size:15px;color:var(--p2);line-height:1.7}
+.eco-dia{display:grid;grid-template-columns:1fr 40px 1.2fr 40px 1fr;gap:18px;align-items:stretch;margin-bottom:36px}
+.eco-col{background:#fff;border:1.5px solid var(--bp);border-radius:14px;padding:22px 18px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.eco-col.eco-brands{border-color:rgba(227,0,27,.35);background:linear-gradient(180deg,#fff,rgba(227,0,27,.02));box-shadow:0 8px 28px rgba(227,0,27,.07)}
+.eco-col-title{font-size:15px;font-weight:800;color:var(--ink);margin-bottom:4px;letter-spacing:-.3px}
+.eco-col-title.r{color:var(--red)}
+.eco-col-sub{font-family:var(--m);font-size:10px;color:var(--p3);letter-spacing:1px;text-transform:uppercase;margin-bottom:18px}
+.eco-chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;flex:1;align-content:flex-start}
+.eco-chips.center{gap:7px}
+.eco-chip{display:inline-flex;align-items:center;padding:6px 11px;background:var(--paper+);border:1px solid var(--bp);border-radius:18px;font-size:12px;font-weight:500;color:var(--p1);white-space:nowrap}
+.eco-chip.primary{background:rgba(227,0,27,.07);border-color:rgba(227,0,27,.25);color:var(--ink);font-weight:600}
+.eco-arrow{display:flex;align-items:center;justify-content:center;color:var(--red);font-size:18px;opacity:.5}
+.eco-caption{max-width:780px;margin:0 auto;text-align:center;font-size:15px;color:var(--p1);line-height:1.7;padding:18px 24px;background:#fff;border:1px dashed var(--bp);border-radius:12px}
+
+/* ══ QUERIES SECTION (simplified, queries-only) ══ */
+.q-sec{background:var(--paper);padding:72px 48px;position:relative;border-top:1px solid var(--bp)}
+.q-head{text-align:center;max-width:760px;margin:0 auto 44px}
+.q-head-eyebrow{font-family:var(--m);font-size:10px;color:var(--red);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px}
+.q-head h2{font-size:40px;letter-spacing:-1.5px;line-height:1.05;margin-bottom:16px;color:var(--ink)}
+.q-head h2 .r{color:var(--red)}
+.q-head p{font-size:15px;color:var(--p2);line-height:1.7}
+.q-wrap{max-width:1080px;margin:0 auto}
+.q-bnav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:28px}
+.q-bn{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;background:#fff;border:1.5px solid var(--bp);border-radius:22px;font:inherit;cursor:pointer;transition:all .15s;font-size:13px;color:var(--p1)}
+.q-bn:hover{border-color:var(--red);color:var(--ink)}
+.q-bn.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.q-bn-logo{width:18px;height:18px;object-fit:contain;border-radius:3px;flex-shrink:0}
+.q-bn.on .q-bn-logo{background:#fff;padding:1px}
+.q-card{background:#fff;border:1.5px solid var(--bp);border-radius:16px;padding:28px;max-width:880px;margin:0 auto}
+.q-card-head{display:flex;align-items:center;gap:16px;padding-bottom:20px;margin-bottom:20px;border-bottom:1px solid var(--bp)}
+.q-card-logo{width:56px;height:56px;object-fit:contain;border-radius:10px;background:#fff;padding:6px;border:1px solid var(--bp);flex-shrink:0}
+.q-card-head h3{font-size:20px;font-weight:800;margin-bottom:4px;color:var(--ink);letter-spacing:-.5px}
+.q-card-head .q-dom{font-family:var(--m);font-size:11px;color:var(--p3);letter-spacing:.5px}
+.q-card-head-info{flex:1}
+.q-card-title{font-size:13px;font-family:var(--m);color:var(--red);letter-spacing:1px;text-transform:uppercase;margin-bottom:14px;font-weight:600}
+.q-list{display:flex;flex-direction:column;gap:6px}
+.q-row{display:grid;grid-template-columns:28px 72px 1fr;align-items:center;gap:12px;padding:11px 14px;background:var(--paper+);border:1px solid var(--bp);border-radius:10px;transition:all .15s}
+.q-row:hover{border-color:var(--red);transform:translateX(-2px)}
+.q-num{font-family:var(--m);font-size:10px;color:var(--p3);letter-spacing:1px;font-variant-numeric:tabular-nums}
+.q-tag{display:inline-flex;align-items:center;justify-content:center;font-family:var(--m);font-size:9.5px;font-weight:700;letter-spacing:.5px;padding:4px 8px;border-radius:6px;text-transform:uppercase;white-space:nowrap}
+.q-tag.rep{background:rgba(59,130,246,.12);color:#2563eb}
+.q-tag.pos{background:rgba(227,0,27,.1);color:var(--red)}
+.q-text{font-size:14px;color:var(--ink);font-weight:500;line-height:1.45}
+
 /* ══ FOOTER ══ */
 footer{background:#07070a;padding:36px 48px;display:flex;align-items:center;justify-content:space-between;border-top:2px solid rgba(227,0,27,.2);flex-wrap:wrap;gap:12px}
 .f-logo{font-size:15px;font-weight:900;color:var(--w1)}.f-logo span{color:var(--red)}
@@ -852,7 +921,29 @@ table.gqt th{font-size:10px}
   .mf-lbl{font-size:13px}
   .mf-val{font-size:17px}
   .mb{padding:14px}
-  .cta-outer{padding:56px 20px}
+  .cta-outer,.contact-outer{padding:56px 20px}
+  .contact-card h2{font-size:32px}
+  .contact-text{font-size:15px}
+  .contact-phone{font-size:19px}
+  .eco-bg,.q-sec{padding:56px 20px}
+  .eco-head h2,.q-head h2{font-size:28px;letter-spacing:-1px}
+  .eco-head p,.q-head p{font-size:14px}
+  .eco-dia{grid-template-columns:1fr;gap:12px}
+  .eco-arrow{transform:rotate(-90deg);padding:4px 0;opacity:.7;font-size:20px}
+  .eco-col{padding:18px 14px}
+  .eco-caption{font-size:13px;padding:14px 16px}
+  .q-card{padding:20px 16px}
+  .q-row{grid-template-columns:22px 62px 1fr;gap:8px;padding:9px 10px}
+  .q-text{font-size:13px}
+  .q-tag{font-size:8.5px;padding:3px 6px}
+  .q-card-head{flex-direction:column;text-align:center;gap:10px}
+  .q-card-logo{width:72px;height:72px}
+  .q-card-head h3{font-size:22px}
+  .hero-brands{gap:10px!important;padding:24px 8px!important}
+  .hb-item{padding:12px 14px!important;min-width:88px!important;min-height:68px!important}
+  .hb-logo{width:52px!important;height:52px!important}
+  .g-bhdr-logo{width:64px!important;height:64px!important}
+  .g-bn-logo{width:22px!important;height:22px!important}
   .cta-note{font-size:9px}
   .close-pt{padding:14px}
   .close-pt strong{font-size:13px}
@@ -927,15 +1018,14 @@ table.gqt th{font-size:10px}
   border-top:1px solid var(--bi);border-bottom:1px solid var(--bi);
 }
 .hb-item{
-  display:flex;flex-direction:column;align-items:center;gap:4px;
-  padding:8px 10px;border-radius:8px;
-  background:rgba(255,255,255,.04);border:1px solid var(--bi);
-  transition:all .15s;cursor:default;min-width:72px;
+  display:flex;align-items:center;justify-content:center;
+  padding:10px 12px;border-radius:10px;
+  background:rgba(255,255,255,.05);border:1px solid var(--bi);
+  transition:all .15s;cursor:default;min-width:72px;min-height:60px;
 }
-.hb-item:hover{border-color:rgba(227,0,27,.3);background:rgba(227,0,27,.06);transform:translateY(-2px)}
-.hb-logo{width:36px;height:36px;object-fit:contain;border-radius:6px;filter:brightness(0) invert(1);opacity:.85;transition:opacity .15s}
+.hb-item:hover{border-color:rgba(227,0,27,.3);background:rgba(227,0,27,.08);transform:translateY(-2px)}
+.hb-logo{width:48px;height:48px;object-fit:contain;border-radius:6px;filter:brightness(0) invert(1);opacity:.85;transition:opacity .15s}
 .hb-item:hover .hb-logo{opacity:1}
-.hb-score{font-family:var(--m);font-size:13px;font-weight:600}
 
 /* ══ FLOW DIAGRAM (4-station) ══ */
 .flow-dia{
@@ -1049,9 +1139,8 @@ table.gqt th{font-size:10px}
   .rev-ctx-val{font-size:22px}
   .rev-ramp-bars{height:60px}
   .hero-brands{gap:6px}
-  .hb-item{padding:6px 8px;min-width:60px}
-  .hb-name{font-size:9px}
-  .hb-score{font-size:11px}
+  .hb-item{padding:10px;min-width:78px;min-height:60px}
+  .hb-logo{width:42px;height:42px}
 }
 </style>
 </head>
@@ -1066,9 +1155,9 @@ table.gqt th{font-size:10px}
   </div>
   <div class="n-r">
     <a class="n-a" href="#flow">איך זה עובד</a>
-    <a class="n-a live" href="#live-data">● נתוני מותגים</a>
-    <a class="n-a" href="#cta">צרו קשר</a>
-    <a class="n-cta" href="#cta">לתיאום פגישה <i class="fa-solid fa-arrow-left" style="font-size:11px"></i></a>
+    <a class="n-a" href="#ecosystem">אקוסיסטם</a>
+    <a class="n-a live" href="#queries">● שאילתות</a>
+    <a class="n-a" href="#contact">צרו קשר</a>
   </div>
 </nav>
 
@@ -1086,24 +1175,8 @@ table.gqt th{font-size:10px}
         <span class="r">לנכסי התוכן<br>של ידיעות אחרונות.</span>
       </h1>
       <p class="hero-sub a3">GeoScale מפעילה את תהליך המכירה מול סוכנויות הפרסום — מזיהוי הזדמנויות ועד סגירת העסקה. <b>ידיעות מספקות את הנכסים ומקבלות את ההכנסה.</b></p>
-      <div class="hero-btns a4">
-        <a class="btn-r" href="#cta">לתיאום פגישה <i class="fa-solid fa-arrow-left"></i></a>
-      </div>
-      <!-- Brand logos with AI visibility scores -->
+      <!-- Brand logos -->
       <div class="hero-brands a5" id="heroBrands"></div>
-      <!-- KPI Stats -->
-      <div class="hero-nums a5">
-        <div class="hn">
-          <div class="hn-n r">9/13</div>
-          <div class="hn-l">מפרסמי Ynet עם נראות AI מתחת ל-60%</div>
-          <div class="hn-s">GeoScale Scan, 1.4.2026</div>
-        </div>
-        <div class="hn">
-          <div class="hn-n g">45%</div>
-          <div class="hn-l">ממוצע נראות AI של המפרסמים שנסרקו</div>
-          <div class="hn-s">GeoScale Scan, 1.4.2026</div>
-        </div>
-      </div>
     </div>
 
   </div>
@@ -1195,40 +1268,102 @@ table.gqt th{font-size:10px}
 </div>
 
 
-<div id="live-data">
-  <div class="geo-bridge">
-    <div class="geo-bridge-in">
-      <div class="geo-bridge-eyebrow">GeoScale Live Scan — 1.4.2026</div>
-      <h2>הנתונים האמיתיים — 13 לקוחות Ynet</h2>
-      <p>כך ה-AI מדבר <b>ברגע זה</b> על המפרסמים הגדולים שלכם. בחרו מותג וראו תמונה מלאה.</p>
+<!-- ══ ECOSYSTEM DIAGRAM ══ -->
+<div id="ecosystem" class="eco-bg">
+  <div class="eco-in">
+    <div class="eco-head rv">
+      <div class="eco-eyebrow">האקוסיסטם</div>
+      <h2>המותגים במרכז. <span class="r">כולם סובבים סביבם.</span></h2>
+      <p>כדי שהלקוחות יכניסו GEO לתקציב השנתי — הם צריכים להבין איך זה עובד. זה מה ש-GeoScale פותרת: מגשרת בין המותגים, משרדי הפרסום והפלטפורמה של ידיעות.</p>
     </div>
-  </div>
-  <div class="gdash">
-    <div class="g-sticky">
-      <div class="g-sticky-in">
-        <div class="g-logo">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          GeoScale Live
+
+    <div class="eco-dia rv">
+      <!-- Left: Agencies -->
+      <div class="eco-col eco-agencies">
+        <div class="eco-col-title">משרדי פרסום</div>
+        <div class="eco-col-sub">מנהלים תקציבים</div>
+        <div class="eco-chips">
+          <span class="eco-chip">McCann</span>
+          <span class="eco-chip">BBDO</span>
+          <span class="eco-chip">Gitam</span>
+          <span class="eco-chip">Publicis</span>
+          <span class="eco-chip">Baumann Ber Rivnay</span>
+          <span class="eco-chip">Shalmor Avnon</span>
+          <span class="eco-chip">Adler Chomski</span>
+          <span class="eco-chip">+ עוד</span>
         </div>
-        <div class="g-meta" dir="ltr" style="text-align:left;unicode-bidi:isolate">13 brands · ChatGPT + Gemini · 1.4.2026</div>
+      </div>
+
+      <!-- Arrow -->
+      <div class="eco-arrow"><i class="fa-solid fa-arrow-left"></i></div>
+
+      <!-- Center: Brands -->
+      <div class="eco-col eco-brands">
+        <div class="eco-col-title r">לקוחות / מותגים</div>
+        <div class="eco-col-sub">מחליטים על תקציב</div>
+        <div class="eco-chips center">
+          <span class="eco-chip primary">בזק</span>
+          <span class="eco-chip primary">רמי לוי</span>
+          <span class="eco-chip primary">לאומי</span>
+          <span class="eco-chip primary">הפועלים</span>
+          <span class="eco-chip primary">שופרסל</span>
+          <span class="eco-chip primary">מגדל</span>
+          <span class="eco-chip primary">הפניקס</span>
+          <span class="eco-chip primary">כאל</span>
+          <span class="eco-chip primary">IBI</span>
+          <span class="eco-chip primary">קולמובי</span>
+          <span class="eco-chip primary">גינדי</span>
+          <span class="eco-chip primary">סופר-פארם</span>
+          <span class="eco-chip primary">האוניברסיטה הפתוחה</span>
+        </div>
+      </div>
+
+      <!-- Arrow -->
+      <div class="eco-arrow"><i class="fa-solid fa-arrow-left"></i></div>
+
+      <!-- Right: Ynet -->
+      <div class="eco-col eco-ynet">
+        <div class="eco-col-title">ידיעות / Ynet</div>
+        <div class="eco-col-sub">פלטפורמת התוכן</div>
+        <div class="eco-chips">
+          <span class="eco-chip">Ynet</span>
+          <span class="eco-chip">Calcalist</span>
+          <span class="eco-chip">ONE</span>
+          <span class="eco-chip">AllJobs</span>
+          <span class="eco-chip">iCar</span>
+          <span class="eco-chip">Mynet</span>
+          <span class="eco-chip">Pnai Plus</span>
+          <span class="eco-chip">Laisha</span>
+        </div>
       </div>
     </div>
-    <div class="g-wrap">
-      <div class="g-stats" id="gSB"></div>
-      <div class="g-bnav" id="gBN"></div>
-      <div id="gBD"></div>
+
+    <div class="eco-caption rv">
+      <b>הבעיה:</b> המותגים עדיין לא יודעים מה זה GEO. <b style="color:var(--red)">הפתרון:</b> GeoScale מסבירה, מוכיחה נתונים, וסוגרת עסקה — ידיעות מקבלים את ההכנסה.
     </div>
   </div>
 </div>
 
-<!-- ══ CTA ══ -->
-<div id="cta" class="cta-outer">
-  <div class="cta-card rv">
-    <div class="cta-kicker">לפגישה</div>
-    <h2>45 דקות. <span class="r">הנתונים,<br>המודל וצעדי ההתחלה.</span></h2>
-    <div class="cta-btns">
-      <a class="btn-r" href="mailto:demo@geoscale.ai">לתיאום פגישה <i class="fa-solid fa-arrow-left"></i></a>
-    </div>
+
+<!-- ══ QUERIES SECTION ══ -->
+<div id="queries" class="q-sec">
+  <div class="q-head">
+    <div class="q-head-eyebrow">השאילתות המסחריות</div>
+    <h2>השאילתות שבהן הלקוחות שלכם <span class="r">צריכים להופיע</span></h2>
+    <p>בחרו מותג. 20 שאילתות מסחריות מובילות — מחולקות לכתבות <b style="color:#2563eb">מוניטין</b> (חיזוק מותג) וכתבות <b style="color:var(--red)">מיצוב</b> (כיבוש שאילתות "מי המוביל").</p>
+  </div>
+  <div class="q-wrap">
+    <div class="q-bnav" id="qBN"></div>
+    <div id="qBD"></div>
+  </div>
+</div>
+
+<!-- ══ CONTACT ══ -->
+<div id="contact" class="contact-outer">
+  <div class="contact-card rv">
+    <div class="contact-kicker">לפגישה</div>
+    <h2>הצעד הבא.</h2>
+    <p class="contact-text">לתיאום פגישה — הגיבו למייל ששלחנו או התקשרו למספר:<br><span class="contact-phone">[מספר טלפון]</span> <span class="contact-name">— אלכסיי</span></p>
   </div>
 </div>
 
@@ -1476,44 +1611,68 @@ const _top10={
 function initHeroBrands(){
   const hb=document.getElementById('heroBrands');if(!hb)return;
   _O.forEach(d=>{
-    const ov=DATA[d].overview,sc=ov.metrics['שיעור אזכור']||'0%';
+    const ov=DATA[d].overview;
     const item=_e('div','hb-item');
     if(_logos[d]){
       const img=document.createElement('img');img.src=_logos[d];img.alt=ov.brandName;img.className='hb-logo';img.loading='lazy';item.appendChild(img);
     }
-    const score=_e('div','hb-score');score.textContent=sc;score.style.color=_r(sc);item.appendChild(score);
     hb.appendChild(item);
   });
 }
 
-function gInit(){
-  const tQ=_O.reduce((s,d)=>s+DATA[d].queries.length,0);
-  const tA=_O.reduce((s,d)=>s+DATA[d].audiences.length,0);
-  const avg=Math.round(_O.reduce((s,d)=>s+_n(DATA[d].overview.metrics['שיעור אזכור']),0)/_O.length);
-  const sb=document.getElementById('gSB');
-  [{v:'13',l:'מותגים'},{v:''+tQ,l:'שאילתות'},{v:avg+'%',l:'ממוצע'},{v:''+tA,l:'פרסונות'}].forEach(({v,l})=>{
-    const c=_e('div','g-stat');c.innerHTML='<div class="gv">'+v+'</div><div class="gl">'+l+'</div>';sb.appendChild(c);
-  });
-  const nav=document.getElementById('gBN');
+/* ── Simplified Queries Section ── */
+function qInit(){
+  const nav=document.getElementById('qBN');if(!nav)return;
   _O.forEach(d=>{
-    const ov=DATA[d].overview,sc=ov.metrics['שיעור אזכור']||'0%';
-    const b=_e('button','g-bn');b.dataset.d=d;b.onclick=()=>gSel(d);
+    const ov=DATA[d].overview;
+    const b=_e('button','q-bn');b.dataset.d=d;b.onclick=()=>qSel(d);
     if(_logos[d]){
-      const img=document.createElement('img');img.src=_logos[d];img.alt=ov.brandName;img.className='g-bn-logo';img.loading='lazy';b.appendChild(img);
+      const img=document.createElement('img');img.src=_logos[d];img.alt=ov.brandName;img.className='q-bn-logo';img.loading='lazy';b.appendChild(img);
     }
     const nm=document.createElement('span');nm.textContent=ov.brandName;b.appendChild(nm);
-    const bd=document.createElement('span');bd.className='gbadge '+_c(sc);bd.textContent=sc;b.appendChild(bd);
     nav.appendChild(b);
   });
-  gSel(_O[0]);
+  qSel(_O[0]);
+}
+function qSel(d){
+  document.querySelectorAll('.q-bn').forEach(b=>b.classList.toggle('on',b.dataset.d===d));
+  qRender(d);
+}
+function qRender(domain){
+  const d=DATA[domain],ov=d.overview;
+  const el=document.getElementById('qBD');if(!el)return;el.textContent='';
+  const card=_e('div','q-card');
+  /* header */
+  const hdr=_e('div','q-card-head');
+  if(_logos[domain]){
+    const lg=document.createElement('img');lg.src=_logos[domain];lg.alt=ov.brandName;lg.className='q-card-logo';lg.loading='lazy';hdr.appendChild(lg);
+  }
+  const info=_e('div','q-card-head-info');
+  info.innerHTML='<h3>השאילתות שבהן '+ov.brandName+' צריך להופיע</h3><div class="q-dom">'+domain+'</div>';
+  hdr.appendChild(info);
+  card.appendChild(hdr);
+  /* queries: 10 curated from _top10 + up to 10 from filtered scan */
+  const curated=(_top10[domain]||[]).slice(0,10);
+  const scan=_filt(domain,d.queries||[]).slice(0,10).map(q=>({q:q.query,t:'rep'}));
+  const seen=new Set(curated.map(x=>x.q));
+  const merged=curated.concat(scan.filter(x=>!seen.has(x.q))).slice(0,20);
+  const list=_e('div','q-list');
+  merged.forEach((row,i)=>{
+    const li=_e('div','q-row');
+    const num=_e('span','q-num');num.textContent=(i+1).toString().padStart(2,'0');
+    const tag=_e('span','q-tag '+row.t);tag.textContent=row.t==='rep'?'מוניטין':'מיצוב';
+    const q=_e('span','q-text');q.textContent=row.q;
+    li.appendChild(num);li.appendChild(tag);li.appendChild(q);
+    list.appendChild(li);
+  });
+  card.appendChild(list);
+  el.appendChild(card);
 }
 
-function gSel(d){
-  document.querySelectorAll('.g-bn').forEach(b=>b.classList.toggle('on',b.dataset.d===d));
-  gRender(d);
-}
-
-function gRender(domain){
+/* ── legacy gInit/gRender kept as no-ops in case of cache ── */
+function gInit(){return}
+function gSel(){return}
+function gRender_DISABLED(domain){
   const d=DATA[domain],ov=d.overview;
   const sc=ov.metrics['שיעור אזכור']||'0%',N=_n(sc),clr=_r(sc);
   const eng=ov.engines||{};
@@ -1696,7 +1855,7 @@ function gRender(domain){
   el.appendChild(wp);
 }
 
-function bootAll(){initHeroBrands();gInit()}
+function bootAll(){initHeroBrands();qInit()}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bootAll);else setTimeout(bootAll,0);
 
 
