@@ -481,6 +481,8 @@ footer small{font-family:var(--m);font-size:9px;color:var(--w3)}
   white-space:nowrap;
 }
 .g-bn:hover{border-color:var(--red);color:var(--p1);background:var(--paper)}
+.g-bn-logo{width:18px;height:18px;object-fit:contain;border-radius:3px;flex-shrink:0}
+.g-bhdr-logo{width:56px;height:56px;object-fit:contain;border-radius:10px;background:#fff;padding:6px;border:1px solid var(--bp);flex-shrink:0}
 .g-bn.on{
   background:var(--red+);
   border-color:var(--red);
@@ -1147,7 +1149,7 @@ table.gqt th{font-size:10px}
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           GeoScale Live
         </div>
-        <div class="g-meta">13 brands · ChatGPT + Gemini · 1.4.2026</div>
+        <div class="g-meta" dir="ltr" style="text-align:left;unicode-bidi:isolate">13 brands · ChatGPT + Gemini · 1.4.2026</div>
       </div>
     </div>
     <div class="g-wrap">
@@ -1272,7 +1274,11 @@ function gInit(){
   _O.forEach(d=>{
     const ov=DATA[d].overview,sc=ov.metrics['שיעור אזכור']||'0%';
     const b=_e('button','g-bn');b.dataset.d=d;b.onclick=()=>gSel(d);
-    b.innerHTML=ov.brandName+' <span class="gbadge '+_c(sc)+'">'+sc+'</span>';
+    if(_logos[d]){
+      const img=document.createElement('img');img.src=_logos[d];img.alt=ov.brandName;img.className='g-bn-logo';img.loading='lazy';b.appendChild(img);
+    }
+    const nm=document.createElement('span');nm.textContent=ov.brandName;b.appendChild(nm);
+    const bd=document.createElement('span');bd.className='gbadge '+_c(sc);bd.textContent=sc;b.appendChild(bd);
     nav.appendChild(b);
   });
   gSel(_O[0]);
@@ -1292,6 +1298,9 @@ function gRender(domain){
   /* header */
   const hdr=_e('div','g-bhdr');
   const ring=_e('div','g-ring');ring.style.borderColor=clr;ring.style.color=clr;ring.textContent=sc;hdr.appendChild(ring);
+  if(_logos[domain]){
+    const lg=document.createElement('img');lg.src=_logos[domain];lg.alt=ov.brandName;lg.className='g-bhdr-logo';lg.loading='lazy';hdr.appendChild(lg);
+  }
   const bi=_e('div','g-bi');bi.innerHTML='<h3>'+ov.brandName+'</h3><div class="g-dom">'+domain+'</div>';
   const lv=N>=60?'נוכחות חזקה ✓':N>=35?'נוכחות בינונית':'נוכחות חלשה — הזדמנות מיידית';
   const lc=N>=60?'background:rgba(10,158,80,.1);color:var(--green)':N>=35?'background:rgba(201,116,0,.1);color:var(--amber)':'background:rgba(227,0,27,.1);color:var(--red)';
