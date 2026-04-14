@@ -929,11 +929,17 @@ table.gqt th{font-size:10px}
 .rpl-pct{font-family:var(--m);font-weight:700;color:var(--w1);min-width:32px}
 /* Pricing table */
 .rev-pricing{width:100%}
-.rev-table{width:100%;border-collapse:collapse;font-size:14px;color:var(--w1)}
-.rev-table th{text-align:right;padding:12px 16px;font-size:11px;font-family:var(--m);color:var(--w3);letter-spacing:1px;text-transform:uppercase;border-bottom:1px solid var(--bi)}
-.rev-table td{padding:14px 16px;border-bottom:1px solid var(--bi);font-weight:500}
-.rev-table tr:last-child td{border-bottom:none}
+.rev-table{width:100%;border-collapse:collapse;font-size:13px;color:var(--w1);table-layout:fixed}
+.rev-table th{text-align:right;padding:10px 12px;font-size:10px;font-family:var(--m);color:var(--w3);letter-spacing:1px;text-transform:uppercase;border-bottom:1px solid var(--bi)}
+.rev-table td{padding:10px 12px;border-bottom:1px solid var(--bi);font-weight:500;vertical-align:middle}
+.rev-table td:first-child{font-weight:700}
+.rev-table td:nth-child(2){color:var(--w3);font-size:12px;font-family:var(--m)}
+.rev-table td:last-child{text-align:left;direction:ltr;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--w2)}
+.rev-table tr:last-child td{border-bottom:none;background:rgba(227,0,27,.08);font-weight:700;color:#fff}
+.rev-table tr:last-child td:nth-child(2){color:rgba(255,255,255,.7)}
+.rev-table tr:last-child td:last-child{color:var(--red)}
 .rev-table tr:hover td{background:rgba(255,255,255,.03)}
+.rev-table tr:last-child:hover td{background:rgba(227,0,27,.12)}
 .rev-note{font-size:11px;color:var(--w3);margin-top:12px;font-family:var(--m)}
 /* Math callout */
 .rev-math{
