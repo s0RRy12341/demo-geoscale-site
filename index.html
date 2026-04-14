@@ -515,6 +515,63 @@ footer small{font-family:var(--m);font-size:9px;color:var(--w3)}
   padding:4px 12px;border-radius:20px;font-weight:600;letter-spacing:.3px;
 }
 
+/* ── TOP 10 commercial queries accordion ── */
+.g-t10-wrap{
+  background:linear-gradient(180deg,rgba(227,0,27,.04),rgba(227,0,27,.01));
+  border:1.5px solid rgba(227,0,27,.15);border-radius:14px;
+  margin-bottom:22px;overflow:hidden;
+}
+.g-t10-head{
+  width:100%;display:flex;align-items:center;justify-content:space-between;
+  padding:16px 20px;background:transparent;border:none;cursor:pointer;
+  font-family:inherit;color:var(--ink);text-align:right;
+  transition:background .2s;
+}
+.g-t10-head:hover{background:rgba(227,0,27,.03)}
+.g-t10-title{font-weight:700;font-size:15px;letter-spacing:-.3px}
+.g-t10-arrow{
+  font-size:11px;color:var(--red);transition:transform .3s ease;
+  font-family:var(--m);
+}
+.g-t10-head.on .g-t10-arrow{transform:rotate(180deg)}
+.g-t10-body{
+  max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease;
+  padding:0 20px;
+}
+.g-t10-body.open{max-height:900px;padding:0 20px 18px}
+.g-t10-intro{
+  font-size:12.5px;color:var(--p3);line-height:1.6;margin-bottom:14px;
+  padding-bottom:12px;border-bottom:1px dashed var(--bp);
+}
+.g-t10-list{display:flex;flex-direction:column;gap:6px}
+.g-t10-row{
+  display:grid;grid-template-columns:28px 68px 1fr;align-items:center;gap:12px;
+  padding:10px 12px;background:#fff;border:1px solid var(--bp);border-radius:10px;
+  transition:border-color .15s,transform .15s;
+}
+.g-t10-row:hover{border-color:var(--red);transform:translateX(-2px)}
+.g-t10-num{
+  font-family:var(--m);font-size:10px;color:var(--p3);
+  letter-spacing:1px;font-variant-numeric:tabular-nums;
+}
+.g-t10-tag{
+  display:inline-flex;align-items:center;justify-content:center;
+  font-family:var(--m);font-size:9.5px;font-weight:700;letter-spacing:.5px;
+  padding:4px 8px;border-radius:6px;text-transform:uppercase;
+  white-space:nowrap;
+}
+.g-t10-tag.rep{background:rgba(59,130,246,.12);color:#2563eb}
+.g-t10-tag.pos{background:rgba(227,0,27,.1);color:var(--red)}
+.g-t10-q{
+  font-size:13.5px;color:var(--ink);font-weight:500;line-height:1.4;
+}
+@media(max-width:640px){
+  .g-t10-title{font-size:13px}
+  .g-t10-row{grid-template-columns:24px 60px 1fr;gap:8px;padding:8px 10px}
+  .g-t10-q{font-size:12.5px}
+  .g-t10-tag{font-size:8.5px;padding:3px 6px}
+}
+
 /* ── Metrics row ── */
 .g-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px}
 .g-mc{
@@ -1079,7 +1136,6 @@ table.gqt th{font-size:10px}
             <tr><td>Ynet</td><td>חדשות ראשי</td><td>₪10,000 - ₪30,000</td></tr>
             <tr><td>Calcalist</td><td>כלכלה</td><td>₪7,000 - ₪10,000</td></tr>
             <tr><td>ONE</td><td>ספורט</td><td>₪5,000 - ₪8,000</td></tr>
-            <tr><td>Sport1</td><td>ספורט</td><td>₪4,000 - ₪7,000</td></tr>
             <tr><td>AllJobs</td><td>תעסוקה</td><td>₪4,000 - ₪7,000</td></tr>
             <tr><td>iCar</td><td>רכב</td><td>₪4,000 - ₪7,000</td></tr>
             <tr><td>Mynet</td><td>מקומי</td><td>₪3,000 - ₪6,000</td></tr>
@@ -1184,7 +1240,6 @@ table.gqt th{font-size:10px}
     <a class="f-a" href="#">Ynet</a>
     <a class="f-a" href="#">Calcalist</a>
     <a class="f-a" href="#">ONE</a>
-    <a class="f-a" href="#">Sport1</a>
     <a class="f-a" href="#">AllJobs</a>
     <a class="f-a" href="#">iCar</a>
     <a class="f-a" href="#">Mynet</a>
@@ -1257,6 +1312,166 @@ const _logos={
   'fnx.co.il':'https://demo-ynet.geoscale.ai/logo_phonix.png'
 };
 
+/* Top 10 commercial "screaming" queries per brand - mix of reputation (rep) + positioning (pos) */
+const _top10={
+ 'rami-levy.co.il':[
+  {q:'מהן 3 רשתות הסופרים המובילות בישראל?',t:'pos'},
+  {q:'מהו הסופר הזול ביותר בישראל?',t:'pos'},
+  {q:'איפה הכי משתלם לקנות מצרכים אונליין?',t:'pos'},
+  {q:'איזה סופר הכי מומלץ למשפחה גדולה?',t:'pos'},
+  {q:'מהו הסופר עם המשלוחים הכי מהירים?',t:'pos'},
+  {q:'רמי לוי - האם הכי זול בישראל?',t:'rep'},
+  {q:'מותג פרטי רמי לוי - האם איכותי?',t:'rep'},
+  {q:'האם רמי לוי זול יותר משופרסל?',t:'rep'},
+  {q:'רמי לוי תקשורת - האם משתלם להצטרף?',t:'rep'},
+  {q:'רמי לוי אונליין - חוויית משתמש ומחירים',t:'rep'}
+ ],
+ 'leumi.co.il':[
+  {q:'מהו הבנק המוביל בישראל?',t:'pos'},
+  {q:'מהם 3 הבנקים הכי טובים לפתיחת חשבון?',t:'pos'},
+  {q:'איזה בנק הכי מומלץ לצעירים?',t:'pos'},
+  {q:'מהו הבנק עם האפליקציה הטובה ביותר?',t:'pos'},
+  {q:'מהם 5 הבנקים עם עמלות נמוכות?',t:'pos'},
+  {q:'האם בנק לאומי מתאים לעצמאים?',t:'rep'},
+  {q:'משכנתא בלאומי - האם התנאים משתלמים?',t:'rep'},
+  {q:'אפליקציית לאומי - חוות דעת ודירוג',t:'rep'},
+  {q:'לאומי דיגיטל - האם שווה לעבור?',t:'rep'},
+  {q:'כרטיסי אשראי לאומי - איזה הכי משתלם?',t:'rep'}
+ ],
+ 'bankhapoalim.co.il':[
+  {q:'מהם 3 הבנקים הגדולים בישראל?',t:'pos'},
+  {q:'איזה בנק הכי מומלץ למשכנתאות?',t:'pos'},
+  {q:'מהו הבנק המוביל לעסקים קטנים?',t:'pos'},
+  {q:'מהן האפליקציות הבנקאיות המובילות?',t:'pos'},
+  {q:'מהו הבנק עם שירות הלקוחות הטוב ביותר?',t:'pos'},
+  {q:'בנק הפועלים - האם המשכנתא משתלמת?',t:'rep'},
+  {q:'ביט מבנק הפועלים - איך זה עובד?',t:'rep'},
+  {q:'הפועלים אונליין - ביקורות ודירוג',t:'rep'},
+  {q:'ייעוץ השקעות בפועלים - שווה?',t:'rep'},
+  {q:'האם להעביר חשבון לבנק הפועלים?',t:'rep'}
+ ],
+ 'shufersal.co.il':[
+  {q:'מהן רשתות הסופרים המובילות בישראל?',t:'pos'},
+  {q:'איזה סופר הכי זול ב-2026?',t:'pos'},
+  {q:'מי מוביל במשלוחי סופר אונליין?',t:'pos'},
+  {q:'מהם 3 מותגי הפרטי המובילים בסופר?',t:'pos'},
+  {q:'איזה סופר הכי משתלם לקניות שבועיות?',t:'pos'},
+  {q:'שופרסל אונליין - חוות דעת על המשלוחים',t:'rep'},
+  {q:'כרטיס לקוח שופרסל - האם משתלם?',t:'rep'},
+  {q:'מותג פרטי שופרסל - איכות מול מחיר',t:'rep'},
+  {q:'שופרסל דיל - הבדל מרשתות אחרות',t:'rep'},
+  {q:'האם שופרסל זול יותר מרמי לוי?',t:'rep'}
+ ],
+ 'bezeq.co.il':[
+  {q:'מי ספק האינטרנט המהיר ביותר בישראל?',t:'pos'},
+  {q:'מהם 3 ספקי הסיבים המובילים בישראל?',t:'pos'},
+  {q:'איזה ספק אינטרנט הכי מומלץ?',t:'pos'},
+  {q:'מהי חבילת האינטרנט הכי משתלמת?',t:'pos'},
+  {q:'מי מוביל בפריסת סיבים אופטיים?',t:'pos'},
+  {q:'בזק סיבים - האם שווה להתחבר?',t:'rep'},
+  {q:'האם בזק מהיר יותר מהוט?',t:'rep'},
+  {q:'בזק B144 - מידע עסקי ומחירים',t:'rep'},
+  {q:'תשתית בזק - איכות החיבור וזמינות',t:'rep'},
+  {q:'בזק אינטרנט - חוות דעת 2026',t:'rep'}
+ ],
+ 'migdal.co.il':[
+  {q:'מהי חברת ביטוח החיים המובילה בישראל?',t:'pos'},
+  {q:'מהן 3 חברות הפנסיה הגדולות?',t:'pos'},
+  {q:'איזה ביטוח סיעודי הכי מומלץ?',t:'pos'},
+  {q:'מי מוביל בגמל והשתלמות?',t:'pos'},
+  {q:'מהן חברות הביטוח הכי אמינות?',t:'pos'},
+  {q:'מגדל ביטוח חיים - האם כדאי?',t:'rep'},
+  {q:'קרן פנסיה מגדל - ביקורות ודמי ניהול',t:'rep'},
+  {q:'ביטוח בריאות מגדל - מה מקבלים?',t:'rep'},
+  {q:'מגדל סיעוד - תנאים ותביעות',t:'rep'},
+  {q:'האם כדאי לעבור למגדל?',t:'rep'}
+ ],
+ 'openu.ac.il':[
+  {q:'מהן האוניברסיטאות המובילות בישראל?',t:'pos'},
+  {q:'איפה הכי טוב ללמוד מרחוק?',t:'pos'},
+  {q:'מהם 3 התארים המבוקשים ביותר ב-2026?',t:'pos'},
+  {q:'איזו אוניברסיטה מתאימה לעובדים?',t:'pos'},
+  {q:'מהן תוכניות הלימוד הגמישות ביותר?',t:'pos'},
+  {q:'האוניברסיטה הפתוחה - האם התואר מוכר?',t:'rep'},
+  {q:'לימודים באוניברסיטה הפתוחה - חוות דעת',t:'rep'},
+  {q:'שכר לימוד באוניברסיטה הפתוחה 2026',t:'rep'},
+  {q:'תואר בחו"ל מול האוניברסיטה הפתוחה',t:'rep'},
+  {q:'איזה קורסים כדאי לקחת באו"פ?',t:'rep'}
+ ],
+ 'colmobil.co.il':[
+  {q:'מהם 3 מותגי הרכב הכי מכורים בישראל?',t:'pos'},
+  {q:'מי מייבא הרכב המוביל בישראל?',t:'pos'},
+  {q:'איזה רכב חשמלי הכי מומלץ?',t:'pos'},
+  {q:'מהן סוכנויות הרכב המובילות בליסינג?',t:'pos'},
+  {q:'מי הרכבים האמינים ביותר 2026?',t:'pos'},
+  {q:'מרצדס בקולמובי - מחירים ודגמים',t:'rep'},
+  {q:'יונדאי בקולמובי - אמינות ותחזוקה',t:'rep'},
+  {q:'מיצובישי קולמובי - איזה דגם לבחור?',t:'rep'},
+  {q:'סמארט חשמלי בקולמובי - ביקורות',t:'rep'},
+  {q:'שירות מוסכים קולמובי - האם טוב?',t:'rep'}
+ ],
+ 'gindi.com':[
+  {q:'מי הקבלנים המובילים בתל אביב?',t:'pos'},
+  {q:'מהם 3 פרויקטי היוקרה המובילים ב-2026?',t:'pos'},
+  {q:'איזה קבלן הכי אמין בישראל?',t:'pos'},
+  {q:'איפה להשקיע בנדל"ן בתל אביב?',t:'pos'},
+  {q:'מי בונה את המגדלים הגבוהים בישראל?',t:'pos'},
+  {q:'גינדי TLV - מחירים ודירות זמינות',t:'rep'},
+  {q:'פרויקטי גינדי - איכות בנייה ואיחורים',t:'rep'},
+  {q:'גינדי יזמות - ביקורות דיירים',t:'rep'},
+  {q:'האם גינדי שווה את המחיר?',t:'rep'},
+  {q:'דירות יוקרה של גינדי בתל אביב',t:'rep'}
+ ],
+ 'cal-online.co.il':[
+  {q:'מהו כרטיס האשראי הטוב ביותר בישראל?',t:'pos'},
+  {q:'מהן 3 חברות האשראי המובילות?',t:'pos'},
+  {q:'איזה כרטיס אשראי הכי מתגמל?',t:'pos'},
+  {q:'מי מציע את התנאים הטובים ביותר לקניות אונליין?',t:'pos'},
+  {q:'מהם כרטיסי האשראי עם ההטבות הטובות ביותר?',t:'pos'},
+  {q:'כאל כרטיס אשראי - איזה הכי משתלם?',t:'rep'},
+  {q:'הטבות כאל - האם באמת שווה?',t:'rep'},
+  {q:'כאל cashback - כמה באמת מקבלים?',t:'rep'},
+  {q:'ניהול הוצאות בכאל - איך זה עובד?',t:'rep'},
+  {q:'דוח חיובים כאל - איך לקרוא ולהבין',t:'rep'}
+ ],
+ 'ibi.co.il':[
+  {q:'מהו בית ההשקעות המוביל בישראל?',t:'pos'},
+  {q:'מהן 3 קרנות הנאמנות הכי מומלצות?',t:'pos'},
+  {q:'מי מציע את דמי הניהול הנמוכים ביותר?',t:'pos'},
+  {q:'איזה בית השקעות הכי טוב למתחילים?',t:'pos'},
+  {q:'מהם בתי ההשקעות עם הביצועים הטובים ביותר?',t:'pos'},
+  {q:'IBI טרייד - סקירה וחוות דעת',t:'rep'},
+  {q:'ניהול תיקים ב-IBI - האם משתלם?',t:'rep'},
+  {q:'IBI גמל והשתלמות - ביצועים ועמלות',t:'rep'},
+  {q:'תעודות סל IBI - איזה לבחור?',t:'rep'},
+  {q:'האם לעבור ל-IBI מבית השקעות אחר?',t:'rep'}
+ ],
+ 'shop.super-pharm.co.il':[
+  {q:'מהי רשת הפארם המובילה בישראל?',t:'pos'},
+  {q:'איפה הכי משתלם לקנות ויטמינים ותוספים?',t:'pos'},
+  {q:'מהם 3 מותגי הטיפוח המובילים ב-2026?',t:'pos'},
+  {q:'איזה פארם הכי טוב למוצרי תינוקות?',t:'pos'},
+  {q:'מי מציע את המחירים הזולים ביותר בקוסמטיקה?',t:'pos'},
+  {q:'מותג Life בסופר-פארם - האם איכותי?',t:'rep'},
+  {q:'סופר-פארם אונליין - ביקורות משלוח',t:'rep'},
+  {q:'מועדון לייף-סטייל - האם משתלם?',t:'rep'},
+  {q:'תוספי תזונה בסופר-פארם - מה לבחור?',t:'rep'},
+  {q:'האם סופר-פארם זול יותר מרשתות אחרות?',t:'rep'}
+ ],
+ 'fnx.co.il':[
+  {q:'מהן חברות הביטוח הגדולות בישראל?',t:'pos'},
+  {q:'מי מציע את ביטוח הרכב הזול ביותר?',t:'pos'},
+  {q:'מהם 3 ביטוחי הבריאות המובילים ב-2026?',t:'pos'},
+  {q:'איזו חברת פנסיה הכי מומלצת?',t:'pos'},
+  {q:'מי החברה עם טיפול התביעות הטוב ביותר?',t:'pos'},
+  {q:'הפניקס ביטוח חיים - האם כדאי?',t:'rep'},
+  {q:'ביטוח בריאות הפניקס - מה הכיסוי?',t:'rep'},
+  {q:'פנסיה בהפניקס - דמי ניהול וביצועים',t:'rep'},
+  {q:'הפניקס השקעות - סקירה וחוות דעת',t:'rep'},
+  {q:'האם לעבור להפניקס? יתרונות וחסרונות',t:'rep'}
+ ]
+};
+
 /* Hero brand logos */
 function initHeroBrands(){
   const hb=document.getElementById('heroBrands');if(!hb)return;
@@ -1315,6 +1530,34 @@ function gRender(domain){
   const lc=N>=60?'background:rgba(10,158,80,.1);color:var(--green)':N>=35?'background:rgba(201,116,0,.1);color:var(--amber)':'background:rgba(227,0,27,.1);color:var(--red)';
   const tg=_e('span','g-ptag');tg.textContent=lv;tg.style.cssText=lc;bi.appendChild(tg);
   hdr.appendChild(bi);el.appendChild(hdr);
+
+  /* TOP 10 commercial queries accordion */
+  if(_top10[domain]){
+    const t10=_top10[domain];
+    const wrap=_e('div','g-t10-wrap');
+    const head=document.createElement('button');head.className='g-t10-head on';
+    head.innerHTML='<span class="g-t10-title">🎯 10 שאילתות מסחריות להמרה לכתבות GEO</span><span class="g-t10-arrow">▼</span>';
+    const body=_e('div','g-t10-body open');
+    const intro=_e('div','g-t10-intro');
+    intro.innerHTML='שני סוגי כתבות: <span class="g-t10-tag rep">מוניטין</span> — חיזוק המותג בשאילתות מותגיות. <span class="g-t10-tag pos">מיצוב</span> — כיבוש שאילתות "מי המוביל".';
+    body.appendChild(intro);
+    const list=_e('div','g-t10-list');
+    t10.forEach((row,i)=>{
+      const li=_e('div','g-t10-row');
+      const num=_e('span','g-t10-num');num.textContent=(i+1).toString().padStart(2,'0');
+      const tag=_e('span','g-t10-tag '+row.t);tag.textContent=row.t==='rep'?'מוניטין':'מיצוב';
+      const q=_e('span','g-t10-q');q.textContent=row.q;
+      li.appendChild(num);li.appendChild(tag);li.appendChild(q);
+      list.appendChild(li);
+    });
+    body.appendChild(list);
+    head.onclick=function(){
+      const isOpen=body.classList.toggle('open');
+      head.classList.toggle('on',isOpen);
+    };
+    wrap.appendChild(head);wrap.appendChild(body);
+    el.appendChild(wrap);
+  }
 
   /* tabs */
   const tn=_e('div','g-tabs');
