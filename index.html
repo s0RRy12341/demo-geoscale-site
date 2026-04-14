@@ -78,30 +78,28 @@ nav{position:sticky;top:0;z-index:200;height:56px;background:rgba(245,242,236,.9
 
 /* IMPROVED: 2-column hero grid (from GPT) */
 .hero-in{
-  max-width:1160px;margin:0 auto;width:100%;
-  padding:56px 48px 48px;
+  max-width:920px;margin:0 auto;width:100%;
+  padding:72px 48px 56px;
   position:relative;z-index:1;
-  display:grid;
-  grid-template-columns:1fr 360px;
-  gap:48px;
-  align-items:center;
+  text-align:center;
 }
-.hero-left{}
-.hero-kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--m);font-size:10px;color:var(--w3);letter-spacing:2px;text-transform:uppercase;margin-bottom:24px}
+.hero-left{display:flex;flex-direction:column;align-items:center}
+.hero-kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--m);font-size:10px;color:var(--w3);letter-spacing:2px;text-transform:uppercase;margin-bottom:24px;justify-content:center}
 .hero-kicker::before{content:'';width:20px;height:1px;background:var(--red)}
-.hero h1{font-size:68px;font-weight:900;letter-spacing:-4px;line-height:.95;color:var(--w1);margin-bottom:26px}
+.hero-kicker::after{content:'';width:20px;height:1px;background:var(--red)}
+.hero h1{font-size:68px;font-weight:900;letter-spacing:-4px;line-height:.95;color:var(--w1);margin-bottom:26px;text-align:center}
 .hero h1 .r{color:var(--red)}
 .hero h1 .dim{color:var(--w3);font-weight:300;letter-spacing:-3px}
-.hero-sub{font-size:18px;color:var(--w2);line-height:1.72;max-width:520px;margin-bottom:36px;letter-spacing:.02em}
+.hero-sub{font-size:18px;color:var(--w2);line-height:1.72;max-width:620px;margin:0 auto 36px;letter-spacing:.02em;text-align:center}
 .hero-sub b{color:var(--w1);font-weight:700}
-.hero-btns{display:flex;gap:12px;align-items:center;margin-bottom:64px}
+.hero-btns{display:flex;gap:12px;align-items:center;justify-content:center;margin-bottom:48px}
 .btn-r{background:var(--red);color:#fff;padding:14px 26px;border-radius:var(--r);font-size:14px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:filter .14s,transform .14s;box-shadow:0 12px 32px rgba(227,0,27,.22)}
 .btn-r:hover{filter:brightness(1.1);transform:translateY(-2px)}
 .btn-g{border:1px solid var(--bi);color:var(--w2);padding:13px 20px;border-radius:var(--r);font-size:13px;font-weight:500;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:all .14s}
 .btn-g:hover{border-color:rgba(255,255,255,.22);color:var(--w1)}
 
 /* IMPROVED: 0 / 1 / ∞ + market numbers (merged both approaches) */
-.hero-nums{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--bi);padding-top:32px}
+.hero-nums{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--bi);padding-top:32px;width:100%;text-align:center}
 .hn{padding:0 28px;border-left:1px solid var(--bi)}
 .hn:first-child{padding-right:0;border-left:none}
 .hn-n{font-family:var(--m);font-size:44px;line-height:1;letter-spacing:-2.5px;margin-bottom:7px}
@@ -868,7 +866,7 @@ table.gqt th{font-size:10px}
 /* ══ HERO BRANDS ROW ══ */
 .hero-brands{
   display:flex;flex-wrap:wrap;gap:10px;justify-content:center;
-  margin-bottom:28px;padding:20px 0;
+  margin:0 auto 28px;padding:20px 0;width:100%;
   border-top:1px solid var(--bi);border-bottom:1px solid var(--bi);
 }
 .hb-item{
