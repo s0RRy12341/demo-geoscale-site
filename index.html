@@ -1199,6 +1199,29 @@ const ORDER = [
   'gindi.com','cal-online.co.il','ibi.co.il','shop.super-pharm.co.il','fnx.co.il'
 ];
 const _O=['rami-levy.co.il','leumi.co.il','bankhapoalim.co.il','shufersal.co.il','bezeq.co.il','migdal.co.il','openu.ac.il','colmobil.co.il','gindi.com','cal-online.co.il','ibi.co.il','shop.super-pharm.co.il','fnx.co.il'];/* sorted by score desc: 87,75,60,58,49,49,43,36,36,30,28,22,16 */
+/* ══ Per-brand query relevance filter ══ */
+const _rel={
+ 'rami-levy.co.il':{in:['סופר','מזון','מצרכי','ירק','פרי','בשר','חלב','משלוח','אונליין','תקשורת','סים','סלולר','חשמל','מכולת'],out:['ביטוח','אופנה יוקרה','רכב']},
+ 'leumi.co.il':{in:['חשבון','עובר ושב','כרטיס אשראי','משכנתא','הלוואה','פיקדון','חיסכון','השקעות','ניירות ערך','פנסיה','עסק','פיי','אפליקציה','בנק'],out:['ביטוח חיים עצמאי','סופר','ביטוח רכב','ביטוח דירה']},
+ 'bankhapoalim.co.il':{in:['חשבון בנק','כרטיס אשראי','משכנתא','הלוואה','פיקדון','חיסכון','השקעות','מסחר בבורסה','ביט','ייעוץ','עסק','אפליקציה','בנק'],out:['ביטוח','סופר']},
+ 'shufersal.co.il':{in:['סופר','מזון','מצרכי','ירק','פרי','בשר','חלב','משלוח','אונליין','מותג פרטי','כרטיס לקוח','דיל','מכולת'],out:['ביטוח','בנקאות','רכב']},
+ 'bezeq.co.il':{in:['אינטרנט','סיבים','סיב','אופטי','טלפון קווי','ראוטר','תשתית','שיחות','חבילת אינטרנט','bezeq','בזק','144','B144'],out:['סלולר','yes','טלוויזיה']},
+ 'migdal.co.il':{in:['ביטוח חיים','ביטוח בריאות','ביטוח סיעודי','פנסיה','קרן פנסיה','גמל','השתלמות','חיסכון','פוליס','מגדל','סיעוד'],out:['ביטוח רכב','ביטוח דירה','ביטוח נסיעות']},
+ 'openu.ac.il':{in:['לימודים','תואר','אקדמי','קורס','למידה מרחוק','האוניברסיטה','סמסטר','רישום','מלגה','שכר לימוד','סטודנט'],out:['הכשרה טכנית','קורס מקצועי קצר']},
+ 'colmobil.co.il':{in:['מרצדס','יונדאי','מיצובישי','סמארט','רכב','ליסינג','מוסך','חלפים','סוכנות','טסט נהיגה','colmobil','קולמובי'],out:['ביטוח רכב','טויוטה','קיה','סקודה']},
+ 'gindi.com':{in:['דירה','נדלן','נדל"ן','קבלן','מגורים','TLV','גינדי','יזמ','מגדל','יוקרה','פרויקט'],out:['השכרה','מסחרי יד שניה']},
+ 'cal-online.co.il':{in:['כרטיס אשראי','ויזה','מאסטרקארד','דיינרס','הטבות','נקודות','עסקאות','תשלומים','דוח חיובים','כאל','cal','cashback'],out:['הלוואה אישית','משכנתא','חשבון בנק']},
+ 'ibi.co.il':{in:['בית השקעות','מסחר בבורסה','ניירות ערך','קרנות נאמנות','תעודות סל','גמל','השתלמות','תיק השקעות','טרייד','ניהול תיקים','ibi','השקעות'],out:['חשבון בנק','ביטוח רכב','משכנתא']},
+ 'shop.super-pharm.co.il':{in:['תרופות','ויטמינים','תוספי תזונה','קוסמטיקה','טיפוח','בישום','תינוק','חיתול','לייף','Life','פארם','היגיינה','סופר-פארם','סופרפארם'],out:['מזון בסיסי','ביטוח']},
+ 'fnx.co.il':{in:['ביטוח חיים','ביטוח בריאות','ביטוח רכב','ביטוח דירה','ביטוח נסיעות','פנסיה','גמל','השתלמות','חיסכון','הפניקס','פניקס','השקעות'],out:['בנקאות','כרטיס אשראי']}
+};
+function _isRel(domain,txt){
+ const r=_rel[domain];if(!r||!txt)return true;
+ const t=txt.toLowerCase();
+ if(r.out.some(k=>t.includes(k.toLowerCase())))return false;
+ return r.in.some(k=>t.includes(k.toLowerCase()));
+}
+function _filt(domain,arr,key='query'){return arr.filter(q=>_isRel(domain,q[key]||''))}
 const _n=s=>parseInt(s)||0;
 const _c=s=>{const n=_n(s);return n>=60?'gbhi':n>=35?'gbmid':'gblo'};
 const _r=s=>{const n=_n(s);return n>=60?'var(--green)':n>=35?'var(--amber)':'var(--red)'};
@@ -1277,7 +1300,8 @@ function gRender(domain){
 
   /* tabs */
   const tn=_e('div','g-tabs');
-  [['📊 סקירה','go'],['❓ שאילתות ('+d.queries.length+')','gq'],['👥 קהלים ('+d.audiences.length+')','ga'],['📋 תוכנית','gw']].forEach(([lb,id],i)=>{
+  const qCnt=_filt(domain,d.queries).length;
+  [['📊 סקירה','go'],['❓ שאילתות ('+qCnt+')','gq'],['👥 קהלים ('+d.audiences.length+')','ga'],['📋 תוכנית','gw']].forEach(([lb,id],i)=>{
     const b=_e('button','g-tn'+(i===0?' on':''));b.textContent=lb;
     b.onclick=function(){
       tn.querySelectorAll('.g-tn').forEach(x=>x.classList.remove('on'));this.classList.add('on');
@@ -1317,8 +1341,9 @@ function gRender(domain){
     if(ov.missing&&ov.missing.length){const mc=_e('div','g-ins');const mh=_e('h4','');mh.textContent='✗ מה חסר';mh.style.color='var(--red)';mc.appendChild(mh);ov.missing.forEach(m=>{if(m){const mi=_e('div','g-ins-i');mi.textContent='✗ '+m;mi.style.color='var(--red)';mc.appendChild(mi)}});ig.appendChild(mc)}
     op.appendChild(ig);
   }
-  if(ov.top5&&ov.top5.length){
-    op.appendChild(_gs('🏆','Top 5 שאילתות'));
+  const top5F=ov.top5?_filt(domain,ov.top5):[];
+  if(top5F.length){
+    op.appendChild(_gs('🏆','Top 5 שאילתות רלוונטיות'));
     const tw=_e('div','');tw.style.cssText='overflow-x:auto;border-radius:10px;';
     const t=document.createElement('table');t.className='gqt';
     const thead=document.createElement('thead'),thr=document.createElement('tr');
@@ -1330,14 +1355,15 @@ function gRender(domain){
 });
     thead.appendChild(thr);t.appendChild(thead);
     const tb=document.createElement('tbody');
-    ov.top5.forEach(q=>{const row=document.createElement('tr');[q.num,q.query].forEach(v=>{const td=document.createElement('td');td.textContent=v;row.appendChild(td)});[q.chatgpt,q.gemini].forEach(v=>{const td=document.createElement('td');td.textContent=v;td.className=v==='✓'?'gy':'gn';row.appendChild(td)});tb.appendChild(row)});
+    top5F.slice(0,5).forEach(q=>{const row=document.createElement('tr');[q.num,q.query].forEach(v=>{const td=document.createElement('td');td.textContent=v;row.appendChild(td)});[q.chatgpt,q.gemini].forEach(v=>{const td=document.createElement('td');td.textContent=v;td.className=v==='✓'?'gy':'gn';row.appendChild(td)});tb.appendChild(row)});
     t.appendChild(tb);tw.appendChild(t);op.appendChild(tw);
   }
   el.appendChild(op);
 
-  /* queries pane */
+  /* queries pane - filtered to brand-relevant only */
   const qp=_e('div','g-pane');qp.id='gq-'+domain;
-  const tQ=d.queries.length,cY=d.queries.filter(q=>q.chatgpt==='✓').length,gY=d.queries.filter(q=>q.gemini==='✓').length;
+  const qF=_filt(domain,d.queries);
+  const tQ=qF.length,cY=qF.filter(q=>q.chatgpt==='✓').length,gY=qF.filter(q=>q.gemini==='✓').length;
   const qm=_e('div','g-metrics');qm.style.marginBottom='20px';
   [{v:''+tQ,l:'שאילתות',c:'var(--p1)'},{v:''+cY,l:'ChatGPT',c:cY/tQ>=.5?'var(--green)':'var(--red)'},{v:''+gY,l:'Gemini',c:gY/tQ>=.5?'var(--green)':'var(--red)'},{v:Math.round((cY+gY)/(tQ*2)*100)+'%',l:'ציון',c:'var(--amber)'}].forEach(m=>{const mc=_e('div','g-mc');mc.innerHTML='<div class="mv" style="color:'+m.c+'">'+m.v+'</div><div class="ml">'+m.l+'</div>';qm.appendChild(mc)});
   qp.appendChild(qm);
@@ -1352,7 +1378,7 @@ function gRender(domain){
 });
   qth.appendChild(qthr);qt.appendChild(qth);
   const qtb=document.createElement('tbody');
-  d.queries.forEach(q=>{
+  qF.forEach(q=>{
     const row=document.createElement('tr');
     [q.num,q.query,q.persona].forEach((v,i)=>{
     const td=document.createElement('td');td.textContent=v;
