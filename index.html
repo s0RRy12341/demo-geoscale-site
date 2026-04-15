@@ -1021,7 +1021,7 @@ table.gqt th{font-size:10px}
   -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
 }
 .hero-brands{
-  display:flex;gap:48px;align-items:center;width:max-content;
+  display:flex;gap:64px;align-items:center;width:max-content;
   will-change:transform;
 }
 .hero-brands.hb-running{animation:hb-scroll var(--dur,35s) linear infinite}
@@ -1029,12 +1029,11 @@ table.gqt th{font-size:10px}
 @keyframes hb-scroll{0%{transform:translateX(0)}100%{transform:translateX(var(--scroll-dist,-50%))}}
 .hb-item{
   display:flex;align-items:center;justify-content:center;
-  padding:8px 14px;flex-shrink:0;
-  transition:opacity .15s;cursor:default;min-height:56px;
+  padding:8px 0;flex-shrink:0;
+  transition:opacity .2s;cursor:default;height:54px;
 }
-.hb-logo{height:44px;width:auto;max-width:140px;object-fit:contain;opacity:.85;transition:opacity .2s,filter .2s}
-.hb-item:hover .hb-logo{opacity:1}
-.hb-text{font-size:18px;font-weight:800;color:var(--p1);white-space:nowrap;letter-spacing:-.5px}
+.hb-logo{max-height:46px;height:46px;width:auto;max-width:160px;object-fit:contain;opacity:.7;transition:opacity .25s,filter .25s;filter:grayscale(1)}
+.hb-item:hover .hb-logo{opacity:1;filter:grayscale(0)}
 .hb-item:hover .hb-logo{opacity:1}
 
 /* ══ FLOW DIAGRAM (4-station) ══ */
@@ -1623,45 +1622,36 @@ const _top10={
  ]
 };
 
-/* Hero brand logos - Yedioth media properties */
+/* Hero brand logos - Yedioth media properties (clean, logos only) */
 const _yedioth=[
-  {name:'Ynet',domain:'ynet.co.il',logo:'https://www.google.com/s2/favicons?domain=ynet.co.il&sz=128'},
-  {name:'Calcalist',domain:'calcalist.co.il',logo:'https://www.google.com/s2/favicons?domain=calcalist.co.il&sz=128'},
-  {name:'ONE',domain:'one.co.il',logo:'https://www.google.com/s2/favicons?domain=one.co.il&sz=128'},
-  {name:'AllJobs',domain:'alljobs.co.il',logo:'https://www.google.com/s2/favicons?domain=alljobs.co.il&sz=128'},
-  {name:'iCar',domain:'icar.co.il',logo:'https://www.google.com/s2/favicons?domain=icar.co.il&sz=128'},
-  {name:'Mynet',domain:'mynet.co.il',logo:'https://www.google.com/s2/favicons?domain=mynet.co.il&sz=128'},
-  {name:'Pnai Plus',domain:'pnai.co.il',logo:'https://www.google.com/s2/favicons?domain=pnai.co.il&sz=128'},
-  {name:'Laisha',domain:'laisha.co.il',logo:'https://www.google.com/s2/favicons?domain=laisha.co.il&sz=128'},
-  {name:'Xnet',domain:'xnet.co.il',logo:'https://www.google.com/s2/favicons?domain=xnet.co.il&sz=128'},
-  {name:'Mako',domain:'mako.co.il',logo:'https://www.google.com/s2/favicons?domain=mako.co.il&sz=128'}
+  {name:'Ynet',logo:'https://upload.wikimedia.org/wikipedia/he/thumb/9/9d/Ynet-logo.svg/220px-Ynet-logo.svg.png'},
+  {name:'Calcalist',logo:'/calcalist-logo.png'},
+  {name:'ONE',logo:'https://upload.wikimedia.org/wikipedia/he/thumb/2/26/Logo_one_2.png/220px-Logo_one_2.png'},
+  {name:'AllJobs',logo:'https://www.google.com/s2/favicons?domain=alljobs.co.il&sz=256'},
+  {name:'iCar',logo:'https://www.google.com/s2/favicons?domain=icar.co.il&sz=256'}
 ];
 function initHeroBrands(){
   const track=document.getElementById('heroBrands');if(!track)return;
   const build=(b)=>{
     const item=_e('div','hb-item');
-    const wrap=_e('div','hb-inner');wrap.style.cssText='display:flex;align-items:center;gap:10px';
     const img=document.createElement('img');
     img.src=b.logo;img.alt=b.name;img.className='hb-logo';img.loading='lazy';
-    img.onerror=function(){this.remove();};
-    const s=document.createElement('span');s.className='hb-text';s.textContent=b.name;
-    wrap.appendChild(img);wrap.appendChild(s);
-    item.appendChild(wrap);
+    img.onerror=function(){item.remove();};
+    item.appendChild(img);
     return item;
   };
   _yedioth.forEach(b=>track.appendChild(build(b)));
-  /* habetzefer-pattern seamless loop: clone enough sets to fill 3x viewport, measure one set, animate exactly that distance */
+  /* habetzefer-pattern seamless loop: clone enough sets, measure one, animate exact distance */
   const items=Array.from(track.children);
   const COUNT=items.length;
-  const approxItem=180;
-  const needed=Math.max(2,Math.ceil((window.innerWidth*3)/(approxItem*COUNT))+1);
+  const approxItem=160;
+  const needed=Math.max(3,Math.ceil((window.innerWidth*3)/(approxItem*COUNT))+1);
   for(let s=0;s<needed;s++){for(let i=0;i<COUNT;i++){track.appendChild(items[i].cloneNode(true));}}
-  /* measure one original set */
   requestAnimationFrame(()=>{
-    let oneSet=0;const gap=48;
+    let oneSet=0;const gap=64;
     for(let i=0;i<COUNT;i++){oneSet+=track.children[i].offsetWidth+gap;}
     track.style.setProperty('--scroll-dist',(-oneSet)+'px');
-    track.style.setProperty('--dur',Math.max(25,oneSet/45)+'s');
+    track.style.setProperty('--dur',Math.max(25,oneSet/40)+'s');
     track.classList.add('hb-running');
   });
 }
