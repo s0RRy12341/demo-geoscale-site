@@ -1024,7 +1024,8 @@ table.gqt th{font-size:10px}
   transition:all .15s;cursor:default;min-width:72px;min-height:60px;
 }
 .hb-item:hover{border-color:rgba(227,0,27,.3);background:rgba(227,0,27,.06);transform:translateY(-2px)}
-.hb-logo{width:48px;height:48px;object-fit:contain;border-radius:6px;filter:brightness(0);opacity:.85;transition:opacity .15s}
+.hb-logo{width:48px;height:48px;object-fit:contain;border-radius:6px;opacity:.9;transition:opacity .15s}
+.hb-text{font-size:13px;font-weight:700;color:var(--ink);white-space:nowrap}
 .hb-item:hover .hb-logo{opacity:1}
 
 /* ══ FLOW DIAGRAM (4-station) ══ */
@@ -1611,15 +1612,26 @@ const _top10={
  ]
 };
 
-/* Hero brand logos */
+/* Hero brand logos - Yedioth media properties */
+const _yedioth=[
+  {name:'Ynet',domain:'ynet.co.il'},
+  {name:'Calcalist',domain:'calcalist.co.il'},
+  {name:'ONE',domain:'one.co.il'},
+  {name:'AllJobs',domain:'alljobs.co.il'},
+  {name:'iCar',domain:'icar.co.il'},
+  {name:'Mynet',domain:'mynet.co.il'},
+  {name:'Pnai Plus',domain:'pnai.co.il'},
+  {name:'Laisha',domain:'laisha.co.il'}
+];
 function initHeroBrands(){
   const hb=document.getElementById('heroBrands');if(!hb)return;
-  _O.forEach(d=>{
-    const ov=DATA[d].overview;
+  _yedioth.forEach(b=>{
     const item=_e('div','hb-item');
-    if(_logos[d]){
-      const img=document.createElement('img');img.src=_logos[d];img.alt=ov.brandName;img.className='hb-logo';img.loading='lazy';item.appendChild(img);
-    }
+    const img=document.createElement('img');
+    img.src='https://logo.clearbit.com/'+b.domain;
+    img.alt=b.name;img.className='hb-logo';img.loading='lazy';
+    img.onerror=function(){this.remove();const s=document.createElement('span');s.className='hb-text';s.textContent=b.name;item.appendChild(s);};
+    item.appendChild(img);
     hb.appendChild(item);
   });
 }
