@@ -77,8 +77,8 @@ nav{position:sticky;top:0;z-index:200;height:56px;background:rgba(245,242,236,.9
 
 /* IMPROVED: 2-column hero grid (from GPT) */
 .hero-in{
-  max-width:920px;margin:0 auto;width:100%;
-  padding:72px 48px 56px;
+  max-width:1120px;margin:0 auto;width:100%;
+  padding:110px 56px 96px;
   position:relative;z-index:1;
   text-align:center;
 }
@@ -1012,20 +1012,27 @@ table.gqt th{font-size:10px}
 }
 
 /* ══ HERO BRANDS ROW ══ */
-.hero-brands{
-  display:flex;flex-wrap:wrap;gap:10px;justify-content:center;
-  margin:0 auto 28px;padding:20px 0;width:100%;
+.hero-brands-wrap{
+  width:100%;overflow:hidden;position:relative;z-index:1;
+  padding:28px 0;background:rgba(0,0,0,.015);
   border-top:1px solid var(--bp);border-bottom:1px solid var(--bp);
+  mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
 }
+.hero-brands{
+  display:flex;gap:56px;align-items:center;width:max-content;
+  animation:hb-scroll 35s linear infinite;
+}
+.hero-brands-wrap:hover .hero-brands{animation-play-state:paused}
+@keyframes hb-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .hb-item{
   display:flex;align-items:center;justify-content:center;
-  padding:10px 12px;border-radius:10px;
-  background:rgba(0,0,0,.02);border:1px solid var(--bp);
-  transition:all .15s;cursor:default;min-width:72px;min-height:60px;
+  padding:8px 14px;flex-shrink:0;
+  transition:opacity .15s;cursor:default;min-height:56px;
 }
-.hb-item:hover{border-color:rgba(227,0,27,.3);background:rgba(227,0,27,.06);transform:translateY(-2px)}
-.hb-logo{width:48px;height:48px;object-fit:contain;border-radius:6px;opacity:.9;transition:opacity .15s}
-.hb-text{font-size:13px;font-weight:700;color:var(--ink);white-space:nowrap}
+.hb-logo{height:42px;width:auto;max-width:120px;object-fit:contain;opacity:.75;transition:opacity .2s,filter .2s;filter:grayscale(1)}
+.hb-item:hover .hb-logo{opacity:1;filter:grayscale(0)}
+.hb-text{font-size:16px;font-weight:800;color:var(--p2);white-space:nowrap;letter-spacing:-.5px}
 .hb-item:hover .hb-logo{opacity:1}
 
 /* ══ FLOW DIAGRAM (4-station) ══ */
@@ -1180,10 +1187,12 @@ table.gqt th{font-size:10px}
         <span class="r">לנכסי התוכן<br>של ידיעות אחרונות.</span>
       </h1>
       <p class="hero-sub a3">GeoScale מפעילה את תהליך המכירה מול סוכנויות הפרסום — מזיהוי הזדמנויות ועד סגירת העסקה. <b>ידיעות מספקות את הנכסים ומקבלות את ההכנסה.</b></p>
-      <!-- Brand logos -->
-      <div class="hero-brands a5" id="heroBrands"></div>
     </div>
 
+  </div>
+  <!-- Brand logos carousel -->
+  <div class="hero-brands-wrap a5">
+    <div class="hero-brands" id="heroBrands"></div>
   </div>
 </section>
 
@@ -1625,15 +1634,18 @@ const _yedioth=[
 ];
 function initHeroBrands(){
   const hb=document.getElementById('heroBrands');if(!hb)return;
-  _yedioth.forEach(b=>{
+  const build=(b)=>{
     const item=_e('div','hb-item');
     const img=document.createElement('img');
     img.src='https://logo.clearbit.com/'+b.domain;
     img.alt=b.name;img.className='hb-logo';img.loading='lazy';
     img.onerror=function(){this.remove();const s=document.createElement('span');s.className='hb-text';s.textContent=b.name;item.appendChild(s);};
     item.appendChild(img);
-    hb.appendChild(item);
-  });
+    return item;
+  };
+  /* duplicate twice so translateX(-50%) creates seamless loop */
+  _yedioth.forEach(b=>hb.appendChild(build(b)));
+  _yedioth.forEach(b=>hb.appendChild(build(b)));
 }
 
 /* ── Simplified Queries Section ── */
