@@ -320,7 +320,7 @@ h2.inv{color:var(--w1)}
   text-align:center;
   position:relative;z-index:1;
 }
-.cta-kicker{font-family:var(--m);font-size:12px;color:var(--red);letter-spacing:2px;text-transform:uppercase;margin-bottom:18px;font-weight:700}
+.cta-kicker{font-family:var(--m);font-size:14px;color:var(--red);letter-spacing:2px;text-transform:uppercase;margin-bottom:18px;font-weight:700}
 .cta-card h2{color:var(--w1);font-size:52px;letter-spacing:-3px;margin-bottom:16px;line-height:.97}
 .cta-card h2 .r{color:var(--red)}
 .cta-sub{font-size:17px;color:var(--w2);line-height:1.75;margin-bottom:36px;max-width:640px;margin-left:auto;margin-right:auto}
@@ -357,7 +357,7 @@ h2.inv{color:var(--w1)}
   pointer-events:none;
 }
 .contact-card{max-width:640px;margin:0 auto;text-align:center;position:relative;z-index:1}
-.contact-kicker{font-family:var(--m);font-size:12px;color:var(--red);letter-spacing:2px;text-transform:uppercase;margin-bottom:18px;font-weight:700}
+.contact-kicker{font-family:var(--m);font-size:14px;color:var(--red);letter-spacing:2px;text-transform:uppercase;margin-bottom:18px;font-weight:700}
 .contact-card h2{color:var(--w1);font-size:44px;letter-spacing:-2px;margin-bottom:28px;line-height:1}
 .contact-card h2 .r{color:var(--red)}
 .contact-text{font-size:17px;color:var(--w2);line-height:1.8;max-width:520px;margin:0 auto}
@@ -368,7 +368,7 @@ h2.inv{color:var(--w1)}
 .eco-bg{background:var(--paper);padding:72px 48px;position:relative}
 .eco-in{max-width:1120px;margin:0 auto}
 .eco-head{text-align:center;max-width:720px;margin:0 auto 56px}
-.eco-eyebrow{font-family:var(--m);font-size:10px;color:var(--red);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px}
+.eco-eyebrow{font-family:var(--m);font-size:13px;color:var(--red);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;font-weight:700}
 .eco-head h2{font-size:40px;letter-spacing:-1.5px;line-height:1.05;margin-bottom:16px;color:var(--ink)}
 .eco-head h2 .r{color:var(--red)}
 .eco-head p{font-size:15px;color:var(--p2);line-height:1.7}
@@ -389,7 +389,7 @@ h2.inv{color:var(--w1)}
 /* ══ QUERIES SECTION (simplified, queries-only) ══ */
 .q-sec{background:var(--paper);padding:72px 48px;position:relative;border-top:1px solid var(--bp)}
 .q-head{text-align:center;max-width:760px;margin:0 auto 44px}
-.q-head-eyebrow{font-family:var(--m);font-size:10px;color:var(--red);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px}
+.q-head-eyebrow{font-family:var(--m);font-size:13px;color:var(--red);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;font-weight:700}
 .q-head h2{font-size:40px;letter-spacing:-1.5px;line-height:1.05;margin-bottom:16px;color:var(--ink)}
 .q-head h2 .r{color:var(--red)}
 .q-head p{font-size:15px;color:var(--p2);line-height:1.7}
@@ -477,8 +477,8 @@ footer small{font-family:var(--m);font-size:9px;color:var(--w3)}
 }
 .gbr-in{max-width:680px;margin:0 auto;position:relative;z-index:1}
 .geo-bridge-eyebrow,.gbr-ey{
-  font-family:var(--m);font-size:10px;
-  color:rgba(255,255,255,.55);letter-spacing:2.5px;
+  font-family:var(--m);font-size:13px;font-weight:700;
+  color:rgba(255,255,255,.75);letter-spacing:2.5px;
   text-transform:uppercase;margin-bottom:14px;display:block;
 }
 .geo-bridge h2,.geo-bridge h2.inv{
@@ -963,15 +963,21 @@ table.gqt th{font-size:10px}
   .flow-grid::before{display:none}
 
   /* Bump all tiny text on mobile */
-  .n-tag,.hero-kicker,.hn-s,.ey,.ey.inv,
-  .formula-label,.cc-badge,.mb-hd,.cta-kicker,.cta-note,
-  .geo-bridge-eyebrow,.gbr-ey,.ha-tag,.ha-label,
+  .n-tag,.hn-s,.ey,.ey.inv,
+  .formula-label,.cc-badge,.mb-hd,.cta-note,
+  .ha-tag,.ha-label,
   .g-meta,.gbadge,.g-ptag,.g-mc .ml,.g-endet,
   .g-jst .gsq,.gst,.g-ar,.g-atg,.g-ass,
   .g-wpb,.pc-n,.haf-s,.pi-num,
   .rd-pill small,.mb-meta span,.g-bn,
   .close-pt span,.fs-tag{
     font-size:12px!important;
+  }
+  /* Section eyebrows/kickers - bigger on mobile */
+  .hero-kicker,.eco-eyebrow,.q-head-eyebrow,
+  .cta-kicker,.contact-kicker,
+  .geo-bridge-eyebrow,.gbr-ey{
+    font-size:13px!important;font-weight:700!important;
   }
   .fs p{font-size:14px!important;color:rgba(255,255,255,.80)!important}
   .fs h3{font-size:15px!important}
