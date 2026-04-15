@@ -1624,11 +1624,11 @@ const _top10={
 
 /* Hero brand logos - Yedioth media properties (clean, logos only) */
 const _yedioth=[
-  {name:'Ynet',logo:'https://upload.wikimedia.org/wikipedia/he/thumb/9/9d/Ynet-logo.svg/220px-Ynet-logo.svg.png'},
+  {name:'Ynet',logo:'/ynet-logo.png',fallback:'https://www.google.com/s2/favicons?domain=ynet.co.il&sz=128'},
   {name:'Calcalist',logo:'/calcalist-logo.png'},
-  {name:'ONE',logo:'https://upload.wikimedia.org/wikipedia/he/thumb/2/26/Logo_one_2.png/220px-Logo_one_2.png'},
-  {name:'AllJobs',logo:'https://www.google.com/s2/favicons?domain=alljobs.co.il&sz=256'},
-  {name:'iCar',logo:'https://www.google.com/s2/favicons?domain=icar.co.il&sz=256'}
+  {name:'ONE',logo:'/one-logo.png',fallback:'https://www.google.com/s2/favicons?domain=one.co.il&sz=128'},
+  {name:'AllJobs',logo:'/alljobs-logo.png',fallback:'https://www.google.com/s2/favicons?domain=alljobs.co.il&sz=128'},
+  {name:'iCar',logo:'/icar-logo.png',fallback:'https://www.google.com/s2/favicons?domain=icar.co.il&sz=128'}
 ];
 function initHeroBrands(){
   const track=document.getElementById('heroBrands');if(!track)return;
@@ -1636,7 +1636,11 @@ function initHeroBrands(){
     const item=_e('div','hb-item');
     const img=document.createElement('img');
     img.src=b.logo;img.alt=b.name;img.className='hb-logo';img.loading='lazy';
-    img.onerror=function(){item.remove();};
+    let triedFallback=false;
+    img.onerror=function(){
+      if(!triedFallback&&b.fallback){triedFallback=true;img.src=b.fallback;}
+      else{item.remove();}
+    };
     item.appendChild(img);
     return item;
   };
