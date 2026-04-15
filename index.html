@@ -1022,11 +1022,8 @@ table.gqt th{font-size:10px}
 }
 .hero-brands{
   display:flex;gap:64px;align-items:center;width:max-content;
-  will-change:transform;
+  will-change:transform;transform:translate3d(0,0,0);
 }
-.hero-brands.hb-running{animation:hb-scroll var(--dur,35s) linear infinite}
-.hero-brands-wrap:hover .hero-brands{animation-play-state:paused}
-@keyframes hb-scroll{0%{transform:translateX(0)}100%{transform:translateX(var(--scroll-dist,-50%))}}
 .hb-item{
   display:flex;align-items:center;justify-content:center;
   padding:8px 0;flex-shrink:0;
@@ -1149,10 +1146,10 @@ table.gqt th{font-size:10px}
   .rev-ctx{flex-wrap:wrap;gap:20px}
   .rev-ctx-val{font-size:22px}
   .rev-ramp-bars{height:60px}
-  .hero-brands{gap:32px}
-  .hero-brands-wrap{padding:18px 0}
-  .hb-item{padding:4px 0;height:44px}
-  .hb-logo{max-height:38px;height:38px;width:auto;max-width:120px}
+  .hero-brands{gap:60px}
+  .hero-brands-wrap{padding:28px 0}
+  .hb-item{padding:4px 0;height:96px}
+  .hb-logo{max-height:88px;height:88px;width:auto;max-width:220px}
   .eco-chip img{width:12px;height:12px}
 }
 </style>
@@ -1650,19 +1647,27 @@ function initHeroBrands(){
       item.appendChild(img);
       track.appendChild(item);
     });
-    /* Step 3: habetzefer-pattern — clone enough sets, measure exact one-set width, animate */
+    /* Step 3: wait for layout, clone enough sets, then JS-driven RAF loop for pixel-perfect seam */
     const originals=Array.from(track.children);
     const COUNT=originals.length;
-    requestAnimationFrame(()=>{
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{
       const gap=parseFloat(getComputedStyle(track).gap)||32;
       let oneSet=0;
       for(let i=0;i<COUNT;i++){oneSet+=originals[i].offsetWidth+gap;}
-      const needed=Math.max(2,Math.ceil((window.innerWidth*3)/oneSet)+1);
+      const needed=Math.max(3,Math.ceil((window.innerWidth*2)/oneSet)+2);
       for(let s=0;s<needed;s++){for(let i=0;i<COUNT;i++){track.appendChild(originals[i].cloneNode(true));}}
-      track.style.setProperty('--scroll-dist',(-oneSet)+'px');
-      track.style.setProperty('--dur',Math.max(25,oneSet/40)+'s');
-      track.classList.add('hb-running');
-    });
+      const speed=40; /* px per second */
+      let x=0,last=performance.now(),paused=false;
+      const wrap=track.parentElement;
+      wrap.addEventListener('mouseenter',()=>paused=true);
+      wrap.addEventListener('mouseleave',()=>{paused=false;last=performance.now();});
+      function tick(t){
+        const dt=(t-last)/1000;last=t;
+        if(!paused){x-=speed*dt;if(x<=-oneSet)x+=oneSet;track.style.transform=`translate3d(${x}px,0,0)`;}
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }));
   });
 }
 
