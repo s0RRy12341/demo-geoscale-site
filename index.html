@@ -1032,9 +1032,8 @@ table.gqt th{font-size:10px}
   padding:8px 0;flex-shrink:0;
   transition:opacity .2s;cursor:default;height:54px;
 }
-.hb-logo{max-height:46px;height:46px;width:auto;max-width:160px;object-fit:contain;opacity:.7;transition:opacity .25s,filter .25s;filter:grayscale(1)}
-.hb-item:hover .hb-logo{opacity:1;filter:grayscale(0)}
-.hb-item:hover .hb-logo{opacity:1}
+.hb-logo{max-height:46px;height:46px;width:auto;max-width:160px;object-fit:contain;opacity:.95;transition:opacity .25s,transform .25s}
+.hb-item:hover .hb-logo{opacity:1;transform:scale(1.05)}
 
 /* ══ FLOW DIAGRAM (4-station) ══ */
 .flow-dia{
@@ -1624,39 +1623,45 @@ const _top10={
 
 /* Hero brand logos - Yedioth media properties (clean, logos only) */
 const _yedioth=[
-  {name:'Ynet',logo:'/ynet-logo.png',fallback:'https://www.google.com/s2/favicons?domain=ynet.co.il&sz=128'},
+  {name:'Ynet',logo:'/ynet-logo.png'},
   {name:'Calcalist',logo:'/calcalist-logo.png'},
-  {name:'ONE',logo:'/one-logo.png',fallback:'https://www.google.com/s2/favicons?domain=one.co.il&sz=128'},
-  {name:'AllJobs',logo:'/alljobs-logo.png',fallback:'https://www.google.com/s2/favicons?domain=alljobs.co.il&sz=128'},
-  {name:'iCar',logo:'/icar-logo.png',fallback:'https://www.google.com/s2/favicons?domain=icar.co.il&sz=128'}
+  {name:'ONE',logo:'/one-logo.png'},
+  {name:'AllJobs',logo:'/alljobs-logo.png'},
+  {name:'iCar',logo:'/icar-logo.svg'}
 ];
 function initHeroBrands(){
   const track=document.getElementById('heroBrands');if(!track)return;
-  const build=(b)=>{
-    const item=_e('div','hb-item');
-    const img=document.createElement('img');
-    img.src=b.logo;img.alt=b.name;img.className='hb-logo';img.loading='lazy';
-    let triedFallback=false;
-    img.onerror=function(){
-      if(!triedFallback&&b.fallback){triedFallback=true;img.src=b.fallback;}
-      else{item.remove();}
-    };
-    item.appendChild(img);
-    return item;
-  };
-  _yedioth.forEach(b=>track.appendChild(build(b)));
-  /* habetzefer-pattern seamless loop: clone enough sets, measure one, animate exact distance */
-  const items=Array.from(track.children);
-  const COUNT=items.length;
-  const approxItem=160;
-  const needed=Math.max(3,Math.ceil((window.innerWidth*3)/(approxItem*COUNT))+1);
-  for(let s=0;s<needed;s++){for(let i=0;i<COUNT;i++){track.appendChild(items[i].cloneNode(true));}}
-  requestAnimationFrame(()=>{
-    let oneSet=0;const gap=64;
-    for(let i=0;i<COUNT;i++){oneSet+=track.children[i].offsetWidth+gap;}
-    track.style.setProperty('--scroll-dist',(-oneSet)+'px');
-    track.style.setProperty('--dur',Math.max(25,oneSet/40)+'s');
-    track.classList.add('hb-running');
+  /* Step 1: preload all images; only include ones that actually load */
+  const preload=(b)=>new Promise(res=>{
+    const i=new Image();
+    i.onload=()=>res({...b,ok:true});
+    i.onerror=()=>res({...b,ok:false});
+    i.src=b.logo;
+  });
+  Promise.all(_yedioth.map(preload)).then(results=>{
+    const ok=results.filter(r=>r.ok);
+    if(!ok.length)return;
+    /* Step 2: build one originals set */
+    ok.forEach(b=>{
+      const item=_e('div','hb-item');
+      const img=document.createElement('img');
+      img.src=b.logo;img.alt=b.name;img.className='hb-logo';
+      item.appendChild(img);
+      track.appendChild(item);
+    });
+    /* Step 3: habetzefer-pattern — clone enough sets, measure exact one-set width, animate */
+    const originals=Array.from(track.children);
+    const COUNT=originals.length;
+    requestAnimationFrame(()=>{
+      const gap=64;
+      let oneSet=0;
+      for(let i=0;i<COUNT;i++){oneSet+=originals[i].offsetWidth+gap;}
+      const needed=Math.max(2,Math.ceil((window.innerWidth*3)/oneSet)+1);
+      for(let s=0;s<needed;s++){for(let i=0;i<COUNT;i++){track.appendChild(originals[i].cloneNode(true));}}
+      track.style.setProperty('--scroll-dist',(-oneSet)+'px');
+      track.style.setProperty('--dur',Math.max(25,oneSet/40)+'s');
+      track.classList.add('hb-running');
+    });
   });
 }
 
